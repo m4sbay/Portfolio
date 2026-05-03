@@ -1,0 +1,16 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="u2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#18181b"/>
+      <stop offset="1" stop-color="#09090b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="48" fill="url(#u2)"/>
+  <rect x="90" y="110" width="420" height="260" rx="28" fill="#ffffff" opacity="0.08"/>
+  <rect x="540" y="110" width="570" height="64" rx="24" fill="#fafafa" opacity="0.92"/>
+  <rect x="540" y="200" width="420" height="28" rx="14" fill="#a1a1aa" opacity="0.35"/>
+  <rect x="540" y="245" width="520" height="18" rx="9" fill="#a1a1aa" opacity="0.25"/>
+  <rect x="540" y="275" width="470" height="18" rx="9" fill="#a1a1aa" opacity="0.18"/>
+  <text x="90" y="720" font-family="ui-sans-serif, system-ui, -apple-system" font-size="18" fill="#a1a1aa">Hover preview</text>
+  <text x="90" y="155" font-family="ui-sans-serif, system-ui, -apple-system" font-size="26" fill="#fafafa" opacity="0.8">UI Kit</text>
+</svg>

@@ -1,0 +1,164 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import { LazyMotion, domAnimation, m } from "framer-motion";
+import type { Project } from "@/types/project";
+import { WidgetShell } from "@/components/home/widgets/WidgetShell";
+import { IntroWidget } from "@/components/home/widgets/IntroWidget";
+import { StackWidget } from "@/components/home/widgets/StackWidget";
+import { NowWidget } from "@/components/home/widgets/NowWidget";
+import { PhotoWidget } from "@/components/home/widgets/PhotoWidget";
+import { SpotifyWidget } from "@/components/home/widgets/SpotifyWidget";
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const onChange = () => setIsMobile(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  return isMobile;
+}
+
+export function HeroWidgets({ projects }: { projects: Project[] }) {
+  const isMobile = useIsMobile();
+  const nowProject = useMemo(() => projects[0]?.title ?? "Project baru", [projects]);
+  const boundsRef = useRef<HTMLDivElement | null>(null);
+
+  const items = [
+    {
+      id: "intro",
+      pos: { x: 24, y: 26 },
+      content: <IntroWidget />,
+    },
+    {
+      id: "stack",
+      pos: { x: 360, y: 40 },
+      content: <StackWidget />,
+    },
+    {
+      id: "now",
+      pos: { x: 120, y: 220 },
+      content: <NowWidget projectTitle={nowProject} />,
+    },
+    {
+      id: "photo",
+      pos: { x: 520, y: 180 },
+      content: <PhotoWidget />,
+    },
+    {
+      id: "spotify",
+      pos: { x: 320, y: 290 },
+      content: <SpotifyWidget />,
+      shellClassName:
+        "p-0 border-0 bg-transparent shadow-none rounded-none select-none",
+    },
+  ] as const;
+
+  const container =
+    "relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50/40 p-4 dark:border-white/10 dark:bg-white/5 sm:min-h-[420px]";
+
+  const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>(
+    () =>
+      Object.fromEntries(items.map((it) => [it.id, { x: it.pos.x, y: it.pos.y }])),
+  );
+  const [activeId, setActiveId] = useState<string | null>(null);
+
+  if (isMobile) {
+    return (
+      <LazyMotion features={domAnimation}>
+        <m.div
+          layout={false}
+          className="grid grid-cols-1 gap-4"
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.08 } },
+          }}
+        >
+          {items.map((it) => (
+            <m.div
+              key={it.id}
+              layout={false}
+              className="will-change-transform transform-gpu"
+              variants={{
+                hidden: { opacity: 0, y: 10 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.45, ease: "easeOut" },
+                },
+              }}
+            >
+              <WidgetShell
+                id={it.id}
+                position={{ x: 0, y: 0 }}
+                isActive={false}
+                disabled
+                className={"shellClassName" in it ? it.shellClassName : undefined}
+              >
+                {it.content}
+              </WidgetShell>
+            </m.div>
+          ))}
+        </m.div>
+      </LazyMotion>
+    );
+  }
+
+  return (
+    <LazyMotion features={domAnimation}>
+      <m.div
+        ref={boundsRef}
+        layout={false}
+        className={container}
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: {},
+          show: { transition: { staggerChildren: 0.08 } },
+        }}
+      >
+        {/* Subtle Halftone Background */}
+        <div 
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] opacity-25 dark:bg-[radial-gradient(#52525b_1px,transparent_1px)] [background-size:12px_12px]"
+          style={{ WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)', maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)' }}
+        />
+
+        {items.map((it) => (
+          <m.div
+            key={it.id}
+            layout={false}
+            className="will-change-transform transform-gpu"
+            variants={{
+              hidden: { opacity: 0, y: 14 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+            }}
+          >
+            <WidgetShell
+              id={it.id}
+              position={positions[it.id] ?? it.pos}
+              isActive={activeId === it.id}
+              disabled={false}
+              boundsRef={boundsRef}
+              onActivate={() => setActiveId(it.id)}
+              onDeactivate={() => setActiveId(null)}
+              onPositionChange={(next) =>
+                setPositions((prev) => ({ ...prev, [it.id]: next }))
+              }
+              className={"shellClassName" in it ? it.shellClassName : undefined}
+            >
+              {it.content}
+            </WidgetShell>
+          </m.div>
+        ))}
+      </m.div>
+    </LazyMotion>
+  );
+}
+

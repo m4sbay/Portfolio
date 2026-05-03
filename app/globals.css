@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -12,15 +18,91 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
+
+.eq-bar {
+  width: 3px;
+  height: 14px;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.9);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.eq-on {
+  animation: eq-bounce 0.9s ease-in-out infinite;
+}
+
+.eq-off {
+  animation: none;
+}
+
+.eq-delay-1 {
+  animation-delay: 0.12s;
+}
+
+.eq-delay-2 {
+  animation-delay: 0.24s;
+}
+
+@keyframes eq-bounce {
+  0%,
+  100% {
+    transform: translateZ(0) scaleY(0.35);
+  }
+  50% {
+    transform: translateZ(0) scaleY(1);
+  }
+}
+
+/* ─── Tech Marquee Logo Blend Mode ─────────────── */
+
+/* ── Logo: light mode → abu-abu (multiply blend) ── */
+.tech-logo-img {
+  filter: grayscale(1) opacity(0.35);
+  mix-blend-mode: multiply;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.tech-logo-label {
+  color: rgb(113 113 122 / 0.5); /* zinc-500 / 50% */
+  transition: color 0.3s ease;
+}
+
+/* ── Logo: dark mode → negatif terang (screen blend) ── */
+:where(.dark, .dark *) .tech-logo-img {
+  filter: grayscale(1) invert(1) opacity(0.4);
+  mix-blend-mode: screen;
+}
+
+:where(.dark, .dark *) .tech-logo-label {
+  color: rgb(212 212 216 / 0.4); /* zinc-300 / 40% */
+}
+
+/* ── Hover pada item logo (Perubahan warna) ── */
+.tech-logo-container:hover .tech-logo-img {
+  filter: grayscale(0) opacity(1);
+}
+
+.tech-logo-container:hover .tech-logo-label {
+  color: rgb(24 24 27); /* zinc-900 */
+}
+
+:where(.dark, .dark *) .tech-logo-container:hover .tech-logo-img {
+  filter: grayscale(0) invert(1) opacity(1);
+}
+
+:where(.dark, .dark *) .tech-logo-container:hover .tech-logo-label {
+  color: rgb(244 244 245); /* zinc-50 */
+}
+
+

@@ -206,6 +206,25 @@ export function ClockIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+/** Lokasi — alamat / venue */
+export function MapPinIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M12 21.5c0 0-6.5-5.2-6.5-11.5a6.5 6.5 0 1 1 13 0C18.5 16.3 12 21.5 12 21.5Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}
+
 /** Pin — artikel disematkan */
 export function PinIcon(props: React.SVGProps<SVGSVGElement>) {
   return (

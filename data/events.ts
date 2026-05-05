@@ -89,3 +89,15 @@ export const events: CalendarEvent[] = [
     ],
   },
 ];
+
+/** Urutan tampilan: tanggal terbaru dulu, lalu urutan waktu pada hari yang sama. */
+export function sortedEvents(): CalendarEvent[] {
+  return [...events].sort((a, b) => {
+    if (a.date !== b.date) return b.date.localeCompare(a.date);
+    return a.timeLabel.localeCompare(b.timeLabel);
+  });
+}
+
+export function getEventBySlug(slug: string): CalendarEvent | undefined {
+  return events.find(e => e.slug === slug);
+}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "@/data/projects";
 import { ProjectTag } from "@/components/projects/ProjectTag";
+import { ScrollToButton } from "@/components/ui/ScrollToButton";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -102,7 +103,15 @@ export default async function WorkDetailPage({
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center gap-3">
-          {project.caseStudyHref && (
+          {project.caseStudy && (
+            <ScrollToButton
+              targetId="case-study"
+              className="inline-flex h-10 items-center justify-center rounded-lg bg-zinc-900 px-4 text-[11px] font-bold uppercase tracking-wider text-white transition-colors hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+            >
+              Read Case Study
+            </ScrollToButton>
+          )}
+          {!project.caseStudy && project.caseStudyHref && (
             <Link
               href={project.caseStudyHref}
               className="inline-flex h-10 items-center justify-center rounded-lg bg-zinc-900 px-4 text-[11px] font-bold uppercase tracking-wider text-white transition-colors hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
@@ -201,7 +210,7 @@ export default async function WorkDetailPage({
 
       {/* Section 2: Case Study */}
       {project.caseStudy && (
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_1.5fr] lg:gap-20 pt-8 border-t border-zinc-200 dark:border-white/10">
+        <div id="case-study" className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_1.5fr] lg:gap-20 pt-8 border-t border-zinc-200 dark:border-white/10">
           {/* Kolom 1: Sticky Case Study Info */}
           <div className="sticky top-24 space-y-8">
             <div className="space-y-4">

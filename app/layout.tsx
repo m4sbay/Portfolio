@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SiteFooter } from "@/components/footer/SiteFooter";
 import { Navbar } from "@/components/nav/Navbar";
+import { LandingFooterBeforeMain, LandingFooterScrollSpace } from "@/components/footer/LandingFooterReveal";
 import { Providers } from "@/app/providers";
 import { site } from "@/lib/site";
 
@@ -43,20 +43,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="id"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-full flex flex-col bg-white font-sans text-zinc-950 dark:bg-black dark:text-zinc-50">
+    <html lang="id" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
+      <body className="bg-[var(--background)] font-sans text-zinc-950 dark:text-zinc-50">
         <Providers>
           <Navbar />
-          <main className="flex-1">
-            <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-              {children}
-              <SiteFooter />
-            </div>
+          <LandingFooterBeforeMain />
+          <main className="relative z-10 w-full bg-[var(--background)]">
+            <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">{children}</div>
           </main>
+          <LandingFooterScrollSpace />
         </Providers>
       </body>
     </html>

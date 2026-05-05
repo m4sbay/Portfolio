@@ -4,20 +4,16 @@ import type { Project } from "@/types/project";
 import { site } from "@/lib/site";
 import { IntroWidget } from "@/components/home/widgets/IntroWidget";
 import { StackWidget } from "@/components/home/widgets/StackWidget";
-import { NowWidget } from "@/components/home/widgets/NowWidget";
+import { NowWidget } from "@/components/home/widgets/LastProjectWidget";
 import { PhotoWidget } from "@/components/home/widgets/PhotoWidget";
 import { SpotifyWidget } from "@/components/home/widgets/SpotifyWidget";
 
 function Card({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/5">
-      {children}
-    </div>
-  );
+  return <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/5">{children}</div>;
 }
 
 export function HeroWidgetsStatic({ projects }: { projects: Project[] }) {
-  const nowProject = projects[0]?.title ?? "Project baru";
+  const nowProject = site.nowProjectTitle ?? projects[0]?.title ?? "Project baru";
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -43,4 +39,3 @@ export function HeroWidgetsStatic({ projects }: { projects: Project[] }) {
     </div>
   );
 }
-

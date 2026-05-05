@@ -3,8 +3,8 @@ import { site } from "@/lib/site";
 
 const YEARS = [2024, 2025, 2026] as const;
 
-const iconBtn =
-  "inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700 transition-colors hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950 dark:border-white/15 dark:bg-white/5 dark:text-zinc-200 dark:hover:border-white/25 dark:hover:bg-white/10 dark:hover:text-white";
+const footerIconBtn =
+  "inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white transition-colors hover:border-white/40 hover:bg-white/15 dark:border-zinc-300 dark:bg-zinc-100 dark:text-zinc-700 dark:hover:border-zinc-400 dark:hover:bg-white dark:hover:text-zinc-950";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -32,16 +32,7 @@ function LinkedInIcon(props: React.SVGProps<SVGSVGElement>) {
 
 function UserIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-      {...props}
-    >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden {...props}>
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
     </svg>
@@ -49,132 +40,88 @@ function UserIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 export function SiteFooter() {
-  const hasEmail =
-    typeof site.contactEmail === "string" && site.contactEmail.length > 0;
-  const helloHref = hasEmail
-    ? `mailto:${site.contactEmail}?subject=${encodeURIComponent("Halo Masbay")}`
-    : site.social.instagram;
+  const hasEmail = typeof site.contactEmail === "string" && site.contactEmail.length > 0;
+  const helloHref = hasEmail ? `mailto:${site.contactEmail}?subject=${encodeURIComponent("Halo Masbay")}` : site.social.instagram;
 
   const helloLabel = hasEmail ? "Kirim email" : "Sapa di Instagram";
   const helloExternal = !hasEmail;
 
   return (
     <footer
-      className="mt-20 border-t border-zinc-200 pt-16 pb-12 dark:border-white/10"
+      className="site-footer-reveal rounded-t-4xl border-t border-white/15 bg-black pt-16 pb-12 text-zinc-100 dark:border-zinc-200 dark:bg-white dark:text-zinc-900"
       aria-labelledby="footer-heading"
     >
-      <div className="grid gap-12 lg:grid-cols-[minmax(0,140px)_1fr] lg:gap-16">
-        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-          Footer
-        </p>
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,140px)_1fr] lg:gap-16">
+          <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Footer</p>
 
-        <div className="space-y-10">
-          <div className="space-y-6">
-            <h2
-              id="footer-heading"
-              className="max-w-2xl text-balance text-3xl font-semibold tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-50"
-            >
-              Sudah sampai sini?
-            </h2>
-            <p className="max-w-xl text-pretty text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
-              Kalau tertarik kolaborasi proyek, diskusi desain &amp; kode, atau
-              sekadar menyapa — silakan hubungi. Aku juga terbuka untuk kontribusi
-              open source dan networking dengan sesama builder.
-            </p>
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
-              Terima kasih
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-            <div className="space-y-2">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-                Ajakan
+          <div className="space-y-10">
+            <div className="space-y-6">
+              <h2 id="footer-heading" className="max-w-2xl text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl dark:text-zinc-950">
+                Sudah sampai sini?
+              </h2>
+              <p className="max-w-xl text-pretty text-base leading-relaxed text-zinc-300 dark:text-zinc-600">
+                Kalau tertarik kolaborasi proyek, diskusi desain &amp; kode, atau sekadar menyapa — silakan hubungi. Aku juga terbuka untuk kontribusi open source dan networking dengan sesama builder.
               </p>
-              <a
-                href={helloHref}
-                {...(helloExternal
-                  ? { target: "_blank" as const, rel: "noopener noreferrer" }
-                  : {})}
-                className="inline-flex w-fit items-center rounded-full border border-zinc-950 bg-zinc-950 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-zinc-800 dark:border-white dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200"
-              >
-                {helloLabel}
-              </a>
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-400 dark:text-zinc-500">Terima kasih</p>
             </div>
 
-            <div className="space-y-3">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-                Sosial
-              </p>
-              <ul className="flex flex-wrap items-center gap-3">
-                <li>
-                  <a
-                    href={site.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={iconBtn}
-                    aria-label="Instagram"
-                  >
-                    <InstagramIcon className="h-[18px] w-[18px]" />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={site.social.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={iconBtn}
-                    aria-label="GitHub"
-                  >
-                    <GitHubIcon className="h-[18px] w-[18px]" />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={site.social.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={iconBtn}
-                    aria-label="LinkedIn"
-                  >
-                    <LinkedInIcon className="h-[18px] w-[18px]" />
-                  </a>
-                </li>
-                <li>
-                  <Link
-                    href="/about"
-                    className={iconBtn}
-                    aria-label="Tentang"
-                  >
-                    <UserIcon className="h-[18px] w-[18px]" />
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="space-y-4 border-t border-zinc-200 pt-10 dark:border-white/10">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-              Versi situs
-            </p>
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-sm text-zinc-500 dark:text-zinc-400">
-              {YEARS.map((y) => (
-                <span
-                  key={y}
-                  className={
-                    y === 2026
-                      ? "font-semibold text-zinc-950 dark:text-zinc-50"
-                      : "opacity-45"
-                  }
-                  aria-current={y === 2026 ? "true" : undefined}
+            <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+              <div className="space-y-2">
+                <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Ajakan</p>
+                <a
+                  href={helloHref}
+                  {...(helloExternal ? { target: "_blank" as const, rel: "noopener noreferrer" } : {})}
+                  className="inline-flex w-fit items-center rounded-full border border-white bg-white px-6 py-3 text-sm font-medium text-zinc-950 transition-colors hover:bg-zinc-200 dark:border-zinc-950 dark:bg-zinc-950 dark:text-white dark:hover:bg-zinc-800"
                 >
-                  {y}
-                </span>
-              ))}
+                  {helloLabel}
+                </a>
+              </div>
+
+              <div className="space-y-3">
+                <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Sosial</p>
+                <ul className="flex flex-wrap items-center gap-3">
+                  <li>
+                    <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className={footerIconBtn} aria-label="Instagram">
+                      <InstagramIcon className="h-[18px] w-[18px]" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href={site.social.github} target="_blank" rel="noopener noreferrer" className={footerIconBtn} aria-label="GitHub">
+                      <GitHubIcon className="h-[18px] w-[18px]" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" className={footerIconBtn} aria-label="LinkedIn">
+                      <LinkedInIcon className="h-[18px] w-[18px]" />
+                    </a>
+                  </li>
+                  <li>
+                    <Link href="/about" className={footerIconBtn} aria-label="Tentang">
+                      <UserIcon className="h-[18px] w-[18px]" />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <p className="font-mono text-xs text-zinc-500 dark:text-zinc-500">
-              {site.name} · {YEARS[YEARS.length - 1]}
-            </p>
+
+            <div className="space-y-4 border-t border-white/15 pt-10 dark:border-zinc-200">
+              <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Versi situs</p>
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-sm text-zinc-400 dark:text-zinc-600">
+                {YEARS.map(y => (
+                  <span
+                    key={y}
+                    className={y === 2026 ? "font-semibold text-white dark:text-zinc-950" : "opacity-45"}
+                    aria-current={y === 2026 ? "true" : undefined}
+                  >
+                    {y}
+                  </span>
+                ))}
+              </div>
+              <p className="font-mono text-xs text-zinc-500 dark:text-zinc-600">
+                {site.name} · {YEARS[YEARS.length - 1]}
+              </p>
+            </div>
           </div>
         </div>
       </div>

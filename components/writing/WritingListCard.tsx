@@ -4,22 +4,39 @@ import type { WritingPost } from "@/types/writing";
 import { FileTextIcon, FolderIcon } from "@/skills/design-system/icons";
 import { WritingMetaLine } from "@/components/writing/WritingMetaLine";
 
-export function WritingListCard({ post }: { post: WritingPost }) {
+export function WritingListCard({
+  post,
+  showCategory = true,
+}: {
+  post: WritingPost;
+  showCategory?: boolean;
+}) {
   return (
     <Link
       href={`/writing/${post.slug}`}
-      className="group grid gap-6 py-8 md:grid-cols-[1fr_minmax(0,220px)] md:items-start"
+      className="group grid gap-6 border-b border-zinc-200/80 py-7 pt-4 dark:border-white/10 md:grid-cols-[1fr_minmax(0,220px)] md:items-stretch"
     >
-      <div className="min-w-0 space-y-3">
-        <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-          <FolderIcon className="h-3.5 w-3.5 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
-          {post.category}
-        </p>
-        <h2 className="text-xl font-semibold tracking-tight text-zinc-950 transition-colors group-hover:text-emerald-700 dark:text-zinc-50 dark:group-hover:text-emerald-400 md:text-2xl">
-          {post.title}
-        </h2>
-        <p className="line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400">{post.excerpt}</p>
-        <WritingMetaLine publishedAt={post.publishedAt} readMinutes={post.readMinutes} />
+      <div className="flex min-h-0 min-w-0 flex-col md:h-full">
+        <div>
+          {showCategory ? (
+            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+              <FolderIcon className="h-3.5 w-3.5 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
+              {post.category}
+            </p>
+          ) : null}
+          <h2
+            className={`text-xl font-semibold tracking-tight text-zinc-950 transition-colors group-hover:text-emerald-700 dark:text-zinc-50 dark:group-hover:text-emerald-400 md:text-2xl ${
+              showCategory ? "mt-4" : ""
+            }`}
+          >
+            {post.title}
+          </h2>
+        </div>
+
+        <div className="mt-auto flex flex-col gap-1.5 pt-5">
+          <p className="line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400">{post.excerpt}</p>
+          <WritingMetaLine publishedAt={post.publishedAt} readMinutes={post.readMinutes} />
+        </div>
       </div>
       {post.heroImage ? (
         <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900 md:aspect-square">

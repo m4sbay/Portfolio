@@ -61,15 +61,21 @@ export function AnimatedGreeting() {
   }, [displayedText, isDeleting, index]);
 
   return (
-    <h1 className="flex items-center text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-5xl h-[40px] sm:h-[48px]">
-      <LazyMotion features={domAnimation}>
-        <span>{displayedText}</span>
-        <m.span
-          animate={{ opacity: [1, 0] }}
-          transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-          className="ml-1 inline-block h-[0.9em] w-[3px] bg-zinc-950 dark:bg-zinc-50"
-        />
-      </LazyMotion>
-    </h1>
+    <div className="space-y-1">
+      <h2 className="flex items-center h-[32px] sm:h-[36px] text-2xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-3xl">
+        <LazyMotion features={domAnimation}>
+          <span>{displayedText}</span>
+          <m.span
+            animate={{ opacity: [1, 0] }}
+            transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
+            className="ml-1 inline-block h-[0.9em] w-[3px] bg-zinc-950 dark:bg-zinc-50"
+          />
+        </LazyMotion>
+      </h2>
+      <h1 className="text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-5xl">
+        <span className="block">23 year old content creator,</span>
+        <span className="block">based in Padang 🇮🇩</span>
+      </h1>
+    </div>
   );
 }

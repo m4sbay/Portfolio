@@ -4,6 +4,11 @@ export const site = {
   description: "Portfolio M. Maulana Bayu (Masbay).",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   /**
+   * Opsional: override judul "Now Working On" di hero.
+   * Kalau kosong, akan fallback ke `projects[0]?.title`.
+   */
+  nowProjectTitle: process.env.NEXT_PUBLIC_NOW_PROJECT_TITLE,
+  /**
    * Set `NEXT_PUBLIC_SPOTIFY_WIDGET=false` di `.env.local` untuk menyembunyikan
    * widget Spotify di hero dan menghentikan fetch ke `/api/spotify`.
    */

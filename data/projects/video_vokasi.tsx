@@ -2,8 +2,8 @@
 import type { Project } from "@/types/project";
 
 export const videoVokasi: Project = {
-  title: "Video Profile 10 Tahun Vokasi ITP",
-  description: "Video Profile 10 Tahun Vokasi ITP.",
+  title: "Video Profile Fakultas Vokasi ITP",
+  description: "Video Profile Fakultas Vokasi ITP.",
   longDescription: "...",
   category: "Video",
   logo: "/projects/icon_yt.svg",

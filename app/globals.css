@@ -9,6 +9,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --footer-height: max(640px, 52vh);
+}
+
+.site-footer-reveal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 0;
 }
 
 @theme inline {
@@ -25,7 +35,7 @@
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
 }
 
@@ -70,7 +80,9 @@ body {
 .tech-logo-img {
   filter: grayscale(1) opacity(0.35);
   mix-blend-mode: multiply;
-  transition: filter 0.3s ease, opacity 0.3s ease;
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
 }
 
 .tech-logo-label {
@@ -104,5 +116,3 @@ body {
 :where(.dark, .dark *) .tech-logo-container:hover .tech-logo-label {
   color: rgb(244 244 245); /* zinc-50 */
 }
-
-

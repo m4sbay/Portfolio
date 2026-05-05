@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 import { WidgetShell } from "@/components/home/widgets/WidgetShell";
 import { IntroWidget } from "@/components/home/widgets/IntroWidget";
 import { StackWidget } from "@/components/home/widgets/StackWidget";
-import { NowWidget } from "@/components/home/widgets/NowWidget";
+import { NowWidget } from "@/components/home/widgets/LastProjectWidget";
 import { PhotoWidget } from "@/components/home/widgets/PhotoWidget";
 import { SpotifyWidget } from "@/components/home/widgets/SpotifyWidget";
 
@@ -34,7 +34,7 @@ type HeroWidgetItem = {
 
 export function HeroWidgets({ projects }: { projects: Project[] }) {
   const isMobile = useIsMobile();
-  const nowProject = useMemo(() => projects[0]?.title ?? "Project baru", [projects]);
+  const nowProject = useMemo(() => site.nowProjectTitle ?? projects[0]?.title ?? "Project baru", [projects]);
   const boundsRef = useRef<HTMLDivElement | null>(null);
 
   const items: HeroWidgetItem[] = useMemo(() => {
@@ -65,23 +65,19 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
         id: "spotify",
         pos: { x: 320, y: 290 },
         content: <SpotifyWidget />,
-        shellClassName:
-          "p-0 border-0 bg-transparent shadow-none rounded-none select-none",
+        shellClassName: "p-0 border-0 bg-transparent shadow-none rounded-none select-none",
       });
     }
     return base;
   }, [nowProject]);
 
-  const container =
-    "relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50/40 p-4 dark:border-white/10 dark:bg-white/5 sm:min-h-[420px]";
+  const container = "relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50/40 p-4 dark:border-white/10 dark:bg-white/5 sm:min-h-[420px]";
 
-  const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>(
-    {},
-  );
+  const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>({});
 
   useEffect(() => {
     queueMicrotask(() => {
-      setPositions((prev) => {
+      setPositions(prev => {
         const next = { ...prev };
         for (const it of items) {
           if (!(it.id in next)) {
@@ -89,7 +85,7 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
           }
         }
         for (const k of Object.keys(next)) {
-          if (!items.some((it) => it.id === k)) {
+          if (!items.some(it => it.id === k)) {
             delete next[k];
           }
         }
@@ -112,7 +108,7 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
             show: { transition: { staggerChildren: 0.08 } },
           }}
         >
-          {items.map((it) => (
+          {items.map(it => (
             <m.div
               key={it.id}
               layout={false}
@@ -126,13 +122,7 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
                 },
               }}
             >
-              <WidgetShell
-                id={it.id}
-                position={{ x: 0, y: 0 }}
-                isActive={false}
-                disabled
-                className={"shellClassName" in it ? it.shellClassName : undefined}
-              >
+              <WidgetShell id={it.id} position={{ x: 0, y: 0 }} isActive={false} disabled className={"shellClassName" in it ? it.shellClassName : undefined}>
                 {it.content}
               </WidgetShell>
             </m.div>
@@ -156,12 +146,12 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
         }}
       >
         {/* Subtle Halftone Background */}
-        <div 
+        <div
           className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] opacity-25 dark:bg-[radial-gradient(#52525b_1px,transparent_1px)] [background-size:12px_12px]"
-          style={{ WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)', maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)' }}
+          style={{ WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)", maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)" }}
         />
 
-        {items.map((it) => (
+        {items.map(it => (
           <m.div
             key={it.id}
             layout={false}
@@ -179,9 +169,7 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
               boundsRef={boundsRef}
               onActivate={() => setActiveId(it.id)}
               onDeactivate={() => setActiveId(null)}
-              onPositionChange={(next) =>
-                setPositions((prev) => ({ ...prev, [it.id]: next }))
-              }
+              onPositionChange={next => setPositions(prev => ({ ...prev, [it.id]: next }))}
               className={"shellClassName" in it ? it.shellClassName : undefined}
             >
               {it.content}
@@ -192,4 +180,3 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
     </LazyMotion>
   );
 }
-

@@ -179,11 +179,11 @@ export function TechMarquee() {
       >
         {/* Fade edges */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-50 w-20 bg-gradient-to-r from-white to-transparent dark:from-black"
+          className="pointer-events-none absolute inset-y-0 left-0 z-50 w-20 bg-linear-to-r from-background to-transparent"
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-50 w-20 bg-gradient-to-l from-white to-transparent dark:from-black"
+          className="pointer-events-none absolute inset-y-0 right-0 z-50 w-20 bg-linear-to-l from-background to-transparent"
           aria-hidden
         />
 

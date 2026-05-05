@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import type { Project } from "@/types/project";
+import { site } from "@/lib/site";
 import { WidgetShell } from "@/components/home/widgets/WidgetShell";
 import { IntroWidget } from "@/components/home/widgets/IntroWidget";
 import { StackWidget } from "@/components/home/widgets/StackWidget";
@@ -24,48 +25,78 @@ function useIsMobile() {
   return isMobile;
 }
 
+type HeroWidgetItem = {
+  id: string;
+  pos: { x: number; y: number };
+  content: ReactNode;
+  shellClassName?: string;
+};
+
 export function HeroWidgets({ projects }: { projects: Project[] }) {
   const isMobile = useIsMobile();
   const nowProject = useMemo(() => projects[0]?.title ?? "Project baru", [projects]);
   const boundsRef = useRef<HTMLDivElement | null>(null);
 
-  const items = [
-    {
-      id: "intro",
-      pos: { x: 24, y: 26 },
-      content: <IntroWidget />,
-    },
-    {
-      id: "stack",
-      pos: { x: 360, y: 40 },
-      content: <StackWidget />,
-    },
-    {
-      id: "now",
-      pos: { x: 120, y: 220 },
-      content: <NowWidget projectTitle={nowProject} />,
-    },
-    {
-      id: "photo",
-      pos: { x: 520, y: 180 },
-      content: <PhotoWidget />,
-    },
-    {
-      id: "spotify",
-      pos: { x: 320, y: 290 },
-      content: <SpotifyWidget />,
-      shellClassName:
-        "p-0 border-0 bg-transparent shadow-none rounded-none select-none",
-    },
-  ] as const;
+  const items: HeroWidgetItem[] = useMemo(() => {
+    const base: HeroWidgetItem[] = [
+      {
+        id: "intro",
+        pos: { x: 24, y: 26 },
+        content: <IntroWidget />,
+      },
+      {
+        id: "stack",
+        pos: { x: 360, y: 40 },
+        content: <StackWidget />,
+      },
+      {
+        id: "now",
+        pos: { x: 120, y: 220 },
+        content: <NowWidget projectTitle={nowProject} />,
+      },
+      {
+        id: "photo",
+        pos: { x: 520, y: 180 },
+        content: <PhotoWidget />,
+      },
+    ];
+    if (site.showSpotifyWidget) {
+      base.push({
+        id: "spotify",
+        pos: { x: 320, y: 290 },
+        content: <SpotifyWidget />,
+        shellClassName:
+          "p-0 border-0 bg-transparent shadow-none rounded-none select-none",
+      });
+    }
+    return base;
+  }, [nowProject]);
 
   const container =
     "relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50/40 p-4 dark:border-white/10 dark:bg-white/5 sm:min-h-[420px]";
 
   const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>(
-    () =>
-      Object.fromEntries(items.map((it) => [it.id, { x: it.pos.x, y: it.pos.y }])),
+    {},
   );
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      setPositions((prev) => {
+        const next = { ...prev };
+        for (const it of items) {
+          if (!(it.id in next)) {
+            next[it.id] = { x: it.pos.x, y: it.pos.y };
+          }
+        }
+        for (const k of Object.keys(next)) {
+          if (!items.some((it) => it.id === k)) {
+            delete next[k];
+          }
+        }
+        return next;
+      });
+    });
+  }, [items]);
   const [activeId, setActiveId] = useState<string | null>(null);
 
   if (isMobile) {

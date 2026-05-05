@@ -71,7 +71,20 @@ export async function GET() {
       );
     }
 
-    const data = (await res.json()) as any;
+    type SpotifyArtist = { name?: string };
+    type SpotifyPlayerJson = {
+      is_playing?: boolean;
+      progress_ms?: number;
+      item?: {
+        name?: string;
+        artists?: SpotifyArtist[];
+        album?: { images?: { url?: string }[] };
+        external_urls?: { spotify?: string };
+        duration_ms?: number;
+      } | null;
+    };
+
+    const data = (await res.json()) as SpotifyPlayerJson;
 
     const isPlaying = Boolean(data?.is_playing);
     const item = data?.item;
@@ -81,7 +94,7 @@ export async function GET() {
 
     const title = String(item?.name ?? "");
     const artist = Array.isArray(item?.artists)
-      ? item.artists.map((a: any) => a?.name).filter(Boolean).join(", ")
+      ? item.artists.map((a) => a?.name).filter(Boolean).join(", ")
       : "";
     const albumArt = item?.album?.images?.[0]?.url as string | undefined;
     const songUrl = item?.external_urls?.spotify as string | undefined;

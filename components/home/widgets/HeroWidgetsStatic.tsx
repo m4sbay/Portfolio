@@ -1,6 +1,7 @@
 "use client";
 
 import type { Project } from "@/types/project";
+import { site } from "@/lib/site";
 import { IntroWidget } from "@/components/home/widgets/IntroWidget";
 import { StackWidget } from "@/components/home/widgets/StackWidget";
 import { NowWidget } from "@/components/home/widgets/NowWidget";
@@ -32,11 +33,13 @@ export function HeroWidgetsStatic({ projects }: { projects: Project[] }) {
       <Card>
         <PhotoWidget />
       </Card>
-      <div className="sm:col-span-2">
-        <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/5">
-          <SpotifyWidget />
+      {site.showSpotifyWidget ? (
+        <div className="sm:col-span-2">
+          <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <SpotifyWidget />
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }

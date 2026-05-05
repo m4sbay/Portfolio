@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 
 type SpotifyNowPlaying =
@@ -63,41 +63,48 @@ function Equalizer({ active }: { active: boolean }) {
   );
 }
 
+type ProgressAnchor = { snapshot: number; at: number };
+
 export function SpotifyWidget() {
   const [data, setData] = useState<SpotifyNowPlaying>({ isPlaying: false });
-  const lastTickRef = useRef<number>(Date.now());
-  const [now, setNow] = useState<number>(Date.now());
+  const [tick, setTick] = useState(0);
+  const [anchor, setAnchor] = useState<ProgressAnchor | null>(null);
 
-  const fetchNowPlaying = async () => {
+  const fetchNowPlaying = useCallback(async () => {
     try {
       const res = await fetch("/api/spotify", { cache: "no-store" });
       const json = (await res.json()) as SpotifyNowPlaying;
       setData(json);
-      lastTickRef.current = Date.now();
+      if (json.isPlaying) {
+        setAnchor({ snapshot: json.progress, at: Date.now() });
+      } else {
+        setAnchor(null);
+      }
+      setTick(Date.now());
     } catch {
       setData({ isPlaying: false });
-      lastTickRef.current = Date.now();
+      setAnchor(null);
+      setTick(Date.now());
     }
-  };
+  }, []);
 
   useEffect(() => {
-    fetchNowPlaying();
-    const id = window.setInterval(fetchNowPlaying, 30_000);
+    const run = () => void fetchNowPlaying();
+    queueMicrotask(run);
+    const id = window.setInterval(run, 30_000);
     return () => window.clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fetchNowPlaying]);
 
   // Progress realtime: tick ~15fps, murah tapi smooth.
   useEffect(() => {
-    const id = window.setInterval(() => setNow(Date.now()), 66);
+    const id = window.setInterval(() => setTick(Date.now()), 66);
     return () => window.clearInterval(id);
   }, []);
 
   const progressMs = useMemo(() => {
-    if (!data.isPlaying) return 0;
-    const elapsed = data.isPlaying ? now - lastTickRef.current : 0;
-    return clamp(data.progress + elapsed, 0, data.duration);
-  }, [data, now]);
+    if (!data.isPlaying || !anchor) return 0;
+    return clamp(anchor.snapshot + tick - anchor.at, 0, data.duration);
+  }, [data, tick, anchor]);
 
   const pct = useMemo(() => {
     if (!data.isPlaying || data.duration <= 0) return 0;

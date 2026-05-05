@@ -1,7 +1,10 @@
+export type ProjectCategory = "All" | "Design" | "Website" | "Tools" | "Video" | "App";
+
 export type Project = {
   title: string;
   description: string;
   longDescription: string;
+  category: ProjectCategory;
   tags: string[];
   slug: string;
   href?: string;

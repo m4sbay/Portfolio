@@ -4,10 +4,11 @@ export const itailwind: Project = {
   title: "iTailwind",
   description: "Plugin Figma",
   longDescription:
-    " iTailwind adalah eksperimen membangun portofolio yang clean, cepat, dan fokus ke konten. Tujuannya meniru rasa “minimal Mac/Apple” dengan grid kartu, hover swap image yang halus, dan tipografi tegas.\n\nStack: Next.js App Router, TypeScript, Tailwind CSS, dan animasi ringan untuk membuat interaksi terasa hidup tanpa mengganggu fokus.",
+    "iTailwind adalah plugin Figma yang memudahkan para desainer untuk membuat desain yang konsisten dan mudah dikonversi ke kode Tailwind CSS. Plugin ini dirancang dengan antarmuka yang intuitif dan mudah digunakan.",
   tags: ["Figma", "Plugin", "Tailwind", "Design System", "2025"],
+  category: "Tools",
   slug: "itailwind",
-  logo: "/projects/cover_itailwind.png",
+  logo: "/projects/itailwind_icon.PNG",
   caseStudyHref: "/work/masbay-portfolio",
   externalLink: "https://www.figma.com/community/plugin/1586682727528531603/itailwind",
   externalLinkLabel: "View Plugin",

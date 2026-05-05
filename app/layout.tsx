@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SiteFooter } from "@/components/footer/SiteFooter";
 import { Navbar } from "@/components/nav/Navbar";
 import { Providers } from "@/app/providers";
 import { site } from "@/lib/site";
@@ -53,6 +54,7 @@ export default function RootLayout({
           <main className="flex-1">
             <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
               {children}
+              <SiteFooter />
             </div>
           </main>
         </Providers>

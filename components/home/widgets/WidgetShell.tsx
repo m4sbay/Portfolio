@@ -68,7 +68,7 @@ export function WidgetShell({
     <div
       ref={ref}
       data-widget-id={id}
-      className="flex flex-col will-change-transform transform-gpu"
+      className={`${className} will-change-transform transform-gpu`}
       style={{
         position: disabled ? "static" : "absolute",
         left: disabled ? undefined : 0,
@@ -114,6 +114,10 @@ export function WidgetShell({
         if (!drag) return;
         if (drag.pointerId !== e.pointerId) return;
         draggingRef.current = null;
+        const el = ref.current;
+        if (el?.hasPointerCapture(e.pointerId)) {
+          el.releasePointerCapture(e.pointerId);
+        }
         onDeactivate?.();
       }}
       onPointerCancel={(e) => {
@@ -121,48 +125,22 @@ export function WidgetShell({
         if (!drag) return;
         if (drag.pointerId !== e.pointerId) return;
         draggingRef.current = null;
+        const el = ref.current;
+        if (el?.hasPointerCapture(e.pointerId)) {
+          el.releasePointerCapture(e.pointerId);
+        }
         onDeactivate?.();
       }}
     >
-      <div className={`${className} grow origin-center transition-transform duration-300 ease-in-out hover:scale-[1.02]`}>
-        {/* Mac Window Controls */}
-        {!classNameOverride && (
-          <div className="mb-4 flex items-center gap-1.5">
-            <div className="group flex h-2.5 w-2.5 items-center justify-center rounded-full bg-[#ec6a5e] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_1px_2px_rgba(0,0,0,0.1)] ring-1 ring-black/10 dark:ring-white/10">
-              <svg
-                className="h-[6px] w-[6px] opacity-0 transition-opacity group-hover:opacity-100 text-black/70"
-                viewBox="0 0 8 8"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              >
-                <path d="M1.5 1.5l5 5M6.5 1.5l-5 5" />
-              </svg>
-            </div>
-            <div className="group flex h-2.5 w-2.5 items-center justify-center rounded-full bg-[#f4bf4f] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_1px_2px_rgba(0,0,0,0.1)] ring-1 ring-black/10 dark:ring-white/10">
-              <svg
-                className="h-[6px] w-[6px] opacity-0 transition-opacity group-hover:opacity-100 text-black/70"
-                viewBox="0 0 8 8"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              >
-                <path d="M1 4h6" />
-              </svg>
-            </div>
-            <div className="group flex h-2.5 w-2.5 items-center justify-center rounded-full bg-[#61c554] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_1px_2px_rgba(0,0,0,0.1)] ring-1 ring-black/10 dark:ring-white/10">
-              <svg
-                className="h-[6px] w-[6px] opacity-0 transition-opacity group-hover:opacity-100 text-black/70"
-                viewBox="0 0 8 8"
-                fill="currentColor"
-              >
-                <path d="M1.5 1.5h3l-3 3zM6.5 6.5h-3l3-3z" />
-              </svg>
-            </div>
-          </div>
-        )}
-        {children}
-      </div>
+      {/* Mac Window Controls */}
+      {!classNameOverride && (
+        <div className="mb-4 flex items-center gap-1.5">
+          <div className="h-2.5 w-2.5 rounded-full bg-[#ec6a5e] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_1px_2px_rgba(0,0,0,0.1)] ring-1 ring-black/10 dark:ring-white/10" />
+          <div className="h-2.5 w-2.5 rounded-full bg-[#f4bf4f] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_1px_2px_rgba(0,0,0,0.1)] ring-1 ring-black/10 dark:ring-white/10" />
+          <div className="h-2.5 w-2.5 rounded-full bg-[#61c554] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_1px_2px_rgba(0,0,0,0.1)] ring-1 ring-black/10 dark:ring-white/10" />
+        </div>
+      )}
+      {children}
     </div>
   );
 }

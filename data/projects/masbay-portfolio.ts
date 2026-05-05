@@ -6,6 +6,7 @@ export const masbayPortfolio: Project = {
   longDescription:
     "Masbay Portfolio adalah eksperimen membangun portofolio yang clean, cepat, dan fokus ke konten. Tujuannya meniru rasa “minimal Mac/Apple” dengan grid kartu, hover swap image yang halus, dan tipografi tegas.\n\nStack: Next.js App Router, TypeScript, Tailwind CSS, dan animasi ringan untuk membuat interaksi terasa hidup tanpa mengganggu fokus.",
   tags: ["Next.js", "TypeScript", "Tailwind"],
+  category: "Website",
   slug: "masbay-portfolio",
   image: {
     src: "/projects/masbay-portfolio-1.svg",

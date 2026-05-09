@@ -130,13 +130,22 @@ export function ProjectCard({ project }: { project: Project }) {
         >
           <div className="flex flex-col items-center gap-2">
             {project.logo ? (
-              <Image
-                src={project.logo}
-                alt={`${project.title} logo`}
-                width={72}
-                height={72}
-                className="h-16 w-16 rounded-xl object-contain drop-shadow-2xl"
-              />
+              <div
+                className="
+                  flex items-center justify-center
+                  rounded-[12px] bg-white p-2
+                  shadow-sm ring-1 ring-zinc-200/90
+                  dark:bg-white dark:ring-zinc-300/80
+                "
+              >
+                <Image
+                  src={project.logo}
+                  alt={`${project.title} logo`}
+                  width={72}
+                  height={72}
+                  className="h-12 w-12 object-contain sm:h-14 sm:w-14"
+                />
+              </div>
             ) : (
               <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-white/20 text-2xl font-bold text-white backdrop-blur-sm ring-1 ring-white/30">
                 {initial}

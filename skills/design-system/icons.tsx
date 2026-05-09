@@ -6,25 +6,12 @@
  * di-override className, width, height, dll dari luar.
  *
  * Konvensi penamaan: [Nama]Icon
- * Contoh: SpotifyIcon, ChevronRightIcon, MusicIcon
+ * Contoh: ChevronRightIcon, MusicIcon
  *
  * Cara pakai:
- *   import { SpotifyIcon, ArrowRightIcon } from "@/skills/design-system/icons"
- *   <SpotifyIcon className="h-4 w-4 text-emerald-400" />
+ *   import { ArrowRightIcon } from "@/skills/design-system/icons"
+ *   <ArrowRightIcon className="h-4 w-4" />
  */
-
-// ─────────────────────────────────────────────
-// BRAND ICONS
-// ─────────────────────────────────────────────
-
-/** Logo Spotify — dipakai di SpotifyWidget */
-export function SpotifyIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden fill="currentColor" {...props}>
-      <path d="M12 2.25C6.615 2.25 2.25 6.615 2.25 12S6.615 21.75 12 21.75 21.75 17.385 21.75 12 17.385 2.25 12 2.25Zm4.478 14.056a.75.75 0 0 1-1.031.25c-2.827-1.728-6.388-2.12-10.584-1.166a.75.75 0 1 1-.332-1.463c4.566-1.037 8.49-.593 11.7 1.37a.75.75 0 0 1 .247 1.009Zm1.031-2.356a.9.9 0 0 1-1.237.3c-3.236-1.99-8.168-2.566-11.994-1.405a.9.9 0 1 1-.523-1.722c4.374-1.328 9.807-.686 13.542 1.61a.9.9 0 0 1 .212 1.217Zm.09-2.47C13.72 9.154 7.32 8.94 4.03 9.94a1.05 1.05 0 0 1-.61-2.01c3.78-1.148 10.73-.904 14.9 1.57a1.05 1.05 0 0 1-1.072 1.98Z" />
-    </svg>
-  );
-}
 
 // ─────────────────────────────────────────────
 // MEDIA ICONS

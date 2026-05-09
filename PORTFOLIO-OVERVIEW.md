@@ -7,7 +7,7 @@ Dokumen ini merangkum struktur codebase, stack teknis, alur halaman, sumber data
 ## 1. Ringkasan
 
 - **Siapa**: Masbay — frontend developer, UI/UX designer, dan digital content creator (Padang).
-- **Tujuan situs**: menampilkan identitas profesional, **selected work** dengan filter kategori, dan detail per proyek; nuansa personal lewat hero berbasis **widget** (termasuk status “sekarang” dan integrasi Spotify).
+- **Tujuan situs**: menampilkan identitas profesional, **selected work** dengan filter kategori, dan detail per proyek; nuansa personal lewat hero berbasis **widget** (status “sekarang”, foto, dan stack tools).
 - **Bahasa & tone**: konten utama berbahasa **Indonesia**; HTML root memakai `lang="id"` (`app/layout.tsx`).
 - **Referensi desain** (lihat juga `PROMT.md`): estetika mengacu ke **macfolio.com** — clean, minimal, kartu portofolio dengan transisi gambar hover, dukungan **dark/light**, metadata untuk SEO.
 
@@ -46,12 +46,11 @@ Deploy yang dikehendaki di brief proyek: **Vercel** (lihat `PROMT.md`).
 | `app/page.tsx` | Beranda: greeting, badge kolaborasi, hero widgets, selected work, marquee teknologi |
 | `app/about/page.tsx` | Halaman tentang + daftar skill |
 | `app/work/[slug]/page.tsx` | Detail proyek; `generateStaticParams` dari data `projects` |
-| `app/api/spotify/route.ts` | API route **Node** — token Spotify + “currently playing” |
 | `app/globals.css` | Gaya global Tailwind v4 |
 | `app/providers.tsx` | `ThemeProvider` (class, system default) |
 | `components/nav/` | Navbar + link Work / About |
 | `components/home/` | `AnimatedGreeting`, `TechMarquee`, folder `widgets/` |
-| `components/home/widgets/` | Intro, stack, “now”, foto, Spotify, shell, hero (static + client + drag) |
+| `components/home/widgets/` | Intro, stack, “now”, foto, shell, hero (static + client + drag) |
 | `components/projects/` | Grid kartu, filter, selected work, tag, kartu proyek |
 | `components/theme/` | Toggle tema |
 | `data/projects.ts` | Agregasi array `projects` — satu titik impor untuk app |
@@ -60,7 +59,7 @@ Deploy yang dikehendaki di brief proyek: **Vercel** (lihat `PROMT.md`).
 | `types/project.ts` | Tipe `Project` dan `ProjectCategory` |
 | `public/` | Aset statis (gambar profil, SVG proyek, ikon, dll.) |
 | `skills/` | **Bukan** bagian runtime situs — modul/README untuk panduan desain, aksesibilitas, performa, pola TypeScript, dll. (konteks pengembangan / agen) |
-| `next.config.ts` | Mis. `images.remotePatterns` untuk CDN gambar & Spotify |
+| `next.config.ts` | Mis. `images.remotePatterns` untuk CDN gambar |
 | `eslint.config.mjs`, `postcss.config.mjs`, `tsconfig.json` | Konfigurasi tooling |
 
 ---
@@ -79,7 +78,7 @@ Deploy yang dikehendaki di brief proyek: **Vercel** (lihat `PROMT.md`).
 1. **Animated greeting** — salam dinamis.
 2. Badge “Available for collaborations” + petunjuk “Drag widgets (desktop)”.
 3. **Hero widgets** (`HeroWidgetsClient` → `HeroWidgetsStatic` hingga mounted, lalu `HeroWidgets`):
-   - **Desktop (sm+)**: area dengan widget **dapat di-drag** (posisi disimpan di state), berisi intro, stack teknologi, proyek yang sedang difokuskan, foto, Spotify.
+   - **Desktop (sm+)**: area dengan widget **dapat di-drag** (posisi disimpan di state), berisi intro, stack teknologi, proyek yang sedang difokuskan, dan foto.
    - **Mobile**: layout **grid vertikal** + animasi stagger Framer Motion (tanpa drag).
 4. **Selected work** — judul section, filter kategori (`ProjectsFilter`), grid kartu (`ProjectsGrid`) dengan animasi transisi filter.
 5. **Tech marquee** — deretan logo/teknologi.
@@ -101,7 +100,6 @@ flowchart TB
     pageHome[page.tsx]
     about[about/page.tsx]
     workSlug[work/slug/page.tsx]
-    apiSpotify[api/spotify/route.ts]
   end
   subgraph dataLayer [data]
     projectsTs[projects.ts]
@@ -117,7 +115,6 @@ flowchart TB
   pageHome --> homeWidgets
   pageHome --> projectsUi
   workSlug --> projectsTs
-  apiSpotify --> homeWidgets
   projectsTs --> projectFiles
 ```
 
@@ -153,19 +150,6 @@ Definisi lengkap: `types/project.ts`.
 
 ## 6. API dan environment
 
-### Route Spotify
-
-- **Path**: `GET /api/spotify`
-- **Runtime**: Node.js (`export const runtime = "nodejs"` di `app/api/spotify/route.ts`)
-- **Alur**: refresh token → access token → `GET https://api.spotify.com/v1/me/player/currently-playing` → JSON ringkas (`isPlaying`, judul, artis, artwork, URL lagu, progress/duration). Respons 204 atau error ditangani dengan fallback “tidak diputar”.
-- **Widget**: `components/home/widgets/SpotifyWidget.tsx` mengonsumsi endpoint ini (gambar album dari `i.scdn.co` sudah diizinkan di `next.config.ts`).
-
-**Variabel lingkungan yang diperlukan** (jangan commit nilai rahasia):
-
-- `SPOTIFY_CLIENT_ID`
-- `SPOTIFY_CLIENT_SECRET`
-- `SPOTIFY_REFRESH_TOKEN`
-
 **URL situs** (metadata absolut): `NEXT_PUBLIC_SITE_URL` di `lib/site.ts` (fallback `http://localhost:3000` untuk lokal).
 
 ---
@@ -178,7 +162,7 @@ Definisi lengkap: `types/project.ts`.
   - `app/about/page.tsx` — judul “About” + deskripsi tentang.
   - `app/work/[slug]/page.tsx` — `generateMetadata` per slug: judul proyek, deskripsi singkat, gambar OG dari `project.image`.
 
-Gunakan `next/image` untuk gambar lokal sesuai brief; domain remote sudah dikonfigurasi di `next.config.ts` untuk ikon CDN dan artwork Spotify.
+Gunakan `next/image` untuk gambar lokal sesuai brief; domain remote sudah dikonfigurasi di `next.config.ts` untuk ikon CDN.
 
 ---
 
@@ -196,4 +180,4 @@ Gunakan `next/image` untuk gambar lokal sesuai brief; domain remote sudah dikonf
 
 ---
 
-*Terakhir diselaraskan dengan struktur repo portofolio Masbay (Next.js App Router, data-driven projects, integrasi Spotify).*
+*Terakhir diselaraskan dengan struktur repo portofolio Masbay (Next.js App Router, data-driven projects).*

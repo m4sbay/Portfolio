@@ -40,7 +40,7 @@
  * Catatan:
  * - `sizes` prop SANGAT penting untuk performa — bantu browser pilih ukuran yang tepat
  * - `priority` hanya untuk LCP (above the fold). Jangan overuse.
- * - `unoptimized` hanya untuk URL eksternal dinamis (seperti album art Spotify)
+ * - `unoptimized` hanya untuk URL eksternal dinamis bila benar-benar perlu
  */
 
 // ─────────────────────────────────────────────
@@ -115,7 +115,7 @@
 
 /**
  * SELALU cleanup interval/timeout di useEffect.
- * Lihat contoh di SpotifyWidget.tsx:
+ * Contoh:
  *
  * useEffect(() => {
  *   const id = window.setInterval(fetchNowPlaying, 30_000)

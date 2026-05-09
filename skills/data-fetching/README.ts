@@ -30,7 +30,7 @@
 // ─────────────────────────────────────────────
 
 /**
- * Pola API route — lihat /app/api/spotify/route.ts sebagai contoh.
+ * Pola API route — gunakan route handler di `app/api/[segment]/route.ts`.
  *
  * // app/api/[nama]/route.ts
  * import { NextResponse } from "next/server"
@@ -56,7 +56,7 @@
 // ─────────────────────────────────────────────
 
 /**
- * Real-time polling — contoh dari SpotifyWidget.tsx
+ * Real-time polling — contoh pola polling di Client Component.
  *
  * const [data, setData] = useState(null)
  *
@@ -117,9 +117,9 @@
 
 /**
  * Selalu define type untuk response API.
- * Lihat contoh di SpotifyWidget.tsx:
+ * Contoh: discriminated union untuk state sukses vs kosong.
  *
- * type SpotifyNowPlaying =
+ * type NowPlaying =
  *   | { isPlaying: false }
  *   | { isPlaying: true; title: string; artist: string; ... }
  *

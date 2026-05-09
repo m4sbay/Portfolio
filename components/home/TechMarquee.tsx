@@ -18,7 +18,6 @@ const techs = [
   { name: "Node.js",       slug: "nodedotjs" },
   { name: "Premiere Pro",  slug: "adobepremierepro" },
   { name: "After Effects", slug: "adobeaftereffects" },
-  { name: "Spotify",       slug: "spotify" },
   { name: "VS Code",       slug: "visualstudiocode" },
   { name: "Notion",        slug: "notion" },
 ];
@@ -162,10 +161,10 @@ export function TechMarquee() {
     >
       {/* Section header */}
       <div className="space-y-1">
-        <h2 className="text-lg font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+        <h2 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
           Tools &amp; Stack
         </h2>
-        <p className="text-sm text-zinc-600 dark:text-zinc-300">
+        <p className="text-base text-zinc-600 dark:text-zinc-300">
           Teknologi yang aku pakai sehari-hari.
         </p>
       </div>

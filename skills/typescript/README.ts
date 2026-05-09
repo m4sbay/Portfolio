@@ -34,9 +34,9 @@
 // ─────────────────────────────────────────────
 
 /**
- * Contoh nyata dari SpotifyWidget.tsx:
+ * Contoh discriminated union:
  *
- * type SpotifyNowPlaying =
+ * type NowPlaying =
  *   | { isPlaying: false }
  *   | {
  *       isPlaying: true

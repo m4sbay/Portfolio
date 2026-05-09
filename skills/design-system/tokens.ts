@@ -52,7 +52,7 @@ export const colors = {
     green:  "#61c554",
   },
 
-  // Accent — emerald dipakai untuk Spotify/playing indicator
+  // Accent — emerald untuk highlight/indikator
   accent: {
     emerald: "#34d399",
     emeraldMuted: "rgba(52,211,153,0.80)",

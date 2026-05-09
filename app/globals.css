@@ -34,9 +34,27 @@
   --foreground: #ededed;
 }
 
+html {
+  background-color: var(--background);
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
+}
+
+/* ─── Liquid Glass: fallback non-Chromium — lensing utama hanya blur di sini ─ */
+
+@supports not (backdrop-filter: url(#__liquid_glass_probe__)) {
+  .liquid-glass {
+    backdrop-filter: blur(24px) saturate(1.8);
+    -webkit-backdrop-filter: blur(24px) saturate(1.8);
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  html.dark .liquid-glass {
+    background: rgba(255, 255, 255, 0.1);
+  }
 }
 
 .eq-bar {
@@ -71,6 +89,28 @@ body {
   }
   50% {
     transform: translateZ(0) scaleY(1);
+  }
+}
+
+/* ─── Bento section: 3 gambar, hover geser kiri halus ─────────────── */
+
+.bento-collage-track {
+  width: calc(100% + 104px);
+  transform: translate3d(0, 0, 0);
+  transition: transform 950ms cubic-bezier(0.30, 0.80, 0.30, 1);
+  will-change: transform;
+}
+
+.group:hover .bento-collage-track {
+  transform: translate3d(-44px, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-collage-track {
+    transition: none;
+  }
+  .group:hover .bento-collage-track {
+    transform: none;
   }
 }
 

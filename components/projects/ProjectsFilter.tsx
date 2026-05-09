@@ -44,7 +44,7 @@ export function ProjectsFilter({ active, onChange, counts }: ProjectsFilterProps
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.15 }}
               className={[
-                "relative inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition-all duration-200 cursor-pointer select-none",
+                "relative inline-flex items-center gap-1.5 rounded-[8px] border px-3 py-1 text-xs font-medium transition-all duration-200 cursor-pointer select-none",
                 isActive
                   ? "border-zinc-900 bg-zinc-900 text-white shadow-sm dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
                   : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-zinc-300 dark:hover:border-white/20 dark:hover:bg-white/10 dark:hover:text-zinc-100",
@@ -53,7 +53,7 @@ export function ProjectsFilter({ active, onChange, counts }: ProjectsFilterProps
               {isActive && (
                 <m.span
                   layoutId="filter-pill-bg"
-                  className="absolute inset-0 rounded-full"
+                  className="absolute inset-0 rounded-[8px]"
                   transition={{ type: "spring", stiffness: 400, damping: 35 }}
                 />
               )}

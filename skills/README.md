@@ -48,7 +48,7 @@ skills/
 ### Import
 ```ts
 // Import semua dari satu path
-import { colors, glass, fadeUp, SpotifyIcon } from "@/skills/design-system"
+import { colors, glass, fadeUp } from "@/skills/design-system"
 
 // Atau per-file kalau butuh tree-shaking lebih ketat
 import { glass, card } from "@/skills/design-system/components"
@@ -98,7 +98,7 @@ import { stagger, fadeUp } from "@/skills/design-system"
 | `trafficLight.red` | `#ec6a5e` | macOS close button |
 | `trafficLight.yellow` | `#f4bf4f` | macOS minimize button |
 | `trafficLight.green` | `#61c554` | macOS maximize button |
-| `accent.emerald` | `#34d399` | Spotify playing indicator |
+| `accent.emerald` | `#34d399` | Accent / highlight |
 
 ---
 

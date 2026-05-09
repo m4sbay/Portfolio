@@ -4,6 +4,10 @@ import { useMemo, useRef } from "react";
 
 type Position = { x: number; y: number };
 
+function lerp(a: number, b: number, t: number) {
+  return a + (b - a) * t;
+}
+
 export function WidgetShell({
   id,
   position,
@@ -14,6 +18,9 @@ export function WidgetShell({
   onDeactivate,
   onPositionChange,
   className: classNameOverride,
+  requireDoubleClickToDrag = false,
+  isDragLocked = false,
+  onToggleLock,
   children,
 }: {
   id: string;
@@ -25,6 +32,15 @@ export function WidgetShell({
   onDeactivate?: () => void;
   onPositionChange?: (pos: Position) => void;
   className?: string;
+  /**
+   * Kalau true, drag hanya aktif setelah double-click (behavior Mac wallpaper icon).
+   * Gunakan bersama isDragLocked dan onToggleLock.
+   */
+  requireDoubleClickToDrag?: boolean;
+  /** Apakah widget ini sedang dalam mode "terkunci/siap drag". */
+  isDragLocked?: boolean;
+  /** Dipanggil saat double-click untuk toggle lock state di parent. */
+  onToggleLock?: () => void;
   children: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -33,7 +49,16 @@ export function WidgetShell({
     startX: number;
     startY: number;
     startPos: Position;
+    hasMoved: boolean;
   } | null>(null);
+
+  const rafRef = useRef<number | null>(null);
+  const targetRef = useRef<Position>(position);
+  const smoothPosRef = useRef<Position>(position);
+
+  // Untuk deteksi double-click manual (lebih reliable dari onDoubleClick di mobile)
+  const lastTapRef = useRef<number>(0);
+  const tapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const baseCard =
     "select-none rounded-2xl border border-zinc-200/50 dark:border-white/20 bg-white/10 p-4 backdrop-blur-md";
@@ -46,6 +71,13 @@ export function WidgetShell({
     const base = classNameOverride ?? baseCard;
     return `${base}${activeCard}`;
   }, [baseCard, activeCard, classNameOverride]);
+
+  const smoothDragEnabled = Boolean(
+    classNameOverride?.includes("widget-drag-smooth"),
+  );
+
+  // Apakah drag boleh berjalan sekarang?
+  const canDrag = requireDoubleClickToDrag ? isDragLocked : true;
 
   const clampToBounds = (next: Position): Position => {
     const boundsEl = boundsRef?.current;
@@ -64,11 +96,126 @@ export function WidgetShell({
     };
   };
 
+  const cancelRaf = () => {
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+  };
+
+  const tickSmooth = () => {
+    const drag = draggingRef.current;
+    if (!drag) return;
+
+    const t = 0.22;
+    const cur = smoothPosRef.current;
+    const target = targetRef.current;
+    const next = {
+      x: lerp(cur.x, target.x, t),
+      y: lerp(cur.y, target.y, t),
+    };
+    smoothPosRef.current = next;
+    onPositionChange?.(next);
+
+    rafRef.current = requestAnimationFrame(tickSmooth);
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (disabled) return;
+    if (e.button !== 0) return;
+    const el = ref.current;
+    if (!el) return;
+
+    // -- Deteksi double-click --
+    if (requireDoubleClickToDrag) {
+      const now = Date.now();
+      const delta = now - lastTapRef.current;
+      lastTapRef.current = now;
+
+      if (delta < 350) {
+        // Double-click: toggle lock
+        if (tapTimerRef.current) clearTimeout(tapTimerRef.current);
+        onToggleLock?.();
+        return;
+      }
+
+      // Kalau belum locked, single click hanya aktivasi (bawa ke atas), tidak drag
+      if (!isDragLocked) {
+        onActivate?.();
+        return;
+      }
+    }
+
+    // -- Mulai drag --
+    onActivate?.();
+    cancelRaf();
+    targetRef.current = position;
+    smoothPosRef.current = position;
+    draggingRef.current = {
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      startPos: position,
+      hasMoved: false,
+    };
+
+    el.setPointerCapture(e.pointerId);
+    if (smoothDragEnabled) {
+      rafRef.current = requestAnimationFrame(tickSmooth);
+    }
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = draggingRef.current;
+    if (!drag) return;
+    if (drag.pointerId !== e.pointerId) return;
+
+    const dx = e.clientX - drag.startX;
+    const dy = e.clientY - drag.startY;
+
+    // Tandai sudah bergerak jika threshold 3px terlampaui
+    if (!drag.hasMoved && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) {
+      drag.hasMoved = true;
+    }
+
+    if (!drag.hasMoved) return;
+
+    const next = clampToBounds({
+      x: drag.startPos.x + dx,
+      y: drag.startPos.y + dy,
+    });
+
+    if (smoothDragEnabled) {
+      targetRef.current = next;
+      return;
+    }
+    onPositionChange?.(next);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = draggingRef.current;
+    if (!drag) return;
+    if (drag.pointerId !== e.pointerId) return;
+    draggingRef.current = null;
+    cancelRaf();
+    const el = ref.current;
+    if (el?.hasPointerCapture(e.pointerId)) {
+      el.releasePointerCapture(e.pointerId);
+    }
+    onDeactivate?.();
+  };
+
+  // Outline visual saat folder sedang dalam mode siap-drag
+  const lockRing =
+    requireDoubleClickToDrag && isDragLocked
+      ? " outline outline-2 outline-offset-2 outline-blue-400/60"
+      : "";
+
   return (
     <div
       ref={ref}
       data-widget-id={id}
-      className={`${className} will-change-transform transform-gpu`}
+      className={`${className} will-change-transform transform-gpu${lockRing}`}
       style={{
         position: disabled ? "static" : "absolute",
         left: disabled ? undefined : 0,
@@ -78,59 +225,23 @@ export function WidgetShell({
           : `translate3d(${position.x}px, ${position.y}px, 0)`,
         zIndex: isActive ? 30 : 10,
         touchAction: disabled ? "auto" : "none",
+        cursor:
+          disabled
+            ? "default"
+            : requireDoubleClickToDrag
+              ? isDragLocked
+                ? "grab"
+                : "default"
+              : "grab",
       }}
       role={disabled ? undefined : "button"}
       tabIndex={disabled ? undefined : 0}
       aria-roledescription={disabled ? undefined : "draggable"}
       aria-disabled={disabled || undefined}
-      onPointerDown={(e) => {
-        if (disabled) return;
-        if (e.button !== 0) return;
-        const el = ref.current;
-        if (!el) return;
-
-        onActivate?.();
-        draggingRef.current = {
-          pointerId: e.pointerId,
-          startX: e.clientX,
-          startY: e.clientY,
-          startPos: position,
-        };
-
-        el.setPointerCapture(e.pointerId);
-      }}
-      onPointerMove={(e) => {
-        const drag = draggingRef.current;
-        if (!drag) return;
-        if (drag.pointerId !== e.pointerId) return;
-
-        const dx = e.clientX - drag.startX;
-        const dy = e.clientY - drag.startY;
-        const next = clampToBounds({ x: drag.startPos.x + dx, y: drag.startPos.y + dy });
-        onPositionChange?.(next);
-      }}
-      onPointerUp={(e) => {
-        const drag = draggingRef.current;
-        if (!drag) return;
-        if (drag.pointerId !== e.pointerId) return;
-        draggingRef.current = null;
-        const el = ref.current;
-        if (el?.hasPointerCapture(e.pointerId)) {
-          el.releasePointerCapture(e.pointerId);
-        }
-        onDeactivate?.();
-      }}
-      onPointerCancel={(e) => {
-        const drag = draggingRef.current;
-        if (!drag) return;
-        if (drag.pointerId !== e.pointerId) return;
-        draggingRef.current = null;
-        const el = ref.current;
-        if (el?.hasPointerCapture(e.pointerId)) {
-          el.releasePointerCapture(e.pointerId);
-        }
-        onDeactivate?.();
-      }}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
     >
       {/* Mac Window Controls */}
       {!classNameOverride && (
@@ -144,4 +255,3 @@ export function WidgetShell({
     </div>
   );
 }
-

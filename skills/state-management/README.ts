@@ -28,7 +28,7 @@
  * Gunakan untuk:
  * - UI state: isOpen, isActive, activeId
  * - Form state sederhana
- * - Fetched data di satu komponen (SpotifyWidget)
+ * - Fetched data di satu komponen (mis. widget yang polling)
  *
  * Contoh dari HeroWidgets.tsx:
  *
@@ -93,7 +93,7 @@
 /**
  * Hitung nilai turunan dari state — jangan simpan di state baru.
  *
- * Contoh dari SpotifyWidget.tsx:
+ * Contoh (derived progress → persentase):
  *
  * // ❌ Jangan:
  * const [pct, setPct] = useState(0)

@@ -32,10 +32,10 @@ export function SelectedWork({ projects }: SelectedWorkProps) {
         {/* Header row */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-1">
-            <h2 className="text-lg font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+            <h2 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
               Selected work
             </h2>
-            <p className="text-sm text-zinc-600 dark:text-zinc-300">
+            <p className="text-base text-zinc-600 dark:text-zinc-300">
               Beberapa project terbaru yang lagi aku bangun dan eksplor.
             </p>
           </div>

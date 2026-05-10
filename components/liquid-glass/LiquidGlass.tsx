@@ -41,6 +41,8 @@ export type LiquidGlassProps = {
   edgeBlur?: number;
   frostBlur?: number;
   tintOpacity?: number;
+  /** Opasitas permukaan putih di mode gelap (backdrop url path). Default 0.08 */
+  darkTintOpacity?: number;
   /** Pixel jika angka; string untuk nilai CSS (mis. `1.5rem`). Default 24px. */
   borderRadius?: number | string;
   className?: string;
@@ -53,6 +55,7 @@ export function LiquidGlass({
   edgeBlur = LIQUID_GLASS_DEFAULT_EDGE_BLUR,
   frostBlur = 6,
   tintOpacity = 0.1,
+  darkTintOpacity = 0.08,
   borderRadius = 24,
   className = "",
   as: Tag = "div",
@@ -78,7 +81,7 @@ export function LiquidGlass({
         backdropFilter: `url(#${filterId}) blur(${frostBlur}px) saturate(1.2)`,
         WebkitBackdropFilter: `url(#${filterId}) blur(${frostBlur}px) saturate(1.2)`,
         backgroundColor: isDark
-          ? "rgba(255, 255, 255, 0.08)"
+          ? `rgba(255, 255, 255, ${darkTintOpacity})`
           : `rgba(255, 255, 255, ${tintOpacity})`,
       }
     : { borderRadius: radiusCss };

@@ -38,7 +38,7 @@ export default function WritingPage() {
   const groups = groupByCategory(all);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="py-12">
       <header className="mb-12 space-y-3">
         <h1 className="flex items-center gap-3 text-4xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-5xl">Writing</h1>
         <p className="max-w-xl text-lg text-zinc-600 dark:text-zinc-400">

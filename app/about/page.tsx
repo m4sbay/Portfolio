@@ -20,7 +20,7 @@ const skills = ["TypeScript", "React", "Next.js", "Tailwind CSS", "Framer Motion
 
 export default function AboutPage() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 py-12">
       <header className="grid grid-cols-1 gap-8 sm:grid-cols-[160px_1fr] sm:items-center">
         <div className="relative h-40 w-40 overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/5">
           <Image src="/profil.png" alt="Foto profil Masbay" fill className="object-cover" sizes="160px" priority />
@@ -32,12 +32,12 @@ export default function AboutPage() {
           <p className="max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-300">
             Aku M. Maulana Bayu (Masbay) — frontend developer, UI/UX designer, dan digital content creator dari Padang. Aku suka bikin interface yang clean, minimal, dan terasa “premium”, dengan fokus ke detail, aksesibilitas, dan performa.
           </p>
-          <div className="flex flex-wrap gap-3 text-sm">
+          <div className="flex flex-wrap gap-2">
             <Link
               href="https://instagram.com/m4sbay"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-zinc-700 shadow-sm hover:border-zinc-300 hover:text-zinc-950 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300 dark:hover:border-white/20 dark:hover:text-zinc-50"
+              className="inline-flex items-center rounded-md border border-zinc-200 bg-white px-3 py-1 text-xs text-zinc-600 shadow-sm hover:border-zinc-300 hover:text-zinc-950 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300 dark:hover:border-white/20 dark:hover:text-zinc-50"
             >
               Instagram @m4sbay
             </Link>
@@ -45,7 +45,7 @@ export default function AboutPage() {
               href="https://github.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-zinc-700 shadow-sm hover:border-zinc-300 hover:text-zinc-950 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300 dark:hover:border-white/20 dark:hover:text-zinc-50"
+              className="inline-flex items-center rounded-md border border-zinc-200 bg-white px-3 py-1 text-xs text-zinc-600 shadow-sm hover:border-zinc-300 hover:text-zinc-950 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300 dark:hover:border-white/20 dark:hover:text-zinc-50"
             >
               GitHub
             </Link>
@@ -57,7 +57,7 @@ export default function AboutPage() {
         <h2 className="text-lg font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">Skills / Tools</h2>
         <ul className="flex flex-wrap gap-2">
           {skills.map(s => (
-            <li key={s} className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-sm text-zinc-700 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300">
+            <li key={s} className="inline-flex items-center rounded-md border border-zinc-200 bg-white px-3 py-1 text-xs text-zinc-600 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-zinc-300">
               {s}
             </li>
           ))}

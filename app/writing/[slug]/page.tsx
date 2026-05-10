@@ -53,7 +53,7 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
   const nextPost = getReadNext(post.slug);
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+    <article className="py-12">
       <p className="mb-6 flex flex-wrap items-center gap-1.5 text-sm">
         <Link href="/writing" className="font-medium text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50">
           Writing
@@ -70,9 +70,7 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
               <FolderIcon className="h-3.5 w-3.5 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
               {post.category}
             </p>
-            <h1 className="mt-4 text-xl font-semibold tracking-tight text-pretty text-zinc-950 dark:text-zinc-50 md:text-2xl">
-              {post.title}
-            </h1>
+            <h1 className="mt-4 text-xl font-semibold tracking-tight text-pretty text-zinc-950 dark:text-zinc-50 md:text-2xl">{post.title}</h1>
           </div>
 
           <div className="mt-auto flex flex-col gap-1.5 pt-5">
@@ -83,14 +81,7 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
 
         {post.heroImage ? (
           <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900 md:aspect-square">
-            <Image
-              src={post.heroImage.src}
-              alt={post.heroImage.alt}
-              fill
-              priority
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 220px"
-            />
+            <Image src={post.heroImage.src} alt={post.heroImage.alt} fill priority className="object-cover" sizes="(max-width: 768px) 100vw, 220px" />
           </div>
         ) : (
           <div className="relative hidden aspect-square w-full rounded-2xl bg-linear-to-br from-zinc-200 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 md:block">

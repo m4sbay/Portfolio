@@ -123,7 +123,7 @@ export function Navbar() {
   );
 
   return (
-    <div className="pointer-events-none sticky top-0 z-50 w-full pt-4">
+    <div className="pointer-events-none sticky top-0 z-50 w-full bg-[var(--background)] pt-4">
       <div ref={measureRef} className="mx-auto flex w-full max-w-6xl justify-center px-4 sm:px-6 lg:px-8">
         {scrollWide ? (
           <div ref={widthRef} className="pointer-events-auto min-w-0 max-w-full shrink-0">

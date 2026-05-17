@@ -1,10 +1,8 @@
-import Link from "next/link";
 import { site } from "@/lib/site";
-
-const YEARS = [2024, 2025, 2026] as const;
+import { FooterTimestamp } from "@/components/footer/FooterTimestamp";
 
 const footerIconBtn =
-  "inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white transition-colors hover:border-white/40 hover:bg-white/15 dark:border-zinc-300 dark:bg-zinc-100 dark:text-zinc-700 dark:hover:border-zinc-400 dark:hover:bg-white dark:hover:text-zinc-950";
+  "inline-flex h-10 w-10 items-center justify-center rounded-[16px] border border-white/25 bg-white/10 text-white transition-colors hover:border-white/40 hover:bg-white/15 dark:border-zinc-300 dark:bg-zinc-100 dark:text-zinc-700 dark:hover:border-zinc-400 dark:hover:bg-white dark:hover:text-zinc-950 sm:h-11 sm:w-11";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -30,96 +28,53 @@ function LinkedInIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-function UserIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden {...props}>
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  );
-}
-
 export function SiteFooter() {
-  const hasEmail = typeof site.contactEmail === "string" && site.contactEmail.length > 0;
-  const helloHref = hasEmail ? `mailto:${site.contactEmail}?subject=${encodeURIComponent("Halo Masbay")}` : site.social.instagram;
-
-  const helloLabel = hasEmail ? "Kirim email" : "Sapa di Instagram";
-  const helloExternal = !hasEmail;
-
   return (
     <footer
-      className="site-footer-reveal rounded-t-4xl border-t border-white/15 bg-black pt-16 pb-12 text-zinc-100 dark:border-zinc-200 dark:bg-white dark:text-zinc-900"
+      className="site-footer-reveal rounded-t-[16px] border-t border-white/15 bg-black pb-8 pt-10 text-zinc-100 dark:border-zinc-200 dark:bg-white dark:text-zinc-900 sm:rounded-t-4xl sm:pb-12 sm:pt-16"
       aria-labelledby="footer-heading"
     >
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,140px)_1fr] lg:gap-16">
-          <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Footer</p>
+        <div className="grid gap-7 sm:gap-12 lg:grid-cols-[minmax(0,140px)_1fr] lg:gap-16">
+          <div className="hidden lg:block" aria-hidden />
 
-          <div className="space-y-10">
-            <div className="space-y-6">
-              <h2 id="footer-heading" className="max-w-2xl text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl dark:text-zinc-950">
+          <div className="space-y-6 sm:space-y-10">
+            <div className="space-y-4 sm:space-y-6">
+              <h2 id="footer-heading" className="max-w-2xl text-balance text-2xl font-semibold tracking-tight text-white sm:text-4xl dark:text-zinc-950">
                 Sudah sampai sini?
               </h2>
-              <p className="max-w-xl text-pretty text-base leading-relaxed text-zinc-300 dark:text-zinc-600">
-                Kalau tertarik kolaborasi proyek, diskusi desain &amp; kode, atau sekadar menyapa — silakan hubungi. Aku juga terbuka untuk kontribusi open source dan networking dengan sesama builder.
+              <p className="max-w-xl text-pretty text-sm leading-6 text-zinc-300 dark:text-zinc-600 sm:text-base sm:leading-relaxed">
+                <span className="sm:hidden">Tertarik kolaborasi atau sekadar menyapa? Silakan hubungi.</span>
+                <span className="hidden sm:inline">Kalau tertarik kolaborasi proyek, diskusi desain &amp; kode, atau sekadar menyapa silakan hubungi. Aku juga terbuka untuk kontribusi open source dan networking dengan sesama builder.</span>
               </p>
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-400 dark:text-zinc-500">Terima kasih</p>
             </div>
 
-            <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-              <div className="space-y-2">
-                <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Ajakan</p>
-                <a
-                  href={helloHref}
-                  {...(helloExternal ? { target: "_blank" as const, rel: "noopener noreferrer" } : {})}
-                  className="inline-flex w-fit items-center rounded-full border border-white bg-white px-6 py-3 text-sm font-medium text-zinc-950 transition-colors hover:bg-zinc-200 dark:border-zinc-950 dark:bg-zinc-950 dark:text-white dark:hover:bg-zinc-800"
-                >
-                  {helloLabel}
-                </a>
-              </div>
-
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
               <div className="space-y-3">
-                <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Sosial</p>
+                <p className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-400 dark:text-zinc-500 sm:text-[11px] sm:tracking-[0.2em]">Sosial</p>
                 <ul className="flex flex-wrap items-center gap-3">
                   <li>
                     <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className={footerIconBtn} aria-label="Instagram">
-                      <InstagramIcon className="h-[18px] w-[18px]" />
+                      <InstagramIcon className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
                     </a>
                   </li>
                   <li>
                     <a href={site.social.github} target="_blank" rel="noopener noreferrer" className={footerIconBtn} aria-label="GitHub">
-                      <GitHubIcon className="h-[18px] w-[18px]" />
+                      <GitHubIcon className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
                     </a>
                   </li>
                   <li>
                     <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" className={footerIconBtn} aria-label="LinkedIn">
-                      <LinkedInIcon className="h-[18px] w-[18px]" />
+                      <LinkedInIcon className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
                     </a>
-                  </li>
-                  <li>
-                    <Link href="/about" className={footerIconBtn} aria-label="Tentang">
-                      <UserIcon className="h-[18px] w-[18px]" />
-                    </Link>
                   </li>
                 </ul>
               </div>
             </div>
 
-            <div className="space-y-4 border-t border-white/15 pt-10 dark:border-zinc-200">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Versi situs</p>
-              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-sm text-zinc-400 dark:text-zinc-600">
-                {YEARS.map(y => (
-                  <span
-                    key={y}
-                    className={y === 2026 ? "font-semibold text-white dark:text-zinc-950" : "opacity-45"}
-                    aria-current={y === 2026 ? "true" : undefined}
-                  >
-                    {y}
-                  </span>
-                ))}
-              </div>
-              <p className="font-mono text-xs text-zinc-500 dark:text-zinc-600">
-                {site.name} · {YEARS[YEARS.length - 1]}
+            <div className="border-t border-white/15 pt-6 dark:border-zinc-200 sm:pt-10">
+              <p className="font-mono text-[11px] text-zinc-500 dark:text-zinc-600 sm:text-xs">
+                {site.name} · <FooterTimestamp />
               </p>
             </div>
           </div>

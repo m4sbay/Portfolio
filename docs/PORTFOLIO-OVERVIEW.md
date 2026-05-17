@@ -53,12 +53,20 @@ Deploy yang dikehendaki di brief proyek: **Vercel** (lihat `PROMT.md`).
 | `components/home/widgets/` | Intro, stack, “now”, foto, shell, hero (static + client + drag) |
 | `components/projects/` | Grid kartu, filter, selected work, tag, kartu proyek |
 | `components/theme/` | Toggle tema |
-| `data/projects.ts` | Agregasi array `projects` — satu titik impor untuk app |
-| `data/projects/` | Satu file per proyek (`*.ts` dan `video_vokasi.tsx`) |
+| `content/projects/` | Satu file per proyek (`*.ts`, `video_vokasi.tsx`) — konten manual |
+| `content/writing/posts/` | Satu file per artikel; `content/writing/categories.ts` untuk urutan kategori |
+| `content/events/` | Satu file per kegiatan kalender |
+| `content/home/` | Konten editorial beranda (mis. kartu stack scroll) |
+| `data/projects.ts` | Aggregator `projects` — impor dari `content/projects/*` |
+| `data/writing.ts` | Aggregator + helper (`getPostBySlug`, `sortedWritingPosts`, …) |
+| `data/events.ts` | Aggregator + helper (`sortedEvents`, `getEventBySlug`) |
+| `data/stack-scroll-cards.ts` | Re-export kartu beranda dari `content/home/` |
+| `design-system/` | Token, icons, animasi, pola komponen runtime (`@/design-system`) |
 | `lib/site.ts` | Konstanta situs: `name`, `title`, `description`, `url`, `twitter` |
-| `types/project.ts` | Tipe `Project` dan `ProjectCategory` |
+| `types/` | Tipe bersama (`project`, `writing`, `event`, `stack-scroll-card`, …) |
+| `docs/` | Dokumen non-runtime (`PROMT.md`, `DESIGN.md`, dokumen ini) |
 | `public/` | Aset statis (gambar profil, SVG proyek, ikon, dll.) |
-| `skills/` | **Bukan** bagian runtime situs — modul/README untuk panduan desain, aksesibilitas, performa, pola TypeScript, dll. (konteks pengembangan / agen) |
+| `skills/` | **Bukan** bagian runtime situs — README panduan untuk agen/kontributor |
 | `next.config.ts` | Mis. `images.remotePatterns` untuk CDN gambar |
 | `eslint.config.mjs`, `postcss.config.mjs`, `tsconfig.json` | Konfigurasi tooling |
 
@@ -101,9 +109,11 @@ flowchart TB
     about[about/page.tsx]
     workSlug[work/slug/page.tsx]
   end
+  subgraph contentLayer [content]
+    projectFiles[projects per file]
+  end
   subgraph dataLayer [data]
     projectsTs[projects.ts]
-    projectFiles[projects per file]
   end
   subgraph uiLayer [components]
     nav[nav/Navbar]
@@ -135,16 +145,14 @@ Definisi lengkap: `types/project.ts`.
 
 **Cara menambah proyek baru**
 
-1. Buat file baru di `data/projects/` (mis. `nama-proyek.ts`) yang mengekspor objek memenuhi tipe `Project`.
+1. Buat file baru di `content/projects/` (mis. `nama-proyek.ts`) yang mengekspor objek memenuhi tipe `Project`.
 2. Impor di `data/projects.ts` dan tambahkan ke array `projects` (urutan array mempengaruhi urutan tampilan / proyek “pertama” untuk widget “now” yang memakai `projects[0]`).
 
-**File data saat ini** (`data/projects/`)
+**File konten saat ini** (`content/projects/`)
 
+- `auto-notion.ts`
 - `video_vokasi.tsx`
 - `itailwind.ts`
-- `ui-kit-experiments.ts`
-- `content-dashboard.ts`
-- `masbay-portfolio.ts`
 
 ---
 
@@ -174,7 +182,8 @@ Gunakan `next/image` untuk gambar lokal sesuai brief; domain remote sudah dikonf
 
 ## 9. Dokumen terkait di repo
 
-- `PROMT.md` — brief asli: referensi macfolio, struktur halaman, identitas, catatan desain.
+- `docs/PROMT.md` — brief asli: referensi macfolio, struktur halaman, identitas, catatan desain.
+- `docs/DESIGN.md` — design tokens & komponen (Google design.md).
 - `README.md` — template create-next-app (getting started generik); untuk gambaran proyek khusus portofolio, gunakan dokumen ini.
 - `AGENTS.md` / `CLAUDE.md` — aturan agen / Next.js.
 

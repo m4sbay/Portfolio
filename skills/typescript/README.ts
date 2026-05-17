@@ -115,8 +115,8 @@
  * Alias yang sudah dikonfigurasi di tsconfig.json:
  * @/ → root project
  *
- * Pakai:  import { glass } from "@/skills/design-system"
- * Hindari: import { glass } from "../../../skills/design-system"
+ * Pakai:  import { glass } from "@/design-system"
+ * Hindari: import { glass } from "../../../design-system"
  */
 
 // ─────────────────────────────────────────────

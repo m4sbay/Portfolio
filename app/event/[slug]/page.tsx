@@ -6,7 +6,7 @@ import { events, getEventBySlug } from "@/data/events";
 import { formatEventLongDate } from "@/lib/event-date";
 import { site } from "@/lib/site";
 import { EventMetaLine } from "@/components/event/EventMetaLine";
-import { CalendarIcon, ChevronRightIcon, FileTextIcon, MapPinIcon } from "@/skills/design-system/icons";
+import { CalendarIcon, ChevronRightIcon, FileTextIcon, MapPinIcon } from "@/design-system/icons";
 
 export function generateStaticParams() {
   return events.map(e => ({ slug: e.slug }));

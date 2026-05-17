@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LazyMotion, domAnimation, m, useReducedMotion } from "framer-motion";
 import type { CalendarEvent } from "@/types/event";
-import { ClockIcon, FileTextIcon, MapPinIcon } from "@/skills/design-system/icons";
+import { ClockIcon, FileTextIcon, MapPinIcon } from "@/design-system/icons";
 import { formatEventListDate } from "@/lib/event-date";
 
 export function EventTimeline({ events }: { events: CalendarEvent[] }) {

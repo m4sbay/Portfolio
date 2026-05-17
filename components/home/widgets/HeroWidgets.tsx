@@ -84,7 +84,7 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
         content: <MacFolderWidget />,
         shellClassName:
           "widget-drag-smooth select-none rounded-none border-0 bg-transparent p-0 shadow-none backdrop-blur-0",
-        requireDoubleClickToDrag: true,
+        requireDoubleClickToDrag: false,
       },
     ];
     return base;

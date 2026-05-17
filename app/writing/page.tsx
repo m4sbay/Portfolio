@@ -40,17 +40,19 @@ export default function WritingPage() {
   return (
     <div className="py-12">
       <header className="mb-12 space-y-3">
-        <h1 className="flex items-center gap-3 text-4xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-5xl">Writing</h1>
-        <p className="max-w-xl text-lg text-zinc-600 dark:text-zinc-400">
+        <h1 className="flex items-center gap-3 text-[38px] font-semibold leading-tight tracking-tight text-zinc-950 dark:text-zinc-50">Writing</h1>
+        <p className="max-w-xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
           Hal-hal yang aku pelajari, temuin, atau emang <span className="font-medium text-zinc-600 dark:text-zinc-200">pengen aku tulis</span> aja
         </p>
       </header>
 
       {groups.map(({ category, posts }, groupIndex) => (
         <div key={category} className={groupIndex > 0 ? "mt-10" : undefined}>
-          {posts.map(post => (
-            <WritingListCard key={post.slug} post={post} showCategory />
-          ))}
+          <div className="flex flex-col gap-4">
+            {posts.map(post => (
+              <WritingListCard key={post.slug} post={post} showCategory />
+            ))}
+          </div>
         </div>
       ))}
     </div>

@@ -1,4 +1,4 @@
-import { CalendarIcon, ClockIcon } from "@/skills/design-system/icons";
+import { CalendarIcon, ClockIcon } from "@/design-system/icons";
 import { formatRelativeId } from "@/lib/writing-date";
 
 type Props = {

@@ -3,7 +3,7 @@
  * Kiblat: Apple spring physics + Framer Motion
  *
  * Cara pakai:
- *   import { fadeUp, stagger, scaleIn } from "@/skills/design-system/animations"
+ *   import { fadeUp, stagger, scaleIn } from "@/design-system/animations"
  *
  *   <LazyMotion features={domAnimation}>
  *     <m.div variants={stagger} initial="hidden" animate="show">

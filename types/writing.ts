@@ -1,9 +1,19 @@
+export type WritingInlineText =
+  | string
+  | {
+      text: string;
+      bold?: boolean;
+      href?: string;
+    };
+
+export type WritingRichText = string | WritingInlineText[];
+
 export type WritingBlock =
-  | { kind: "p"; text: string }
-  | { kind: "lead"; text: string }
+  | { kind: "p"; text: WritingRichText }
+  | { kind: "lead"; text: WritingRichText }
   | { kind: "h2"; text: string }
   | { kind: "hr" }
-  | { kind: "ul"; items: string[] };
+  | { kind: "ul"; items: WritingRichText[] };
 
 export type WritingPost = {
   slug: string;

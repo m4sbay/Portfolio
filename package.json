@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "sh -c 'lsof -tiTCP:3000 -sTCP:LISTEN 2>/dev/null | xargs kill -9 2>/dev/null; exec next dev'",
+    "dev:raw": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

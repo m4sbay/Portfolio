@@ -9,7 +9,7 @@
  * Contoh: ChevronRightIcon, MusicIcon
  *
  * Cara pakai:
- *   import { ArrowRightIcon } from "@/skills/design-system/icons"
+ *   import { ArrowRightIcon } from "@/design-system/icons"
  *   <ArrowRightIcon className="h-4 w-4" />
  */
 

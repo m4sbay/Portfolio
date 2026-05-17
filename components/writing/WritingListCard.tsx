@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { WritingPost } from "@/types/writing";
-import { FileTextIcon, FolderIcon } from "@/skills/design-system/icons";
+import { FileTextIcon, FolderIcon } from "@/design-system/icons";
 import { WritingMetaLine } from "@/components/writing/WritingMetaLine";
 
 export function WritingListCard({
@@ -14,7 +14,7 @@ export function WritingListCard({
   return (
     <Link
       href={`/writing/${post.slug}`}
-      className="group grid gap-6 border-b border-zinc-200/80 py-7 pt-4 dark:border-white/10 md:grid-cols-[1fr_minmax(0,220px)] md:items-stretch"
+      className="group grid gap-4 border-b border-zinc-200/80 py-5 dark:border-white/10 md:grid-cols-[1fr_minmax(0,220px)] md:items-stretch"
     >
       <div className="flex min-h-0 min-w-0 flex-col md:h-full">
         <div>
@@ -25,15 +25,15 @@ export function WritingListCard({
             </p>
           ) : null}
           <h2
-            className={`text-xl font-semibold tracking-tight text-zinc-950 transition-colors group-hover:text-emerald-700 dark:text-zinc-50 dark:group-hover:text-emerald-400 md:text-2xl ${
-              showCategory ? "mt-4" : ""
+            className={`text-xl font-semibold tracking-tight text-zinc-950/80 transition-colors group-hover:text-zinc-950 dark:text-zinc-50/80 dark:group-hover:text-zinc-50 md:text-2xl ${
+              showCategory ? "mt-3" : ""
             }`}
           >
             {post.title}
           </h2>
         </div>
 
-        <div className="mt-auto flex flex-col gap-1.5 pt-5">
+        <div className="mt-auto flex flex-col gap-1 pt-3">
           <p className="line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400">{post.excerpt}</p>
           <WritingMetaLine publishedAt={post.publishedAt} readMinutes={post.readMinutes} />
         </div>

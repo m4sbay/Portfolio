@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { WritingPost } from "@/types/writing";
-import { BookOpenIcon, FolderIcon } from "@/skills/design-system/icons";
+import { BookOpenIcon, FolderIcon } from "@/design-system/icons";
 import { WritingMetaLine } from "@/components/writing/WritingMetaLine";
 
 export function WritingReadNext({ post }: { post: WritingPost }) {

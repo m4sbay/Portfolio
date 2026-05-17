@@ -1,4 +1,4 @@
-// data/projects/nama-video.ts
+// content/projects/nama-video.ts
 import type { Project } from "@/types/project";
 
 export const videoVokasi: Project = {

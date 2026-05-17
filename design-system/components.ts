@@ -6,7 +6,7 @@
  * "resep" komponen yang bisa dipakai ulang di seluruh project.
  *
  * Cara pakai:
- *   import { glass, card, label } from "@/skills/design-system/components"
+ *   import { glass, card, label } from "@/design-system/components"
  *   <div className={glass.widget}>...</div>
  */
 

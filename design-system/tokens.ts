@@ -6,7 +6,7 @@
  * untuk semua nilai visual yang dipakai di seluruh project.
  *
  * Cara pakai:
- *   import { colors, radii, shadow } from "@/skills/design-system/tokens"
+ *   import { colors, radii, shadow } from "@/design-system/tokens"
  */
 
 // ─────────────────────────────────────────────

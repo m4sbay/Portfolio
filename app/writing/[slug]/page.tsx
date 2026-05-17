@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 import { WritingPostBody } from "@/components/writing/WritingPostBody";
 import { WritingReadNext } from "@/components/writing/WritingReadNext";
 import { WritingMetaLine } from "@/components/writing/WritingMetaLine";
-import { ChevronRightIcon, FileTextIcon, FolderIcon, TagIcon } from "@/skills/design-system/icons";
+import { ChevronRightIcon, FileTextIcon, FolderIcon, TagIcon } from "@/design-system/icons";
 
 export function generateStaticParams() {
   return writingPosts.map(p => ({ slug: p.slug }));
@@ -70,11 +70,11 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
               <FolderIcon className="h-3.5 w-3.5 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
               {post.category}
             </p>
-            <h1 className="mt-4 text-xl font-semibold tracking-tight text-pretty text-zinc-950 dark:text-zinc-50 md:text-2xl">{post.title}</h1>
+            <h1 className="mt-4 text-[38px] font-semibold leading-tight tracking-tight text-pretty text-zinc-950 dark:text-zinc-50">{post.title}</h1>
           </div>
 
           <div className="mt-auto flex flex-col gap-1.5 pt-5">
-            <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{post.excerpt}</p>
+            <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-400">{post.excerpt}</p>
             <WritingMetaLine publishedAt={post.publishedAt} readMinutes={post.readMinutes} />
           </div>
         </div>

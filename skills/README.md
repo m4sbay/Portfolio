@@ -11,19 +11,19 @@ dijadikan rujukan saat membangun fitur baru.
 ## 📁 Struktur
 
 ```
+design-system/              ← 🎨 runtime (root project, import @/design-system)
+├── tokens.ts               — Design tokens (warna, spasi, tipografi, dll)
+├── components.ts           — Tailwind class patterns (glass, card, button, dll)
+├── animations.ts           — Framer Motion variants & transitions
+├── icons.tsx               — SVG icon components
+└── index.ts                — Barrel export (import dari satu tempat)
+
 skills/
-├── design-system/          ← 🎨 MULAI DARI SINI
-│   ├── tokens.ts           — Design tokens (warna, spasi, tipografi, dll)
-│   ├── components.ts       — Tailwind class patterns (glass, card, button, dll)
-│   ├── animations.ts       — Framer Motion variants & transitions
-│   ├── icons.tsx           — SVG icon components
-│   └── index.ts            — Barrel export (import dari satu tempat)
-│
 ├── hooks/
 │   └── README.ts           — Custom React hooks siap pakai
 │
 ├── accessibility/
-│   └── README.tsx          — a11y patterns, ARIA, focus management
+│   └── README.md           — a11y patterns, ARIA, focus management (snippet referensi)
 │
 ├── performance/
 │   └── README.ts           — Next.js performance patterns
@@ -48,11 +48,11 @@ skills/
 ### Import
 ```ts
 // Import semua dari satu path
-import { colors, glass, fadeUp } from "@/skills/design-system"
+import { colors, glass, fadeUp } from "@/design-system"
 
 // Atau per-file kalau butuh tree-shaking lebih ketat
-import { glass, card } from "@/skills/design-system/components"
-import { fadeUp, stagger } from "@/skills/design-system/animations"
+import { glass, card } from "@/design-system/components"
+import { fadeUp, stagger } from "@/design-system/animations"
 ```
 
 ### Glassmorphism (pola utama widget)
@@ -74,7 +74,7 @@ import { fadeUp, stagger } from "@/skills/design-system/animations"
 ### Animasi dengan Framer Motion
 ```tsx
 import { LazyMotion, domAnimation, m } from "framer-motion"
-import { stagger, fadeUp } from "@/skills/design-system"
+import { stagger, fadeUp } from "@/design-system"
 
 <LazyMotion features={domAnimation}>
   <m.div variants={stagger} initial="hidden" animate="show">

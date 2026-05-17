@@ -48,7 +48,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           <LandingFooterBeforeMain />
-          <main className="relative z-10 w-full bg-[var(--background)]">
+          <main className="relative z-10 min-h-[100svh] w-full bg-[var(--background)]">
             <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">{children}</div>
           </main>
           <LandingFooterScrollSpace />

@@ -9,7 +9,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --footer-height: max(640px, 52vh);
+  --footer-height: max(640px, 52svh);
 }
 
 .site-footer-reveal {
@@ -42,6 +42,7 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
+  min-height: 100svh;
 }
 
 /* ─── Liquid Glass: fallback non-Chromium — lensing utama hanya blur di sini ─ */

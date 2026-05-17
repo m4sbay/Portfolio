@@ -28,7 +28,7 @@ export function SelectedWork({ projects }: SelectedWorkProps) {
 
   return (
     <LazyMotion features={domAnimation}>
-      <section className="space-y-5">
+      <section id="work" className="scroll-mt-24 space-y-5">
         {/* Header row */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-1">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
 type Position = { x: number; y: number };
 
@@ -79,22 +79,35 @@ export function WidgetShell({
   // Apakah drag boleh berjalan sekarang?
   const canDrag = requireDoubleClickToDrag ? isDragLocked : true;
 
-  const clampToBounds = (next: Position): Position => {
+  const clampToBounds = useCallback((next: Position): Position => {
     const boundsEl = boundsRef?.current;
     const el = ref.current;
     if (!boundsEl || !el) return next;
 
     const bounds = boundsEl.getBoundingClientRect();
     const rect = el.getBoundingClientRect();
+    const styles = window.getComputedStyle(boundsEl);
+    const paddingLeft = Number.parseFloat(styles.paddingLeft) || 0;
+    const paddingRight = Number.parseFloat(styles.paddingRight) || 0;
+    const paddingTop = Number.parseFloat(styles.paddingTop) || 0;
+    const paddingBottom = Number.parseFloat(styles.paddingBottom) || 0;
 
-    const maxX = Math.max(0, bounds.width - rect.width);
-    const maxY = Math.max(0, bounds.height - rect.height);
+    const maxX = Math.max(paddingLeft, bounds.width - paddingRight - rect.width);
+    const maxY = Math.max(paddingTop, bounds.height - paddingBottom - rect.height);
 
     return {
-      x: Math.min(Math.max(0, next.x), maxX),
-      y: Math.min(Math.max(0, next.y), maxY),
+      x: Math.min(Math.max(paddingLeft, next.x), maxX),
+      y: Math.min(Math.max(paddingTop, next.y), maxY),
     };
-  };
+  }, [boundsRef]);
+
+  useEffect(() => {
+    if (disabled) return;
+    const next = clampToBounds(position);
+    if (next.x !== position.x || next.y !== position.y) {
+      onPositionChange?.(next);
+    }
+  }, [clampToBounds, disabled, onPositionChange, position.x, position.y]);
 
   const cancelRaf = () => {
     if (rafRef.current) {

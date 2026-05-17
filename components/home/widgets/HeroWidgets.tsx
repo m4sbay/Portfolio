@@ -91,7 +91,7 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
   }, [nowProject]);
 
   const container =
-    "relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50/40 p-4 dark:border-white/10 dark:bg-white/5 sm:min-h-[420px]";
+    "relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50/40 p-6 dark:border-white/10 dark:bg-white/5 sm:h-[420px]";
 
   const [positions, setPositions] = useState<
     Record<string, { x: number; y: number }>
@@ -164,7 +164,6 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
   return (
     <LazyMotion features={domAnimation}>
       <m.div
-        ref={boundsRef}
         layout={false}
         className={container}
         initial="hidden"
@@ -185,44 +184,46 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
           }}
         />
 
-        {items.map((it) => (
-          <m.div
-            key={it.id}
-            layout={false}
-            className="will-change-transform transform-gpu"
-            variants={{
-              hidden: { opacity: 0, y: 14 },
-              show: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.5, ease: "easeOut" },
-              },
-            }}
-          >
-            <WidgetShell
-              id={it.id}
-              position={positions[it.id] ?? it.pos}
-              isActive={activeId === it.id}
-              disabled={false}
-              boundsRef={boundsRef}
-              onActivate={() => setActiveId(it.id)}
-              onDeactivate={() => setActiveId(null)}
-              onPositionChange={(next) =>
-                setPositions((prev) => ({ ...prev, [it.id]: next }))
-              }
-              className={it.shellClassName}
-              requireDoubleClickToDrag={it.requireDoubleClickToDrag ?? false}
-              isDragLocked={it.id === "folder" ? folderLocked : undefined}
-              onToggleLock={
-                it.id === "folder"
-                  ? () => setFolderLocked((v) => !v)
-                  : undefined
-              }
+        <div ref={boundsRef} className="relative z-10 h-full w-full">
+          {items.map((it) => (
+            <m.div
+              key={it.id}
+              layout={false}
+              className="will-change-transform transform-gpu"
+              variants={{
+                hidden: { opacity: 0, y: 14 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease: "easeOut" },
+                },
+              }}
             >
-              {it.content}
-            </WidgetShell>
-          </m.div>
-        ))}
+              <WidgetShell
+                id={it.id}
+                position={positions[it.id] ?? it.pos}
+                isActive={activeId === it.id}
+                disabled={false}
+                boundsRef={boundsRef}
+                onActivate={() => setActiveId(it.id)}
+                onDeactivate={() => setActiveId(null)}
+                onPositionChange={(next) =>
+                  setPositions((prev) => ({ ...prev, [it.id]: next }))
+                }
+                className={it.shellClassName}
+                requireDoubleClickToDrag={it.requireDoubleClickToDrag ?? false}
+                isDragLocked={it.id === "folder" ? folderLocked : undefined}
+                onToggleLock={
+                  it.id === "folder"
+                    ? () => setFolderLocked((v) => !v)
+                    : undefined
+                }
+              >
+                {it.content}
+              </WidgetShell>
+            </m.div>
+          ))}
+        </div>
       </m.div>
     </LazyMotion>
   );

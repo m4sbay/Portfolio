@@ -8,10 +8,10 @@ export function PhotoWidget() {
       <div className="rounded-xl bg-white p-3 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10">
         <div className="relative aspect-square overflow-hidden rounded-lg bg-zinc-100 dark:bg-white/5">
           <Image
-            src="/profil.png"
+            src="/profile_2.png"
             alt="Foto Masbay"
             fill
-            className="object-cover"
+            className="object-cover object-[50%_15%]"
             sizes="220px"
             priority={false}
             draggable={false}

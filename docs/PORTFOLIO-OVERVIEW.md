@@ -150,7 +150,7 @@ Definisi lengkap: `types/project.ts`.
 
 **File konten saat ini** (`content/projects/`)
 
-- `auto-notion.ts`
+- `notion-auto-status.ts`
 - `video_vokasi.tsx`
 - `itailwind.ts`
 

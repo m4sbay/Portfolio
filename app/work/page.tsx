@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { projects } from "@/data/projects";
 import { site } from "@/lib/site";
-
 export const metadata: Metadata = {
   title: `Work — ${site.title}`,
   description: "Kumpulan project, eksperimen, dan karya digital Masbay.",

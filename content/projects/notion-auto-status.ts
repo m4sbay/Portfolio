@@ -3,15 +3,16 @@ import type { Project } from "@/types/project";
 export const notionAutoStatus: Project = {
   title: "Notion Auto Status",
   description:
-    "Skrip Node.js dan GitHub Actions yang menyinkronkan kolom Status di database Notion dari tanggal dan grup kartu.",
+    "Automation tool untuk memperbarui status task dan event di Notion berdasarkan tanggal, group, dan jadwal otomatis.",
   longDescription:
-    "Alat otomatis untuk menjaga **board Notion** tetap konsisten tanpa mengklik status secara manual. Untuk kartu bertipe **Event**, status mengikuti rentang waktu: **Waiting List**, **Live**, lalu **Done**. Untuk grup lain, status mendekati deadline dipindahkan ke **In Progress**, lalu otomatis **Done** setelah melewati jeda manual beberapa hari supaya workflow review tidak terpotong.\n\nImplementasinya memakai **Notion API** lewat **@notionhq/client** dengan pola query data source SDK v5. Project ini bisa dijalankan lokal dengan scheduler per jam atau melalui **GitHub Actions** menggunakan secrets dan cron. Stack utamanya adalah **Node.js**, **dotenv**, **node-cron**, dan workflow CI.",
+    "Notion Auto Status menjaga database Notion tetap rapi dengan memperbarui status task dan event secara otomatis berdasarkan Group dan Date.\n\nAutomation ini bisa berjalan lokal dengan Node.js scheduler atau terjadwal per jam melalui GitHub Actions. Workflow juga menyiapkan email digest dan reminder agenda via Gmail.",
   category: "Tools",
   tags: [
     "Node.js",
     "Notion API",
     "Automation",
     "GitHub Actions",
+    "Nodemailer",
     "dotenv",
     "node-cron",
     "2026",
@@ -23,27 +24,18 @@ export const notionAutoStatus: Project = {
   // TODO: Ganti dengan logo khusus Notion Auto Status kalau sudah ada.
   logo: "/projects/notion-logo.png",
   image: {
-    // TODO: Ganti dengan cover screenshot/diagram Notion Auto Status.
-    src: "/projects/auto-notion.png",
-    alt: "Diagram atau screenshot alur update status Notion otomatis",
-    width: 1448,
-    height: 1086,
+    src: "/projects/notion-status.svg",
+    alt: "Visual cover Notion Auto Status",
+    width: 1500,
+    height: 1200,
   },
   hoverImage: {
-    // TODO: Ganti dengan cuplikan log GitHub Actions atau terminal saat job berjalan.
-    src: "/projects/auto-notion.png",
-    alt: "Cuplikan log GitHub Actions atau terminal saat job Notion Auto Status berjalan",
-    width: 1448,
-    height: 1086,
+    src: "/projects/notion-status.svg",
+    alt: "Visual cover Notion Auto Status",
+    width: 1500,
+    height: 1200,
   },
   gallery: [
-    {
-      // TODO: Ganti dengan screenshot struktur database Notion.
-      src: "/projects/auto-notion.png",
-      alt: "Struktur database Notion: kolom Group, Date, Status, dan Name",
-      width: 1448,
-      height: 1086,
-    },
     {
       // TODO: Ganti dengan screenshot contoh kartu Event.
       src: "/projects/auto-notion.png",
@@ -51,25 +43,29 @@ export const notionAutoStatus: Project = {
       width: 1448,
       height: 1086,
     },
+    {
+      src: "/projects/notion-status.svg",
+      alt: "Visual cover Notion Auto Status",
+      width: 1500,
+      height: 1200,
+    },
   ],
   caseStudy: {
-    title: "Menjadwalkan status Notion tanpa mengorbankan kontrol manual",
+    title: "Automation untuk workflow Notion yang repetitif",
     description:
-      "**Masalah**\n\nBoard Notion dipakai untuk men-track banyak kartu dengan jenis kerja berbeda. Kolom **Status** mudah tidak sinkron dengan realitas waktu, misalnya Event yang sudah berlangsung masih bertanda **Waiting List**, atau tugas harian yang sudah mendekati deadline belum berpindah ke **In Progress**. Akhirnya tinjauan harian masih butuh klik manual berulang.\n\n**Tujuan**\n\nMembuat pembaruan **Status** menjadi otomatis dan terjadwal, dengan aturan yang berbeda untuk **Event** yang sensitif jam versus grup lain yang sensitif hari kalender dan jeda manual. Otomatisasi ini dirancang agar tidak mengunci pengguna pada satu pola status untuk semua jenis kartu.\n\n**Proses**\n\nDimulai dari pemetaan properti Notion yang sudah dipakai di database: **Group**, **Date**, **Status**, dan **Name**. Logika dibagi dua fungsi: satu untuk Event berbasis rentang waktu, satu untuk non-Event berbasis selisih hari ke tanggal target. Alur query mengikuti pola SDK Notion versi baru, yaitu retrieve database lalu query lewat data source, dengan pagination sampai habis.\n\nPembaruan ke API hanya dilakukan jika status baru terhitung dan berbeda dari status saat ini. Untuk operasi serverless, dibuat skrip sekali jalan yang dipanggil dari **GitHub Actions** agar setiap eksekusi job bisa selesai tanpa mengandalkan proses daemon.\n\n**Peran AI dalam proses**\n\nDari artefak repositori sendiri tidak ada catatan eksplisit bahwa penulisan kode dibantu AI. Kalau dalam proses nyata project ini memang memakai asisten kode, perannya bisa dijelaskan sebagai partner iterasi untuk mengecek pola API atau menyusun draf dokumentasi, sementara aturan status, jadwal cron, dan keputusan bagian mana yang tetap manual tetap dikurasi langsung.\n\n**Keputusan teknis penting**\n\nEvent memakai datetime dan range tanggal. Bila bagian akhir range tidak menyertakan jam, hari tersebut diperlakukan sampai akhir hari agar transisi **Live** dan **Done** konsisten. Untuk non-Event, window yang tidak diotomatisasi sengaja dipertahankan supaya tidak mengganggu ruang review manual sebelum menutup kartu sebagai Done.\n\n**Hasil akhir**\n\nTersedia jalur lokal dengan scheduler dan jalur **GitHub Actions** per jam menggunakan secrets untuk kredensial. Kartu yang memenuhi aturan akan mengalami perubahan Status otomatis sesuai grup dan tanggal, sehingga pekerjaan repetitif menyelaraskan board dengan waktu bisa berkurang.\n\n**Pengembangan berikutnya**\n\nOptimasi query, mode dry-run, notifikasi saat status berganti, serta monitoring kegagalan job bisa ditambahkan kalau kebutuhan operasional bertambah.",
+      "**Problem**\n\nUpdate status task dan event di Notion masih manual. Saat item bertambah, status mudah tertinggal dan database jadi kurang akurat.\n\n**Solution**\n\nSaya membuat script Node.js yang membaca database Notion, mengecek Group dan Date, lalu memperbarui status otomatis berdasarkan aturan waktu. Script bisa berjalan lokal dengan node-cron atau terjadwal melalui GitHub Actions.\n\n**Key Features**\n\nAuto-update status berdasarkan tanggal. Logic khusus untuk Event. Logic berbeda untuk task umum. Email digest saat status berubah. Reminder agenda via Gmail.\n\n**How It Works**\n\nNotion Database -> Scheduler atau GitHub Actions -> Check Group dan Date -> Update Status -> Send Email Digest atau Reminder.\n\n**Tech Stack**\n\nNode.js, Notion API, GitHub Actions, node-cron, Nodemailer, dotenv, dan Gmail.\n\n**Result**\n\nUpdate manual berkurang, status task lebih rapi, event aktif terdeteksi otomatis, dan reminder dikirim sebelum agenda berlangsung.",
     gallery: [
       {
-        // TODO: Ganti dengan cuplikan workflow YAML Notion Auto Status.
-        src: "/projects/auto-notion.png",
-        alt: "Cuplikan workflow YAML Notion Auto Status di GitHub",
-        width: 1448,
-        height: 1086,
+        src: "/projects/notion-case-study1.svg",
+        alt: "Case study visual Notion Auto Status bagian pertama",
+        width: 1500,
+        height: 1200,
       },
       {
-        // TODO: Ganti dengan potongan kode getStatusForEvent dan getStatusForGeneral.
-        src: "/projects/auto-notion.png",
-        alt: "Potongan kode getStatusForEvent dan getStatusForGeneral",
-        width: 1448,
-        height: 1086,
+        src: "/projects/notion-case-study2.svg",
+        alt: "Case study visual Notion Auto Status bagian kedua",
+        width: 1500,
+        height: 1200,
       },
     ],
   },

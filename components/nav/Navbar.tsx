@@ -9,20 +9,27 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 /** Jarak scroll (px): 0 = lebar besar, sampai ini = kolom penuh */
 const NAVBAR_SCROLL_EXPAND_PX = 140;
+const NAVBAR_IDLE_HIDE_MS = 10_000;
 
 const navLinks = [
   { href: "/writing", label: "WRITING" },
   { href: "/event", label: "EVENT" },
   { href: "/work", label: "WORK" },
+  { href: "/services", label: "SERVICES" },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const reduceMotion = useReducedMotion();
+  const isActiveLink = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
 
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
+  const lastActivityRef = useRef(Date.now());
+  const lastPointerRef = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     queueMicrotask(() => setMounted(true));
@@ -31,6 +38,60 @@ export function Navbar() {
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!mounted || menuOpen) {
+      setNavHidden(false);
+      return;
+    }
+
+    lastActivityRef.current = Date.now();
+
+    const markActivity = () => {
+      lastActivityRef.current = Date.now();
+      setNavHidden(false);
+    };
+
+    const markPointerActivity = (event: PointerEvent) => {
+      const previous = lastPointerRef.current;
+      lastPointerRef.current = { x: event.clientX, y: event.clientY };
+
+      if (!previous) {
+        markActivity();
+        return;
+      }
+
+      const distance = Math.hypot(
+        event.clientX - previous.x,
+        event.clientY - previous.y
+      );
+
+      if (distance > 6) {
+        markActivity();
+      }
+    };
+
+    const idleCheck = window.setInterval(() => {
+      if (Date.now() - lastActivityRef.current >= NAVBAR_IDLE_HIDE_MS) {
+        setNavHidden(true);
+      }
+    }, 500);
+
+    window.addEventListener("pointermove", markPointerActivity, { passive: true });
+    window.addEventListener("pointerdown", markActivity, { passive: true });
+    window.addEventListener("wheel", markActivity, { passive: true });
+    window.addEventListener("touchstart", markActivity, { passive: true });
+    window.addEventListener("keydown", markActivity);
+
+    return () => {
+      window.clearInterval(idleCheck);
+      window.removeEventListener("pointermove", markPointerActivity);
+      window.removeEventListener("pointerdown", markActivity);
+      window.removeEventListener("wheel", markActivity);
+      window.removeEventListener("touchstart", markActivity);
+      window.removeEventListener("keydown", markActivity);
+    };
+  }, [mounted, menuOpen]);
 
   const measureRef = useRef<HTMLDivElement>(null);
   const widthRef = useRef<HTMLDivElement>(null);
@@ -82,24 +143,39 @@ export function Navbar() {
   const glass = (
     <LiquidGlass as="header" scale={20} edgeBlur={10} frostBlur={1.5} tintOpacity={0.14} darkTintOpacity={0.14} borderRadius={24} className="w-full min-w-0 px-4">
       <div className="relative flex h-14 w-full min-w-0 items-center justify-between">
-        <Link href="/" className="text-sm font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+        <Link
+          href="/"
+          className={`text-sm tracking-tight text-[#171717] dark:text-zinc-50 ${
+            isHome ? "font-semibold opacity-100" : "font-medium opacity-70 hover:opacity-100"
+          }`}
+        >
           HOME
         </Link>
 
         <div className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-full max-w-3xl -translate-x-1/2 px-4 sm:px-6 lg:px-8 md:flex md:items-center">
-          <nav className="pointer-events-auto flex items-center gap-10 text-sm font-semibold text-zinc-600 dark:text-zinc-300">
-            {navLinks.map(({ href, label }) => (
-              <Link key={href} className="tracking-tight hover:text-zinc-950 dark:hover:text-zinc-50" href={href}>
-                {label}
-              </Link>
-            ))}
+          <nav className="pointer-events-auto flex items-center gap-10 text-sm">
+            {navLinks.map(({ href, label }) => {
+              const active = isActiveLink(href);
+
+              return (
+                <Link
+                  key={href}
+                  className={`tracking-tight text-[#171717] dark:text-zinc-50 ${
+                    active ? "font-semibold opacity-100" : "font-medium opacity-70 hover:opacity-100"
+                  }`}
+                  href={href}
+                >
+                  {label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
 
-        <div className="flex shrink-0 items-center gap-3 text-sm font-semibold text-zinc-600 dark:text-zinc-300">
+        <div className="flex shrink-0 items-center gap-3 text-sm">
           <ThemeToggle />
           <button
-            className="flex items-center justify-center rounded-lg p-1.5 text-zinc-600 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-zinc-50 md:hidden"
+            className="flex items-center justify-center rounded-lg p-1.5 text-[#171717] opacity-70 hover:opacity-100 dark:text-zinc-50 md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
@@ -123,7 +199,13 @@ export function Navbar() {
   );
 
   return (
-    <div className="pointer-events-none sticky top-0 z-50 w-full bg-[var(--background)] pt-4">
+    <div
+      className={`pointer-events-none sticky top-0 z-50 w-full pt-4 transition-transform duration-700 ${
+        reduceMotion
+          ? ""
+          : "[transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]"
+      } ${navHidden ? "-translate-y-[calc(100%+1rem)]" : "translate-y-0"}`}
+    >
       <div ref={measureRef} className="mx-auto flex w-full max-w-6xl justify-center px-4 sm:px-6 lg:px-8">
         {scrollWide ? (
           <div ref={widthRef} className="pointer-events-auto min-w-0 max-w-full shrink-0">
@@ -148,7 +230,11 @@ export function Navbar() {
                 key={href}
                 href={href}
                 onClick={() => setMenuOpen(false)}
-                className="rounded-lg px-4 py-3 text-sm font-semibold tracking-tight text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-white/5 dark:hover:text-zinc-50"
+                className={`rounded-lg px-4 py-3 text-sm tracking-tight hover:bg-zinc-100 hover:text-zinc-950 dark:hover:bg-white/5 dark:hover:text-zinc-50 ${
+                  isActiveLink(href)
+                    ? "font-semibold text-zinc-950 dark:text-zinc-50"
+                    : "font-medium text-zinc-600 dark:text-zinc-300"
+                }`}
               >
                 {label}
               </Link>

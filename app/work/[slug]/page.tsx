@@ -7,21 +7,75 @@ import { ScrollToButton } from "@/components/ui/ScrollToButton";
 import { StickyGallery } from "@/components/projects/StickyGallery";
 import type { Metadata } from "next";
 
-function renderEmphasis(text: string) {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return (
-        <strong key={`${part}-${index}`} className="font-semibold text-zinc-900 dark:text-zinc-50">
-          {part.slice(2, -2)}
-        </strong>
-      );
-    }
+const brandLinksByProject: Record<
+  string,
+  {
+    label: string;
+    href: string;
+  }[]
+> = {
+  "notion-auto-status": [
+    { label: "@notionhq/client", href: "https://www.npmjs.com/package/@notionhq/client" },
+    { label: "GitHub Actions", href: "https://github.com/features/actions" },
+    { label: "Notion API", href: "https://developers.notion.com/" },
+    { label: "Nodemailer", href: "https://nodemailer.com/" },
+    { label: "node-cron", href: "https://www.npmjs.com/package/node-cron" },
+    { label: "Node.js", href: "https://nodejs.org/" },
+    { label: "dotenv", href: "https://www.npmjs.com/package/dotenv" },
+    { label: "Gmail", href: "https://www.google.com/gmail/about/" },
+    { label: "Notion", href: "https://www.notion.com/" },
+  ],
+  video_vokasi: [
+    { label: "Fakultas Vokasi ITP", href: "https://itp.ac.id/fakultas-vokasi" },
+    { label: "Institut Teknologi Padang", href: "https://itp.ac.id/" },
+    { label: "ITP", href: "https://itp.ac.id/" },
+  ],
+};
 
-    return part;
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function renderBrandLinks(text: string, projectSlug: string, keyPrefix: string) {
+  const brandLinks = brandLinksByProject[projectSlug];
+
+  if (!brandLinks?.length) return text;
+
+  const pattern = new RegExp(
+    `(${brandLinks.map(({ label }) => escapeRegExp(label)).join("|")})`,
+    "g"
+  );
+
+  return text.split(pattern).map((part, index) => {
+    const brand = brandLinks.find(({ label }) => label === part);
+
+    if (!brand) return part;
+
+    return (
+      <a
+        key={`${keyPrefix}-${brand.label}-${index}`}
+        href={brand.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-semibold text-zinc-900 underline decoration-zinc-400 underline-offset-4 transition-colors hover:text-zinc-950 hover:decoration-zinc-950 dark:text-zinc-50 dark:decoration-zinc-500 dark:hover:text-white dark:hover:decoration-zinc-50"
+      >
+        {part}
+      </a>
+    );
   });
 }
 
-function renderTextSections(text: string) {
+function renderEmphasis(text: string, projectSlug: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return renderBrandLinks(part.slice(2, -2), projectSlug, `strong-${index}`);
+    }
+
+    return renderBrandLinks(part, projectSlug, `text-${index}`);
+  });
+}
+
+function renderTextSections(text: string, projectSlug: string) {
   return text.split(/\n{2,}/).map((para, idx) => {
     const sectionHeading = para.match(/^\*\*([^*]+)\*\*$/);
 
@@ -38,7 +92,7 @@ function renderTextSections(text: string) {
 
     return (
       <p key={idx} className="text-pretty">
-        {renderEmphasis(para)}
+        {renderEmphasis(para, projectSlug)}
       </p>
     );
   });
@@ -183,7 +237,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
               Overview
             </h2>
             <div className="space-y-5 text-base leading-7 tracking-normal text-zinc-600 dark:text-zinc-400">
-              {renderTextSections(project.longDescription)}
+              {renderTextSections(project.longDescription, project.slug)}
             </div>
           </section>
 
@@ -232,12 +286,13 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
             </div>
 
             <div className="space-y-5 text-base leading-7 tracking-normal text-zinc-600 dark:text-zinc-400">
-              {renderTextSections(project.caseStudy.description)}
+              {renderTextSections(project.caseStudy.description, project.slug)}
             </div>
           </div>
 
-          {/* Kolom 2: Scrollable Case Study Images */}
-          <StickyGallery images={project.caseStudy.gallery} />
+          {project.caseStudy.gallery.length > 0 && (
+            <StickyGallery images={project.caseStudy.gallery} />
+          )}
         </div>
       )}
     </div>

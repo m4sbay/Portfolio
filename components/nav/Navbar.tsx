@@ -222,7 +222,7 @@ export function Navbar() {
           onClick={() => setMenuOpen(false)}
         >
           <div
-            className="absolute inset-x-4 top-[72px] flex flex-col gap-1 rounded-2xl bg-white/90 p-4 shadow-lg ring-1 ring-black/5 backdrop-blur-md dark:bg-zinc-900/90 dark:ring-white/10"
+            className="absolute right-4 top-[84px] flex w-max max-w-[calc(100vw-2rem)] flex-col gap-1 rounded-2xl bg-white/90 p-2.5 shadow-lg ring-1 ring-black/5 backdrop-blur-md dark:bg-zinc-900/90 dark:ring-white/10"
             onClick={(e) => e.stopPropagation()}
           >
             {navLinks.map(({ href, label }) => (
@@ -230,7 +230,7 @@ export function Navbar() {
                 key={href}
                 href={href}
                 onClick={() => setMenuOpen(false)}
-                className={`rounded-lg px-4 py-3 text-sm tracking-tight hover:bg-zinc-100 hover:text-zinc-950 dark:hover:bg-white/5 dark:hover:text-zinc-50 ${
+                className={`whitespace-nowrap rounded-lg px-5 py-3 text-sm tracking-tight hover:bg-zinc-100 hover:text-zinc-950 dark:hover:bg-white/5 dark:hover:text-zinc-50 ${
                   isActiveLink(href)
                     ? "font-semibold text-zinc-950 dark:text-zinc-50"
                     : "font-medium text-zinc-600 dark:text-zinc-300"

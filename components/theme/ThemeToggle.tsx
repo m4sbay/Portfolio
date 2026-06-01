@@ -59,7 +59,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-zinc-200/80 bg-white/20 text-zinc-500 shadow-sm backdrop-blur-md outline-none transition-[color,background-color,transform,box-shadow,border-color] duration-200 hover:-translate-y-px hover:border-zinc-300/90 hover:bg-white/30 hover:text-zinc-700 hover:shadow active:translate-y-0 dark:border-white/12 dark:bg-white/[0.07] dark:text-zinc-200 dark:hover:border-white/22 dark:hover:bg-white/12 dark:hover:text-white focus-visible:ring-2 focus-visible:ring-zinc-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-zinc-500/50 dark:focus-visible:ring-offset-zinc-950"
+      className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-zinc-200/80 bg-white/20 text-zinc-500 shadow-sm backdrop-blur-md outline-none transition-[color,background-color,transform,box-shadow,border-color] duration-200 hover:-translate-y-px hover:border-zinc-300/90 hover:bg-white/30 hover:text-zinc-700 hover:shadow active:translate-y-0 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-600 dark:hover:bg-zinc-700 dark:hover:text-white focus-visible:ring-2 focus-visible:ring-zinc-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-zinc-500/50 dark:focus-visible:ring-offset-zinc-950"
       aria-label={isDark ? "Ubah ke mode terang" : "Ubah ke mode gelap"}
     >
       <LazyMotion features={domAnimation}>

@@ -46,7 +46,7 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
           return (
             <article
               key={pkg.name}
-              className="flex flex-col overflow-hidden rounded-[28px] border border-zinc-200 bg-white shadow-sm transition duration-500 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-zinc-900"
+              className="flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition duration-500 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-zinc-900"
             >
               {/* Colored header strip */}
               <div className={`${accent.bg} ${accent.text} flex items-center justify-between px-5 py-3`}>
@@ -68,7 +68,7 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
                 <ul className="space-y-2.5">
                   {pkg.items.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-zinc-950 dark:bg-white/10 dark:text-zinc-50">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-zinc-100 text-zinc-950 dark:bg-white/10 dark:text-zinc-50">
                         <CheckIcon className="h-3 w-3" />
                       </span>
                       <span>{item}</span>
@@ -85,14 +85,14 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
                   </div>
 
                   <div className="flex items-center justify-between gap-3">
-                    <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold ${accent.badge}`}>
+                    <span className={`inline-flex items-center rounded-lg px-2.5 py-1 text-[11px] font-semibold ${accent.badge}`}>
                       {pkg.savings}
                     </span>
                     <a
                       href={site.social.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-2xl bg-zinc-950 px-3 py-2 text-xs font-semibold text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200"
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-950 px-3 py-2 text-xs font-semibold text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200"
                     >
                       Konsultasi
                       <ArrowUpRightIcon className="h-3.5 w-3.5" />

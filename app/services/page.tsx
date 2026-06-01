@@ -31,7 +31,7 @@ function formatPrice(price: number): string {
 export default function ServicesPage() {
   return (
     <div className="space-y-12 py-12">
-      <header className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <header className="hidden flex-col gap-6 sm:flex sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-xl space-y-3">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-zinc-500 dark:text-zinc-400">
             Rate card
@@ -55,7 +55,16 @@ export default function ServicesPage() {
         </a>
       </header>
 
-      <PerItemRates rates={perItemRates} />
+      <PerItemRates
+        rates={perItemRates}
+        intro={{
+          eyebrow: "Rate card",
+          title: "Harga desain untuk mulai kerja bareng",
+          description: "Pilih paket yang paling dekat dengan kebutuhanmu. Scope final tetap bisa disesuaikan setelah brief dibahas.",
+          ctaHref: site.social.instagram,
+          ctaLabel: "Konsultasi dulu",
+        }}
+      />
 
       <BundlePackages packages={bundlePackages} />
 

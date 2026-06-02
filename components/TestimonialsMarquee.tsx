@@ -193,6 +193,7 @@ export function TestimonialsMarquee() {
         <MarqueeRow items={row1} />
         <MarqueeRow items={row2} reverse />
       </div>
+
     </section>
   );
 }

@@ -1,6 +1,7 @@
 import { projects } from "@/data/projects";
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
+import Link from "next/link";
 import { HeroWidgetsClient } from "@/components/home/widgets/HeroWidgetsClient";
 import { TechMarquee } from "@/components/home/TechMarquee";
 import { StackedScrollSection } from "@/components/home/StackedScrollSection";
@@ -49,6 +50,19 @@ export default function Home() {
       <StackedScrollSection />
 
       <TestimonialsMarquee />
+
+      <div className="flex grow items-center justify-center py-20">
+        <Link
+          href="/services"
+          className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-80 dark:bg-zinc-50 dark:text-zinc-950"
+        >
+          Mulai kerja sama
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </Link>
+      </div>
     </div>
   );
 }

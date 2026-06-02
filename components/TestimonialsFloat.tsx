@@ -197,6 +197,7 @@ export function TestimonialsFloat() {
           ))}
         </div>
       </div>
+
     </section>
   );
 }

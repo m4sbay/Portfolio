@@ -55,12 +55,17 @@ export function ServicesFAQ() {
               key={i}
               onMouseEnter={() => setActive(i)}
               className={[
-                "cursor-default border-b border-zinc-200 transition-colors duration-300 last:border-b-0 dark:border-white/10",
+                "border-b border-zinc-200 transition-colors duration-300 last:border-b-0 dark:border-white/10",
                 isActive ? "bg-zinc-950 dark:bg-zinc-50" : "bg-white dark:bg-zinc-900",
               ].join(" ")}
             >
               {/* Question row */}
-              <div className="flex items-center gap-4 px-5 py-4">
+              <button
+                type="button"
+                onClick={() => setActive(isActive ? null : i)}
+                className="flex w-full items-center gap-4 px-5 py-4 text-left"
+                aria-expanded={isActive}
+              >
                 <span
                   className={[
                     "shrink-0 font-mono text-[10px] font-semibold tabular-nums transition-colors duration-300",
@@ -91,7 +96,7 @@ export function ServicesFAQ() {
                       : "text-zinc-300 dark:text-zinc-700",
                   ].join(" ")}
                 />
-              </div>
+              </button>
 
               {/* Answer — grid-rows trick for smooth height transition */}
               <div

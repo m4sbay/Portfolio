@@ -30,6 +30,8 @@ export function Navbar() {
   const [navHidden, setNavHidden] = useState(false);
   const lastActivityRef = useRef(Date.now());
   const lastPointerRef = useRef<{ x: number; y: number } | null>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuPanelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     queueMicrotask(() => setMounted(true));
@@ -38,6 +40,26 @@ export function Navbar() {
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const closeOnOutsidePress = (event: PointerEvent) => {
+      const target = event.target;
+
+      if (!(target instanceof Node)) return;
+      if (menuButtonRef.current?.contains(target)) return;
+      if (menuPanelRef.current?.contains(target)) return;
+
+      setMenuOpen(false);
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsidePress);
+
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsidePress);
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     if (!mounted || menuOpen) {
@@ -175,6 +197,7 @@ export function Navbar() {
         <div className="flex shrink-0 items-center gap-3 text-sm">
           <ThemeToggle />
           <button
+            ref={menuButtonRef}
             className="flex items-center justify-center rounded-lg p-1.5 text-[#171717] opacity-70 hover:opacity-100 dark:text-zinc-50 md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Toggle menu"
@@ -222,6 +245,7 @@ export function Navbar() {
           onClick={() => setMenuOpen(false)}
         >
           <div
+            ref={menuPanelRef}
             className="absolute right-4 top-[84px] flex w-max max-w-[calc(100vw-2rem)] flex-col gap-1 rounded-2xl bg-white/90 p-2.5 shadow-lg ring-1 ring-black/5 backdrop-blur-md dark:bg-zinc-900/90 dark:ring-white/10"
             onClick={(e) => e.stopPropagation()}
           >

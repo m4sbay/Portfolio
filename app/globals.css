@@ -122,6 +122,35 @@ body {
   }
 }
 
+/* ─── Bundle featured card: spinning conic border ─────────────── */
+
+@property --spin-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes bundle-spin-angle {
+  to { --spin-angle: 360deg; }
+}
+
+.bundle-glow-card {
+  background: conic-gradient(
+    from var(--spin-angle),
+    transparent 0%,
+    transparent 65%,
+    var(--spin-c1) 78%,
+    var(--spin-c2) 88%,
+    var(--spin-c1) 94%,
+    transparent 100%
+  );
+  animation: bundle-spin-angle 5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bundle-glow-card { animation: none; }
+}
+
 /* ─── Tech Marquee Logo Blend Mode ─────────────── */
 
 /* ── Logo: light mode → abu-abu (multiply blend) ── */

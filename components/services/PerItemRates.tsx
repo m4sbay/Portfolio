@@ -168,7 +168,7 @@ export function PerItemRates({ intro, rates }: { intro: PerItemRatesIntro; rates
       cardStride = cardHeight + cardGap;
       stackScrollDistance = cardStride * Math.max(cards.length - 1, 0);
       const stageHeight = headerHeight + 16 + cardHeight;
-      stackTop = 100;
+      stackTop = -180;
 
       stage.style.height = `${stageHeight}px`;
       stage.style.top = `${stackTop}px`;
@@ -269,7 +269,7 @@ export function PerItemRates({ intro, rates }: { intro: PerItemRatesIntro; rates
                     mobileCardsRef.current[i] = node;
                   }}
                   style={cardStyle}
-                  className="absolute inset-x-0 rounded-2xl border border-dashed border-zinc-300 bg-white p-4 shadow-sm will-change-transform dark:border-white/15 dark:bg-zinc-900"
+                  className="absolute inset-x-0 rounded-2xl border border-dashed border-zinc-300 bg-white p-4 shadow-[0_1px_3px_0_rgb(0,0,0,0.06)] will-change-transform dark:border-white/15 dark:bg-zinc-900 dark:shadow-sm"
                 >
                   <RateCard accent={accent} rate={rate} />
                 </li>

@@ -1,6 +1,7 @@
 import { ArrowUpRightIcon, CheckIcon } from "@/design-system/icons";
 import { site } from "@/lib/site";
 import type { BundlePackage } from "@/types/rate-card";
+import type { CSSProperties } from "react";
 
 function formatPrice(price: number): string {
   return new Intl.NumberFormat("id-ID", {
@@ -15,16 +16,22 @@ const accents = [
     bg: "bg-violet-100 dark:bg-violet-500/20",
     text: "text-violet-700 dark:text-violet-300",
     badge: "bg-violet-200 text-violet-700 dark:bg-violet-500/30 dark:text-violet-300",
+    spinC1: "#c4b5fd",
+    spinC2: "#8b5cf6",
   },
   {
     bg: "bg-emerald-100 dark:bg-emerald-500/20",
     text: "text-emerald-700 dark:text-emerald-300",
     badge: "bg-emerald-200 text-emerald-700 dark:bg-emerald-500/30 dark:text-emerald-300",
+    spinC1: "#6ee7b7",
+    spinC2: "#10b981",
   },
   {
     bg: "bg-amber-100 dark:bg-amber-500/20",
     text: "text-amber-700 dark:text-amber-300",
     badge: "bg-amber-200 text-amber-700 dark:bg-amber-500/30 dark:text-amber-300",
+    spinC1: "#fbbf24",
+    spinC2: "#d97706",
   },
 ];
 
@@ -43,11 +50,9 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
       <div className="grid gap-4 md:grid-cols-2">
         {packages.map((pkg, i) => {
           const accent = accents[i % accents.length];
-          return (
-            <article
-              key={pkg.name}
-              className="flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition duration-500 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-zinc-900"
-            >
+
+          const articleEl = (
+            <article className={`flex h-full flex-col overflow-hidden bg-white shadow-sm transition duration-500 hover:-translate-y-1 hover:shadow-xl dark:bg-zinc-900 ${pkg.featured ? "rounded-[14px]" : "rounded-2xl border border-zinc-200 dark:border-white/10"}`}>
               {/* Colored header strip */}
               <div className={`${accent.bg} ${accent.text} flex items-center justify-between px-5 py-3`}>
                 <span className="text-xs font-bold uppercase tracking-[0.16em]">
@@ -102,6 +107,20 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
               </div>
             </article>
           );
+
+          if (pkg.featured) {
+            return (
+              <div
+                key={pkg.name}
+                className="bundle-glow-card rounded-2xl p-[0.5px]"
+                style={{ "--spin-c1": accent.spinC1, "--spin-c2": accent.spinC2 } as CSSProperties}
+              >
+                {articleEl}
+              </div>
+            );
+          }
+
+          return <div key={pkg.name}>{articleEl}</div>;
         })}
       </div>
     </section>

@@ -41,6 +41,19 @@ export const perItemRates: PerItemRate[] = [
 
 export const bundlePackages: BundlePackage[] = [
   {
+    name: "Paket Starter",
+    price: 1_000_000,
+    phase: "Kebutuhan konten ringan, frekuensi rendah",
+    items: [
+      "4–6 konten / bulan",
+      "Single post & story sederhana",
+      "Template reusable",
+      "Cocok untuk pre-event atau komunitas kecil",
+    ],
+    revisi: "Revisi 1x per konten",
+    savings: "Mulai Rp 1.000.000 / bulan",
+  },
+  {
     name: "Paket Campaign Basic",
     price: 2_500_000,
     phase: "Konten rutin, intensitas ringan–menengah",
@@ -59,7 +72,7 @@ export const bundlePackages: BundlePackage[] = [
     price: 4_000_000,
     phase: "Fase event aktif & campaign lebih intens",
     items: [
-      "12–25 konten / bulan",
+      "12–28 konten / bulan",
       "Carousel & infografis intensif",
       "Frame / add-ons Instagram story",
       "Sponsor content",

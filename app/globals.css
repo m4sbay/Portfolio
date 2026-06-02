@@ -151,6 +151,38 @@ body {
   .bundle-glow-card { animation: none; }
 }
 
+/* ─── Testimonials Marquee ─────────────────────── */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+@keyframes card-float-up {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-700px); }
+}
+
+@utility animate-marquee {
+  animation: marquee 35s linear infinite;
+}
+
+@utility animate-marquee-reverse {
+  animation: marquee 35s linear infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-reverse {
+    animation: none;
+  }
+}
+
 /* ─── Tech Marquee Logo Blend Mode ─────────────── */
 
 /* ── Logo: light mode → abu-abu (multiply blend) ── */

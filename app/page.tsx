@@ -6,6 +6,7 @@ import { TechMarquee } from "@/components/home/TechMarquee";
 import { StackedScrollSection } from "@/components/home/StackedScrollSection";
 import { AnimatedGreeting } from "@/components/home/AnimatedGreeting";
 import { SelectedWork } from "@/components/projects/SelectedWork";
+import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 
 export const metadata: Metadata = {
   title: site.title,
@@ -46,6 +47,8 @@ export default function Home() {
       <TechMarquee />
 
       <StackedScrollSection />
+
+      <TestimonialsMarquee />
     </div>
   );
 }

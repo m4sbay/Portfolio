@@ -160,7 +160,7 @@ body {
 
 @keyframes marquee-vertical {
   from { transform: translateY(0); }
-  to { transform: translateY(-50%); }
+  to   { transform: translateY(var(--marquee-y, -50%)); }
 }
 
 @keyframes card-float-up {

@@ -189,7 +189,7 @@ export function TestimonialsMarquee() {
         </p>
       </header>
 
-      <div className="space-y-4">
+      <div className="space-y-2 sm:space-y-4">
         <MarqueeRow items={row1} />
         <MarqueeRow items={row2} reverse />
       </div>

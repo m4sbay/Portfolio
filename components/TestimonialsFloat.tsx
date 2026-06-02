@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const testimonials = [
   {
@@ -129,12 +129,30 @@ function TestimonialCard({ t }: { t: (typeof testimonials)[number] }) {
 }
 
 function FloatColumn({ indices, dur, delay }: (typeof COLUMNS)[number]) {
+  const trackRef = useRef<HTMLDivElement>(null);
   const items = indices.map((i) => testimonials[i]);
   const doubled = [...items, ...items];
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const update = () => {
+      // half the scrollHeight = exact height of one set → pixel-perfect seamless loop
+      track.style.setProperty("--marquee-y", `-${track.scrollHeight / 2}px`);
+    };
+
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(track);
+    return () => ro.disconnect();
+  }, []);
 
   return (
     <div className="min-w-0 flex-1 overflow-hidden">
       <div
+        ref={trackRef}
+        className="will-change-transform"
         style={{
           animation: `marquee-vertical ${dur} linear infinite`,
           animationDelay: delay,
@@ -164,12 +182,12 @@ export function TestimonialsFloat() {
       </div>
 
       <div
-        className="h-[460px] overflow-hidden"
+        className="h-[280px] overflow-hidden sm:h-[460px]"
         style={{
           maskImage:
-            "linear-gradient(to bottom, transparent, black 14%, black 86%, transparent)",
+            "linear-gradient(to bottom, transparent, black 22%, black 78%, transparent)",
           WebkitMaskImage:
-            "linear-gradient(to bottom, transparent, black 14%, black 86%, transparent)",
+            "linear-gradient(to bottom, transparent, black 22%, black 78%, transparent)",
         }}
       >
         {/* gap-5 = 20px — sama dengan mb-5 antar card */}

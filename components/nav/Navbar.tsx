@@ -54,10 +54,14 @@ export function Navbar() {
       setMenuOpen(false);
     };
 
+    const closeOnScroll = () => setMenuOpen(false);
+
     document.addEventListener("pointerdown", closeOnOutsidePress);
+    window.addEventListener("scroll", closeOnScroll, { passive: true });
 
     return () => {
       document.removeEventListener("pointerdown", closeOnOutsidePress);
+      window.removeEventListener("scroll", closeOnScroll);
     };
   }, [menuOpen]);
 
@@ -203,18 +207,49 @@ export function Navbar() {
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
           >
-            {menuOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <span className="relative block h-5 w-5">
+              {/* Hamburger icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="absolute inset-0 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+                style={{
+                  opacity: menuOpen ? 0 : 1,
+                  transform: menuOpen ? "rotate(90deg) scale(0.7)" : "rotate(0deg) scale(1)",
+                }}
+              >
                 <line x1="3" y1="6" x2="21" y2="6" />
                 <line x1="3" y1="12" x2="21" y2="12" />
                 <line x1="3" y1="18" x2="21" y2="18" />
               </svg>
-            )}
+              {/* Close (X) icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="absolute inset-0 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+                style={{
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen ? "rotate(0deg) scale(1)" : "rotate(-90deg) scale(0.7)",
+                }}
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </span>
           </button>
         </div>
       </div>
@@ -241,29 +276,23 @@ export function Navbar() {
 
       {menuOpen && (
         <div
-          className="pointer-events-auto fixed inset-0 z-40 md:hidden"
-          onClick={() => setMenuOpen(false)}
+          ref={menuPanelRef}
+          className="pointer-events-auto fixed right-4 top-[84px] z-[49] flex w-max max-w-[calc(100vw-2rem)] flex-col gap-1 rounded-2xl bg-white/90 p-2.5 shadow-lg ring-1 ring-black/5 backdrop-blur-md dark:bg-zinc-900/90 dark:ring-white/10 md:hidden"
         >
-          <div
-            ref={menuPanelRef}
-            className="absolute right-4 top-[84px] flex w-max max-w-[calc(100vw-2rem)] flex-col gap-1 rounded-2xl bg-white/90 p-2.5 shadow-lg ring-1 ring-black/5 backdrop-blur-md dark:bg-zinc-900/90 dark:ring-white/10"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {navLinks.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                className={`whitespace-nowrap rounded-lg px-5 py-3 text-sm tracking-tight hover:bg-zinc-100 hover:text-zinc-950 dark:hover:bg-white/5 dark:hover:text-zinc-50 ${
-                  isActiveLink(href)
-                    ? "font-semibold text-zinc-950 dark:text-zinc-50"
-                    : "font-medium text-zinc-600 dark:text-zinc-300"
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              className={`whitespace-nowrap rounded-lg px-5 py-3 text-sm tracking-tight hover:bg-zinc-100 hover:text-zinc-950 dark:hover:bg-white/5 dark:hover:text-zinc-50 ${
+                isActiveLink(href)
+                  ? "font-semibold text-zinc-950 dark:text-zinc-50"
+                  : "font-medium text-zinc-600 dark:text-zinc-300"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
         </div>
       )}
     </div>

@@ -94,7 +94,7 @@ function Avatar({ name, image }: { name: string; image: string }) {
 
   if (errored) {
     return (
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-200 text-[10px] font-semibold text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300">
+      <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-zinc-200 text-[7px] font-semibold text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300 sm:h-8 sm:w-8 sm:text-[10px]">
         {initials}
       </div>
     );
@@ -105,7 +105,7 @@ function Avatar({ name, image }: { name: string; image: string }) {
       src={image}
       alt={name}
       onError={() => setErrored(true)}
-      className="h-8 w-8 shrink-0 rounded-full object-cover"
+      className="h-4 w-4 shrink-0 rounded-full object-cover sm:h-8 sm:w-8"
     />
   );
 }
@@ -113,15 +113,15 @@ function Avatar({ name, image }: { name: string; image: string }) {
 function TestimonialCard({ t }: { t: (typeof testimonials)[number] }) {
   return (
     // mb-3 instead of gap on the parent so both halves have equal height → seamless loop
-    <div className="mb-5 rounded-xl border border-zinc-200 bg-white p-3.5 shadow-sm dark:border-white/10 dark:bg-zinc-900">
-      <p className="mb-3 text-xs leading-5 text-zinc-600 dark:text-zinc-400">
+    <div className="mb-3 rounded-lg border border-zinc-200 bg-white p-2 shadow-sm dark:border-white/10 dark:bg-zinc-900 sm:mb-5 sm:rounded-xl sm:p-3.5">
+      <p className="mb-1.5 text-[9px] leading-[14px] text-zinc-600 dark:text-zinc-400 sm:mb-3 sm:text-xs sm:leading-5">
         &ldquo;{t.quote}&rdquo;
       </p>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 sm:gap-2">
         <Avatar name={t.name} image={t.image} />
         <div>
-          <p className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">{t.name}</p>
-          <p className="text-[10px] text-zinc-500">{t.role}</p>
+          <p className="text-[8px] font-semibold text-zinc-900 dark:text-zinc-100 sm:text-[10px]">{t.name}</p>
+          <p className="text-[7px] text-zinc-500 sm:text-[9px]">{t.role}</p>
         </div>
       </div>
     </div>
@@ -173,7 +173,7 @@ export function TestimonialsFloat() {
         }}
       >
         {/* gap-5 = 20px — sama dengan mb-5 antar card */}
-        <div className="flex h-full gap-5">
+        <div className="flex h-full gap-2 sm:gap-5">
           {COLUMNS.map((col, i) => (
             <FloatColumn key={i} {...col} />
           ))}

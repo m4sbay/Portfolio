@@ -99,7 +99,7 @@ function Avatar({ name, image }: { name: string; image: string }) {
 
   if (errored) {
     return (
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-zinc-200 text-xs font-semibold text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300">
+      <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-zinc-200 text-[8px] font-semibold text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300 sm:h-10 sm:w-10 sm:text-xs">
         {initials}
       </div>
     );
@@ -110,7 +110,7 @@ function Avatar({ name, image }: { name: string; image: string }) {
       src={image}
       alt={name}
       onError={() => setErrored(true)}
-      className="h-10 w-10 shrink-0 rounded-full object-cover"
+      className="h-5 w-5 shrink-0 rounded-full object-cover sm:h-10 sm:w-10"
     />
   );
 }
@@ -121,17 +121,17 @@ function TestimonialCard({
   testimonial: (typeof testimonials)[number];
 }) {
   return (
-    <div className="w-72 shrink-0 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-zinc-900 sm:w-80">
-      <p className="mb-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+    <div className="w-44 shrink-0 rounded-lg border border-zinc-200 bg-white p-2.5 shadow-sm dark:border-white/10 dark:bg-zinc-900 sm:w-72 sm:rounded-2xl sm:p-5">
+      <p className="mb-2 text-[10px] leading-4 text-zinc-600 dark:text-zinc-400 sm:mb-4 sm:text-sm sm:leading-6">
         &ldquo;{testimonial.quote}&rdquo;
       </p>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1.5 sm:gap-3">
         <Avatar name={testimonial.name} image={testimonial.image} />
         <div>
-          <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+          <p className="text-[9px] font-semibold text-zinc-900 dark:text-zinc-100 sm:text-sm">
             {testimonial.name}
           </p>
-          <p className="text-xs text-zinc-500 dark:text-zinc-500">
+          <p className="text-[8px] text-zinc-500 dark:text-zinc-500 sm:text-xs">
             {testimonial.role}
           </p>
         </div>
@@ -161,7 +161,7 @@ function MarqueeRow({
     >
       <div
         className={[
-          "flex gap-4",
+          "flex gap-2 sm:gap-4",
           reverse ? "animate-marquee-reverse" : "animate-marquee",
           "group-hover:[animation-play-state:paused]",
         ].join(" ")}

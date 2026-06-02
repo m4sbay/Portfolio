@@ -41,7 +41,7 @@ export const perItemRates: PerItemRate[] = [
 
 export const bundlePackages: BundlePackage[] = [
   {
-    name: "Paket Starter",
+    name: "Starter",
     price: 1_000_000,
     phase: "Kebutuhan konten ringan, frekuensi rendah",
     items: [
@@ -54,7 +54,7 @@ export const bundlePackages: BundlePackage[] = [
     savings: "Mulai Rp 1.000.000 / bulan",
   },
   {
-    name: "Paket Campaign Basic",
+    name: "Basic",
     price: 2_500_000,
     phase: "Konten rutin, intensitas ringan–menengah",
     items: [
@@ -68,7 +68,7 @@ export const bundlePackages: BundlePackage[] = [
     savings: "Mulai Rp 2.500.000 / bulan",
   },
   {
-    name: "Paket Campaign Active",
+    name: "Active",
     price: 4_000_000,
     phase: "Fase event aktif & campaign lebih intens",
     items: [

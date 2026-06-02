@@ -44,8 +44,9 @@ export function SiteFooter() {
                 Sudah sampai sini?
               </h2>
               <p className="max-w-xl text-pretty text-sm leading-6 text-zinc-300 dark:text-zinc-600 sm:text-base sm:leading-relaxed">
-                <span className="sm:hidden">Tertarik kolaborasi atau sekadar menyapa? Silakan hubungi.</span>
-                <span className="hidden sm:inline">Kalau tertarik kolaborasi proyek, diskusi desain &amp; kode, atau sekadar menyapa silakan hubungi. Aku juga terbuka untuk kontribusi open source dan networking dengan sesama builder.</span>
+                Kalau tertarik kolaborasi proyek, diskusi desain &amp; kode, atau sekadar menyapa,{" "}
+                <strong className="font-semibold text-white dark:text-zinc-950">jangan ragu untuk hubungi</strong>
+                . Selalu senang kenalan dengan sesama builder.
               </p>
             </div>
 

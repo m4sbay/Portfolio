@@ -47,12 +47,12 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
         </h2>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {packages.map((pkg, i) => {
           const accent = accents[i % accents.length];
 
           const articleEl = (
-            <article className={`flex h-full flex-col overflow-hidden bg-white shadow-sm transition duration-500 hover:-translate-y-1 hover:shadow-xl dark:bg-zinc-900 ${pkg.featured ? "rounded-[14px]" : "rounded-2xl border border-zinc-200 dark:border-white/10"}`}>
+            <article className={`flex h-full flex-col overflow-hidden bg-white shadow-sm dark:bg-zinc-900 ${pkg.featured ? "rounded-[14px]" : "rounded-2xl border border-zinc-200 dark:border-white/10"}`}>
               {/* Colored header strip */}
               <div className={`${accent.bg} ${accent.text} flex items-center justify-between px-5 py-3`}>
                 <span className="text-xs font-bold uppercase tracking-[0.16em]">
@@ -70,11 +70,11 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
                   </h3>
                 </div>
 
-                <ul className="space-y-2.5">
+                <ul className="space-y-2">
                   {pkg.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-zinc-100 text-zinc-950 dark:bg-white/10 dark:text-zinc-50">
-                        <CheckIcon className="h-3 w-3" />
+                    <li key={item} className="flex items-start gap-2 text-xs leading-5 tracking-wide text-zinc-600 dark:text-zinc-400">
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded bg-zinc-100 text-zinc-950 dark:bg-white/10 dark:text-zinc-50">
+                        <CheckIcon className="h-2.5 w-2.5" />
                       </span>
                       <span>{item}</span>
                     </li>
@@ -89,15 +89,15 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between gap-3">
-                    <span className={`inline-flex items-center rounded-lg px-2.5 py-1 text-[11px] font-semibold ${accent.badge}`}>
+                  <div className="flex flex-col gap-2">
+                    <span className={`flex items-center justify-center rounded-lg px-3 py-2 text-xs font-semibold ${accent.badge}`}>
                       {pkg.savings}
                     </span>
                     <a
                       href={site.social.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-950 px-3 py-2 text-xs font-semibold text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200"
+                      className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-zinc-950 px-3 py-2 text-xs font-semibold text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200"
                     >
                       Konsultasi
                       <ArrowUpRightIcon className="h-3.5 w-3.5" />
@@ -112,7 +112,7 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
             return (
               <div
                 key={pkg.name}
-                className="bundle-glow-card rounded-2xl p-[0.5px]"
+                className="bundle-glow-card rounded-2xl p-[0.5px] transition duration-500 hover:-translate-y-1 hover:shadow-xl"
                 style={{ "--spin-c1": accent.spinC1, "--spin-c2": accent.spinC2 } as CSSProperties}
               >
                 {articleEl}
@@ -120,7 +120,7 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
             );
           }
 
-          return <div key={pkg.name}>{articleEl}</div>;
+          return <div key={pkg.name} className="transition duration-500 hover:-translate-y-1 hover:shadow-xl">{articleEl}</div>;
         })}
       </div>
     </section>

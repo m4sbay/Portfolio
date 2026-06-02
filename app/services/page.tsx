@@ -4,6 +4,7 @@ import { ArrowUpRightIcon } from "@/design-system/icons";
 import { perItemRates, bundlePackages, revisiLuarPaket } from "@/data/rate-card";
 import { PerItemRates } from "@/components/services/PerItemRates";
 import { BundlePackages } from "@/components/services/BundlePackages";
+import { ServicesFAQ } from "@/components/services/ServicesFAQ";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -74,6 +75,8 @@ export default function ServicesPage() {
           {formatPrice(revisiLuarPaket)} / konten
         </span>
       </p>
+
+      <ServicesFAQ />
     </div>
   );
 }

@@ -16,4 +16,6 @@ export type StackScrollCard = {
    * Hanya satu kartu di array yang sebaiknya memakai field ini.
    */
   sliderImages?: readonly [HeroImage, HeroImage, HeroImage];
+  /** URL tujuan tombol "Kunjungi" — jika diisi, tombol akan muncul di kartu. */
+  link?: string;
 };

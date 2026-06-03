@@ -21,9 +21,9 @@ const navLinks = [
 export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
+
   const reduceMotion = useReducedMotion();
-  const isActiveLink = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+  const isActiveLink = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -87,10 +87,7 @@ export function Navbar() {
         return;
       }
 
-      const distance = Math.hypot(
-        event.clientX - previous.x,
-        event.clientY - previous.y
-      );
+      const distance = Math.hypot(event.clientX - previous.x, event.clientY - previous.y);
 
       if (distance > 6) {
         markActivity();
@@ -169,12 +166,7 @@ export function Navbar() {
   const glass = (
     <LiquidGlass as="header" scale={20} edgeBlur={10} frostBlur={1.5} tintOpacity={0.14} darkTintOpacity={0.14} borderRadius={24} className="w-full min-w-0 px-4">
       <div className="relative flex h-14 w-full min-w-0 items-center justify-between">
-        <Link
-          href="/"
-          className={`text-sm tracking-tight text-[#171717] dark:text-zinc-50 ${
-            isHome ? "font-semibold opacity-100" : "font-medium opacity-70 hover:opacity-100"
-          }`}
-        >
+        <Link href="/" className={`text-sm tracking-tight text-[#171717] dark:text-zinc-50 ${isHome ? "font-semibold opacity-100" : "font-medium opacity-70 hover:opacity-100"}`}>
           HOME
         </Link>
 
@@ -184,13 +176,7 @@ export function Navbar() {
               const active = isActiveLink(href);
 
               return (
-                <Link
-                  key={href}
-                  className={`tracking-tight text-[#171717] dark:text-zinc-50 ${
-                    active ? "font-semibold opacity-100" : "font-medium opacity-70 hover:opacity-100"
-                  }`}
-                  href={href}
-                >
+                <Link key={href} className={`tracking-tight text-[#171717] dark:text-zinc-50 ${active ? "font-semibold opacity-100" : "font-medium opacity-70 hover:opacity-100"}`} href={href}>
                   {label}
                 </Link>
               );
@@ -203,7 +189,7 @@ export function Navbar() {
           <button
             ref={menuButtonRef}
             className="flex items-center justify-center rounded-lg p-1.5 text-[#171717] opacity-70 hover:opacity-100 dark:text-zinc-50 md:hidden"
-            onClick={() => setMenuOpen((v) => !v)}
+            onClick={() => setMenuOpen(v => !v)}
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
           >
@@ -259,9 +245,7 @@ export function Navbar() {
   return (
     <div
       className={`pointer-events-none sticky top-0 z-50 w-full pt-4 transition-transform duration-700 ${
-        reduceMotion
-          ? ""
-          : "[transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]"
+        reduceMotion ? "" : "[transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]"
       } ${navHidden ? "-translate-y-[calc(100%+1rem)]" : "translate-y-0"}`}
     >
       <div ref={measureRef} className="mx-auto flex w-full max-w-6xl justify-center px-4 sm:px-6 lg:px-8">
@@ -285,9 +269,7 @@ export function Navbar() {
               href={href}
               onClick={() => setMenuOpen(false)}
               className={`whitespace-nowrap rounded-lg px-5 py-3 text-sm tracking-tight hover:bg-zinc-100 hover:text-zinc-950 dark:hover:bg-white/5 dark:hover:text-zinc-50 ${
-                isActiveLink(href)
-                  ? "font-semibold text-zinc-950 dark:text-zinc-50"
-                  : "font-medium text-zinc-600 dark:text-zinc-300"
+                isActiveLink(href) ? "font-semibold text-zinc-950 dark:text-zinc-50" : "font-medium text-zinc-600 dark:text-zinc-300"
               }`}
             >
               {label}

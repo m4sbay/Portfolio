@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-20">
       <section className="space-y-6">
         <div className="space-y-2">
           <AnimatedGreeting />

@@ -3,56 +3,54 @@ import type { HeroImage, StackScrollCard } from "@/types/stack-scroll-card";
 /** Konten highlight — layout bento: satu strip slider + sisanya gambar tunggal */
 export const stackScrollCards: StackScrollCard[] = [
   {
-    title: "Detail yang terasa",
+    title: "Arsipreset",
     description:
-      "Aku peduli pada spacing, hierarki tipografi, dan micro-interaksi halus supaya UI terasa matang, bukan sekadar “jalan”.",
+      "Preset Lightroom untuk fotografer yang ingin konsistensi warna tanpa edit manual. Satu klik, hasil langsung berkarakter.",
     gridClass: "lg:col-span-7",
     heroImage: {
       src: "/profil.png",
-      alt: "Foto profil dan referensi kualitas visual",
+      alt: "Preview preset Lightroom ArsiPreset",
     },
+    link: "/arsipreset",
   },
   {
-    title: "Performa & aksesibilitas",
+    title: "ArsiPernikahan",
     description:
-      "Semantik HTML, kontras warna, dan bundle yang ramping jadi bagian default, bukan tambahan di akhir.",
+      "Template PowerPoint undangan pernikahan — elegan, siap pakai, tinggal isi data. Cocok untuk WO maupun pasangan yang urus sendiri.",
     gridClass: "lg:col-span-5",
     sliderImages: [
       {
         src: "/projects/cover_project_itailwind_hover.png",
-        alt: "Antarmuka proyek dengan state hover",
-        badge: "2.8K",
+        alt: "Preview template undangan pernikahan 1",
       },
       {
         src: "/projects/cover_itailwind.png",
-        alt: "Halaman landing ITailwind",
-        badge: "1.3K",
+        alt: "Preview template undangan pernikahan 2",
       },
       {
         src: "/projects/project_vokasi.png",
-        alt: "Cuplikan visual proyek video",
-        badge: "604",
+        alt: "Preview template undangan pernikahan 3",
       },
     ] satisfies readonly [HeroImage, HeroImage, HeroImage],
   },
   {
-    title: "Kolaborasi terbuka",
+    title: "ArsiFoto",
     description:
-      "Dari eksplorasi desain sampai implementasi di codebase — komunikasi jelas dan iterasi cepat supaya arah produk tetap selaras.",
+      "Jasa editing foto profesional untuk produk, portrait, dan dokumentasi. Hasil bersih, warna konsisten, dan tepat waktu.",
     gridClass: "lg:col-span-6",
     heroImage: {
       src: "/projects/cover_itailwind.png",
-      alt: "Iterasi desain dan kolaborasi produk",
+      alt: "Contoh hasil editing foto ArsiFoto",
     },
   },
   {
-    title: "Konten & motion",
+    title: "ArsiPortofolio",
     description:
-      "Kadang solusinya bukan kode semata: video, motion graphics, dan storytelling visual membantu produk lebih mudah dipahami.",
+      "Template portofolio untuk desainer, kreator, dan profesional yang ingin tampil percaya diri di hadapan klien.",
     gridClass: "lg:col-span-6",
     heroImage: {
       src: "/projects/project_vokasi.png",
-      alt: "Cuplikan motion dan video",
+      alt: "Preview template portofolio ArsiPortofolio",
     },
   },
 ];

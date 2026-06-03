@@ -49,6 +49,64 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   min-height: 100svh;
+  overflow-x: clip;
+}
+
+/* ─── ArsiPreset: reset main background so hero bleeds to viewport top ─────── */
+
+body:has(.ap-page) > main {
+  background: transparent !important;
+}
+
+/* ─── ArsiPreset: FAQ smooth open animation ───────────────────────────────── */
+
+.ap-faq-answer {
+  overflow: hidden;
+}
+
+details[open] .ap-faq-answer {
+  animation: ap-faq-open 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes ap-faq-open {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── ArsiPreset: section backgrounds ─────────────────────────────────────── */
+
+.ap-bg-hero {
+  background:
+    radial-gradient(ellipse 70% 65% at 15% 85%, #c8e8f6 0%, transparent 55%),
+    radial-gradient(ellipse 55% 50% at 85% 10%, #d8eef8 0%, transparent 50%),
+    radial-gradient(ellipse 60% 45% at 50% 50%, #edf6fb 0%, transparent 65%),
+    #f0f8fc;
+}
+
+.dark .ap-bg-hero {
+  background:
+    radial-gradient(ellipse 70% 65% at 15% 85%, #081e2e 0%, transparent 55%),
+    radial-gradient(ellipse 55% 50% at 85% 10%, #0a1828 0%, transparent 50%),
+    #07101a;
+}
+
+.ap-bg-cta {
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 100%, #b8dff0 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 20% 20%, #daeef8 0%, transparent 55%),
+    #e8f5fb;
+}
+
+.dark .ap-bg-cta {
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 100%, #071828 0%, transparent 60%),
+    #050e16;
 }
 
 /* ─── Liquid Glass: fallback non-Chromium — lensing utama hanya blur di sini ─ */

@@ -73,7 +73,9 @@ export function AnimatedGreeting() {
         </LazyMotion>
       </h2>
       <h1 className="text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-5xl">
-        <span className="block">23 year old content creator,</span>
+        <span className="block">
+          23 year old<br className="sm:hidden" /> content creator,
+        </span>
         <span className="block">based in Padang 🇮🇩</span>
       </h1>
     </div>

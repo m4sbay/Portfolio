@@ -1,6 +1,6 @@
 export const site = {
   name: "Masbay",
-  title: "masbay portfolio",
+  title: "Maulana Bayu",
   description: "Portfolio M. Maulana Bayu (Masbay).",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   /**

@@ -242,8 +242,6 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
       <p className="text-center text-[11px] text-zinc-400 dark:text-zinc-600">
         Revisi di luar paket:{" "}
         <span className="text-zinc-600 dark:text-zinc-400">Rp 75.000 / konten</span>
-        {" · "}
-        Semua harga belum termasuk pajak
       </p>
     </section>
   );

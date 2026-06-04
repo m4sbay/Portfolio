@@ -5,29 +5,41 @@ import { useState } from "react";
 
 const FAQ_ITEMS = [
   {
-    q: "Apakah revisi sudah termasuk dalam harga?",
-    a: "Ya, setiap paket sudah mencakup revisi sesuai jumlah yang tertera. Revisi di luar batas tersebut dikenakan biaya tambahan Rp50.000 per konten. Untuk harga satuan, jumlah revisi disepakati saat diskusi brief pertama.",
+    q: "Kontennya termasuk tulisannya juga?",
+    a: "Tergantung kesepakatan. Kalau kamu sediakan brief atau teks, aku desain. Kalau butuh copywriting juga, bisa dibahas di awal.",
   },
   {
-    q: "Berapa lama estimasi pengerjaan per konten?",
-    a: "Feed statis biasanya selesai dalam 1–2 hari kerja. Motion graphic atau reels membutuhkan 3–5 hari kerja. Estimasi final dikonfirmasi setelah brief diterima dan scope disetujui bersama.",
+    q: "Satu revisi itu hitungannya gimana?",
+    a: "Satu kali kirim feedback = satu revisi. Jadi kalau ada 3 hal yang mau diubah, kirim sekaligus, bukan satu-satu.",
   },
   {
-    q: "Format file apa saja yang dikirimkan setelah desain selesai?",
-    a: "File dikirim dalam format sesuai kebutuhan platform — PNG/JPG untuk feed statis, MP4 untuk video/reels, PDF untuk materi cetak. Source file (AI/PSD/Figma) bisa disertakan dengan biaya tambahan yang disepakati di awal.",
+    q: "Kalau bulan ini kontennya tidak terpakai semua, hangus?",
+    a: "Ya, kuota per bulan tidak bisa dipindah ke bulan berikutnya. Makanya penting dari awal kita tentukan jadwal konten yang realistis.",
   },
   {
-    q: "Apakah harga bisa disesuaikan untuk kerja sama jangka panjang?",
-    a: "Bisa. Untuk kolaborasi rutin atau retainer bulanan, ada penyesuaian harga yang lebih fleksibel. Ceritakan kebutuhan dan frekuensi kontenmu — kita susun paket yang lebih cocok dan efisien bersama.",
+    q: "Priority turnaround itu artinya berapa hari?",
+    a: "Paket SeriusBay dapat pengerjaan 1x24 jam per konten. Paket lain estimasi 2x24 jam, tergantung antrian.",
   },
   {
-    q: "Bagaimana cara mulai dan apa yang perlu disiapkan?",
-    a: "Kirim pesan via Instagram atau WhatsApp. Siapkan gambaran umum — jenis konten, deadline, referensi visual, dan informasi brand dasar. Dari situ kita diskusikan scope, timeline, dan harga sebelum pengerjaan dimulai.",
+    q: "Strategy consultation call-nya gimana formatnya?",
+    a: "Via Google Meet atau Zoom, durasi 30 menit. Bisa dipakai untuk bahas arah konten, evaluasi bulanan, atau planning campaign.",
+  },
+  {
+    q: "Mau upgrade paket di tengah bulan, bisa?",
+    a: "Bisa. Selisih harganya dihitung proporsional dari sisa hari di bulan itu.",
+  },
+  {
+    q: "File finalnya dalam format apa?",
+    a: "Semua paket dapat file siap posting (JPG/PNG/MP4). Master file Figma, PSD, atau AI hanya tersedia di paket SeriusBay.",
+  },
+  {
+    q: "Brief kontennya dari siapa?",
+    a: "Dari kamu. Aku butuh info minimal: tema bulan ini, momen penting, dan produk/program yang mau ditonjolkan. Tanpa brief, pengerjaan tidak bisa mulai.",
   },
 ];
 
 export function ServicesFAQ() {
-  const [active, setActive] = useState<number | null>(null);
+  const [active, setActive] = useState<number | null>(0);
 
   return (
     <section aria-labelledby="faq-title" className="space-y-6">

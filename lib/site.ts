@@ -12,6 +12,7 @@ export const site = {
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
   social: {
     instagram: "https://www.instagram.com/m4sbay",
+    whatsapp: "https://wa.me/6281273474170",
     github:
       process.env.NEXT_PUBLIC_GITHUB_URL ?? "https://github.com/m4sbay",
     linkedin: "https://www.linkedin.com/in/mmaulanabayu/",

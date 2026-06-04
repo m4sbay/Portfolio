@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
 import { ArrowUpRightIcon } from "@/design-system/icons";
-import { perItemRates, bundlePackages, revisiLuarPaket } from "@/data/rate-card";
+import { perItemRates, bundlePackages } from "@/data/rate-card";
 import { PerItemRates } from "@/components/services/PerItemRates";
 import { BundlePackages } from "@/components/services/BundlePackages";
 import { ServicesFAQ } from "@/components/services/ServicesFAQ";
@@ -22,13 +22,7 @@ export const metadata: Metadata = {
   },
 };
 
-function formatPrice(price: number): string {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    maximumFractionDigits: 0,
-  }).format(price);
-}
+
 
 export default function ServicesPage() {
   return (
@@ -69,13 +63,6 @@ export default function ServicesPage() {
       />
 
       <BundlePackages packages={bundlePackages} />
-
-      <p className="text-center text-sm text-zinc-500 dark:text-zinc-400">
-        Revisi di luar paket:{" "}
-        <span className="font-semibold text-zinc-950 dark:text-zinc-50">
-          {formatPrice(revisiLuarPaket)} / konten
-        </span>
-      </p>
 
       <ServicesFAQ />
 

@@ -8,7 +8,6 @@ import { IntroWidget } from "@/components/home/widgets/IntroWidget";
 import { StackWidget } from "@/components/home/widgets/StackWidget";
 import { NowWidget } from "@/components/home/widgets/LastProjectWidget";
 import { PhotoWidget } from "@/components/home/widgets/PhotoWidget";
-import { MacFolderWidget } from "@/components/home/widgets/MacFolderWidget";
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -78,14 +77,7 @@ export function HeroWidgets({ projects }: { projects: Project[] }) {
         pos: { x: 520, y: 180 },
         content: <PhotoWidget />,
       },
-      {
-        id: "folder",
-        pos: { x: 44, y: 288 },
-        content: <MacFolderWidget />,
-        shellClassName:
-          "widget-drag-smooth select-none rounded-none border-0 bg-transparent p-0 shadow-none backdrop-blur-0",
-        requireDoubleClickToDrag: false,
-      },
+
     ];
     return base;
   }, [nowProject]);

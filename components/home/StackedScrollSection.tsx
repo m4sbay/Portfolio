@@ -73,8 +73,8 @@ export function StackedScrollSection({ cards = stackScrollCards }: { cards?: Sta
     <section aria-label="Nilai dan cara kerja" className="w-full bg-background">
       <div className="space-y-4">
         <header className="space-y-1">
-          <h2 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">Produk yang aku bangun sendiri</h2>
-          <p className="text-base text-zinc-600 dark:text-zinc-500">Empat bisnis kecil yang lahir dari kebutuhan nyata.</p>
+          <h2 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">Produk yang <br className="sm:hidden" /> aku bangun sendiri</h2>
+          <p className="text-base text-zinc-600 dark:text-zinc-500">I am the CEO of my own small business.</p>
         </header>
         <ul className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
           {cards.map(c => {

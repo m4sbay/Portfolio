@@ -29,9 +29,9 @@ type Pack = {
 const packs: Pack[] = [
   {
     id: "AR2020",
-    name: "Analog Grain",
+    name: "Arsip Preset 2020",
     desc: "Film grain klasik, highlight sedikit tergerus, shadow hangat. Cocok untuk foto jalanan dan portrait candid.",
-    price: "Rp 49.000",
+    price: "Rp 35.000",
     presets: 12,
     tag: "Film · Grain · Retro",
     accentHex: "#c49a60",
@@ -40,9 +40,9 @@ const packs: Pack[] = [
   },
   {
     id: "AR2021",
-    name: "Moody Pacific",
+    name: "Arsip Preset 2021",
     desc: "Shadow dalam, teal di highlight, kontras sinematik. Cocok untuk foto travel, landscape, dan fashion.",
-    price: "Rp 59.000",
+    price: "Rp 35.000",
     presets: 15,
     tag: "Cinematic · Teal · Dark",
     accentHex: ACCENT,
@@ -52,9 +52,9 @@ const packs: Pack[] = [
   },
   {
     id: "AR2022",
-    name: "Darkroom Warm",
+    name: "Arsip Preset 2022",
     desc: "Midtone hangat, black pekat, highlight elegan. Preset editorial paling matang dari seluruh seri Arsi.",
-    price: "Rp 69.000",
+    price: "Rp 35.000",
     presets: 18,
     tag: "Editorial · Warm · Premium",
     accentHex: "#d4826a",
@@ -71,14 +71,14 @@ export default function ArsiPresetPage() {
       <section id="hero" className="ap-bg-hero w-screen min-h-svh flex flex-col items-center justify-center overflow-hidden">
         {/* pt-[4.5rem] mendorong konten ke bawah navbar (navbar height = 4.5rem) */}
         <div className="flex flex-col items-center text-center w-full max-w-screen-lg mx-auto px-6 gap-4 pb-6 pt-[4.5rem]">
-          <div className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs text-zinc-600 dark:text-zinc-300 ${glass}`}>
+          <div className={`inline-flex items-center gap-2 rounded-md px-3 py-1 text-xs text-zinc-600 dark:text-zinc-300 ${glass}`}>
             <span className="h-1.5 w-1.5 rounded-full" style={{ background: ACCENT }} />
             Lightroom Preset Collection
           </div>
 
           <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
-            Warna Yang Terasa. <br className="hidden sm:block" />
-            <span style={{ color: ACCENT }}>Bukan Sekadar Filter.</span>
+            Warnai Instagram Kamu <br className="hidden sm:block" />
+            <span style={{ color: ACCENT }}>Dengan Arsipreset</span>
           </h1>
 
           <p className="flex flex-col text-base font-medium leading-relaxed text-zinc-600 dark:text-zinc-400">
@@ -102,7 +102,7 @@ export default function ArsiPresetPage() {
         <div className="w-full max-w-screen-lg mx-auto px-6 flex flex-col gap-8">
           <div className="text-center">
             <p className="mb-1.5 text-xs font-semibold tracking-widest uppercase text-zinc-400 dark:text-zinc-500">Koleksi</p>
-            <h2 className="text-3xl font-semibold tracking-tight">Tiga generasi, satu estetika.</h2>
+            <h2 className="text-3xl font-semibold tracking-tight">Sat Set, Sat Set, Langsung Jadi Aesthetic</h2>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
@@ -168,7 +168,7 @@ export default function ArsiPresetPage() {
               <p className="mb-1.5 text-xs font-semibold tracking-widest uppercase text-zinc-400 dark:text-zinc-500">
                 FAQ
               </p>
-              <h2 className="text-2xl font-semibold tracking-tight">Pertanyaan yang sering ditanya.</h2>
+              <h2 className="text-2xl font-semibold tracking-tight">Pertanyaan paling sering.</h2>
               <p className="mt-1.5 text-sm text-zinc-500 dark:text-zinc-400">
                 Kalau belum terjawab, DM langsung di Instagram.
               </p>
@@ -208,8 +208,6 @@ export default function ArsiPresetPage() {
           <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8">
             {[
               { label: "Instagram", href: "https://instagram.com/arsipreset" },
-              { label: "Tokopedia", href: "#" },
-              { label: "Shopee", href: "#" },
             ].map(({ label, href }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors">
                 {label}

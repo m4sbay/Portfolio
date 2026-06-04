@@ -164,7 +164,7 @@ export function TechMarquee() {
         <h2 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
           Tools &amp; Stack
         </h2>
-        <p className="text-base text-zinc-600 dark:text-zinc-300">
+        <p className="text-base text-zinc-600 dark:text-zinc-500">
           Teknologi yang aku pakai sehari-hari.
         </p>
       </div>

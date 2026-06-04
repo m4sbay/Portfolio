@@ -32,12 +32,11 @@ export default function Home() {
           <AnimatedGreeting />
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <div className="inline-flex items-center gap-2 rounded-md border border-zinc-200 bg-white px-3 py-1 text-xs text-zinc-600 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-zinc-300">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
             Available for collaborations
           </div>
-          <div className="text-xs text-zinc-500 dark:text-zinc-400">Drag widgets (desktop)</div>
         </div>
 
         <HeroWidgetsClient projects={projects} />

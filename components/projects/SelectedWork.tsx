@@ -28,15 +28,17 @@ export function SelectedWork({ projects }: SelectedWorkProps) {
 
   return (
     <LazyMotion features={domAnimation}>
-      <section id="work" className="scroll-mt-24 space-y-5">
+      <section id="work" className="scroll-mt-24 space-y-8">
         {/* Header row */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div className="space-y-1">
+          <div className="flex w-full items-end justify-between gap-4">
             <h2 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
-              Selected work
+              Selected <span className="block sm:inline"> Project,</span>{" "}
+              <span className="block sm:inline">Work</span>
             </h2>
-            <p className="text-base text-zinc-600 dark:text-zinc-300">
-              Beberapa project terbaru yang lagi aku bangun dan eksplor.
+            <p className="w-fit text-right text-base text-zinc-600 dark:text-zinc-500">
+              <span className="block sm:inline">Beberapa project yang lagi</span>{" "}
+              <span className="block sm:inline">aku bangun dan eksplor.</span>
             </p>
           </div>
         </div>

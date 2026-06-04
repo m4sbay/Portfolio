@@ -54,12 +54,12 @@ export function FaqItem({ q, a, glass, open, onToggle }: FaqItemProps) {
 
 const FAQ_ITEMS = [
   {
-    q: "Pembayaran bisa pakai apa saja?",
+    q: "Pembayarannya bisa pake apa aja?",
     a: "QRIS, transfer bank (BCA, Mandiri, BRI, BNI), GoPay, OVO, Dana, dan ShopeePay.",
   },
   {
     q: "Preset dikirim lewat mana?",
-    a: "File .xmp/.dng dikirim via chat Tokopedia/Shopee setelah pembayaran. Biasanya 1×24 jam.",
+    a: "File .dng dikirim via link Google Drive setelah pembayaran selesai.",
   },
   {
     q: "Compatible Lightroom versi apa?",
@@ -75,7 +75,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Ada refund kalau tidak cocok?",
-    a: "Tidak ada refund untuk file digital. Lihat preview dulu sebelum beli.",
+    a: "Tidak ada refund untuk file digital. Lihat preview di katalog dulu sebelum beli.",
   },
 ];
 

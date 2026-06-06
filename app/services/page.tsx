@@ -33,7 +33,7 @@ export default function ServicesPage() {
             Rate card
           </p>
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-3xl">
-            Harga desain untuk mulai kerja bareng
+            Harga Desain Untuk Kerja Bareng
           </h1>
           <p className="text-sm leading-7 text-zinc-600 dark:text-zinc-300">
             Pilih paket yang paling dekat dengan kebutuhanmu. Scope final tetap bisa disesuaikan setelah brief dibahas.

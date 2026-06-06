@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
-import { LiquidGlass } from "@/components/liquid-glass/LiquidGlass";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { GlassSurface } from "@/components/ui/GlassSurface";
 
 /** Jarak scroll (px): 0 = lebar besar, sampai ini = kolom penuh */
 const NAVBAR_SCROLL_EXPAND_PX = 140;
@@ -18,6 +18,9 @@ const navLinks = [
   { href: "/services", label: "SERVICES" },
 ];
 
+const navTextClass =
+  "relative z-[2] text-[#171717] [text-shadow:0_1px_1px_rgba(255,255,255,0.72)] dark:text-zinc-50 dark:[text-shadow:0_1px_2px_rgba(0,0,0,0.72)]";
+
 export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -28,17 +31,20 @@ export function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
-  const lastActivityRef = useRef(Date.now());
+  const lastActivityRef = useRef(0);
   const lastPointerRef = useRef<{ x: number; y: number } | null>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menuPanelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    queueMicrotask(() => setMounted(true));
+    queueMicrotask(() => {
+      lastActivityRef.current = Date.now();
+      setMounted(true);
+    });
   }, []);
 
   useEffect(() => {
-    setMenuOpen(false);
+    queueMicrotask(() => setMenuOpen(false));
   }, [pathname]);
 
   useEffect(() => {
@@ -67,7 +73,7 @@ export function Navbar() {
 
   useEffect(() => {
     if (!mounted || menuOpen) {
-      setNavHidden(false);
+      queueMicrotask(() => setNavHidden(false));
       return;
     }
 
@@ -163,59 +169,74 @@ export function Navbar() {
     };
   }, [scrollWide, reduceMotion]);
 
-  const glass = (
-    <LiquidGlass as="header" scale={20} edgeBlur={10} frostBlur={1.5} tintOpacity={0.14} darkTintOpacity={0.14} borderRadius={24} className="w-full min-w-0 px-4">
-      <div className="relative flex h-14 w-full min-w-0 items-center justify-between">
-        <Link href="/" className={`text-sm tracking-tight text-[#171717] dark:text-zinc-50 ${isHome ? "font-semibold opacity-100" : "font-medium opacity-70 hover:opacity-100"}`}>
-          HOME
-        </Link>
+  const navbarContent = (
+    <header className="relative h-14 w-full min-w-0 overflow-hidden rounded-2xl">
+      <GlassSurface
+        width="100%"
+        height="100%"
+        borderRadius={16}
+        distortionScale={-120}
+        brightness={55}
+        blur={10}
+        backgroundOpacity={0.08}
+        saturation={1.2}
+        redOffset={0}
+        greenOffset={8}
+        blueOffset={18}
+        mixBlendMode="normal"
+        className="pointer-events-auto"
+      >
+        <div className="relative z-20 flex h-full w-full min-w-0 items-center justify-between px-4">
+          <Link href="/" className={`${navTextClass} text-sm tracking-tight ${isHome ? "font-semibold opacity-100" : "font-medium opacity-70 hover:opacity-100"}`}>
+            HOME
+          </Link>
 
-        <div className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-full max-w-3xl -translate-x-1/2 px-4 sm:px-6 lg:px-8 md:flex md:items-center">
-          <nav className="pointer-events-auto flex items-center gap-10 text-sm">
-            {navLinks.map(({ href, label }) => {
-              const active = isActiveLink(href);
+          <div className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-full max-w-3xl -translate-x-1/2 px-4 sm:px-6 lg:px-8 md:flex md:items-center">
+            <nav className="pointer-events-auto flex items-center gap-10 text-sm">
+              {navLinks.map(({ href, label }) => {
+                const active = isActiveLink(href);
 
-              return (
-                <Link key={href} className={`tracking-tight text-[#171717] dark:text-zinc-50 ${active ? "font-semibold opacity-100" : "font-medium opacity-70 hover:opacity-100"}`} href={href}>
-                  {label}
-                </Link>
-              );
-            })}
-          </nav>
-        </div>
+                return (
+                  <Link key={href} className={`${navTextClass} tracking-tight ${active ? "font-semibold opacity-100" : "font-medium opacity-70 hover:opacity-100"}`} href={href}>
+                    {label}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
 
-        <div className="flex shrink-0 items-center gap-3 text-sm">
-          <ThemeToggle />
-          <button
-            ref={menuButtonRef}
-            className="flex items-center justify-center rounded-lg p-1.5 text-[#171717] opacity-70 hover:opacity-100 dark:text-zinc-50 md:hidden"
-            onClick={() => setMenuOpen(v => !v)}
-            aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
-            <span className="relative block h-5 w-5">
-              {/* Hamburger icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="absolute inset-0 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
-                style={{
-                  opacity: menuOpen ? 0 : 1,
-                  transform: menuOpen ? "rotate(90deg) scale(0.7)" : "rotate(0deg) scale(1)",
-                }}
-              >
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-              {/* Close (X) icon */}
+          <div className="flex shrink-0 items-center gap-3 text-sm">
+            <ThemeToggle />
+            <button
+              ref={menuButtonRef}
+              className={`${navTextClass} flex items-center justify-center rounded-lg p-1.5 opacity-70 hover:opacity-100 md:hidden`}
+              onClick={() => setMenuOpen(v => !v)}
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+            >
+              <span className="relative block h-5 w-5">
+                {/* Hamburger icon */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="absolute inset-0 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+                  style={{
+                    opacity: menuOpen ? 0 : 1,
+                    transform: menuOpen ? "rotate(90deg) scale(0.7)" : "rotate(0deg) scale(1)",
+                  }}
+                >
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+                {/* Close (X) icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -239,7 +260,8 @@ export function Navbar() {
           </button>
         </div>
       </div>
-    </LiquidGlass>
+      </GlassSurface>
+    </header>
   );
 
   return (
@@ -251,10 +273,10 @@ export function Navbar() {
       <div ref={measureRef} className="mx-auto flex w-full max-w-6xl justify-center px-4 sm:px-6 lg:px-8">
         {scrollWide ? (
           <div ref={widthRef} className="pointer-events-auto min-w-0 max-w-full shrink-0">
-            {glass}
+            {navbarContent}
           </div>
         ) : (
-          <div className="pointer-events-auto min-w-0 w-full">{glass}</div>
+          <div className="pointer-events-auto min-w-0 w-full">{navbarContent}</div>
         )}
       </div>
 

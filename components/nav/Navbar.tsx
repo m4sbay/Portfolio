@@ -19,7 +19,7 @@ const navLinks = [
 ];
 
 const navTextClass =
-  "relative z-[2] text-[#171717] [text-shadow:0_1px_1px_rgba(255,255,255,0.72)] dark:text-zinc-50 dark:[text-shadow:0_1px_2px_rgba(0,0,0,0.72)]";
+  "relative z-[2] text-[#171717] dark:text-zinc-50 ";
 
 export function Navbar() {
   const pathname = usePathname();

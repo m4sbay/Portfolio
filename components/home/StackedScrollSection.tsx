@@ -22,6 +22,8 @@ const imageHoverClass = "object-cover transition-transform duration-300 ease-out
 /** Gambar dalam strip kolase tidak di-scale agar pergeseran tetap bersih. */
 const collagePanelImageClass = "object-cover";
 
+const eagerHomeImageSrc = "/projects/cover_itailwind.png";
+
 function HeartIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden className={className} fill="currentColor">
@@ -33,7 +35,7 @@ function HeartIcon({ className }: { className?: string }) {
 function BentoSingleImage({ image }: { image: HeroImage }) {
   return (
     <div className={visualWrapClass}>
-      <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 520px" className={imageHoverClass} />
+      <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 520px" className={imageHoverClass} loading={image.src === eagerHomeImageSrc ? "eager" : "lazy"} />
       <div
         className="pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-950/10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:opacity-0 dark:from-zinc-950/35"
         aria-hidden
@@ -48,7 +50,7 @@ function BentoHoverSlider({ images }: { images: readonly [HeroImage, HeroImage, 
       <div className="bento-collage-track flex h-full gap-2 p-2">
         {images.map((img, i) => (
           <div key={`${img.src}-${i}`} className="relative h-full flex-1 overflow-hidden rounded-2xl bg-white/40 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10">
-            <Image src={img.src} alt={img.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 400px" className={collagePanelImageClass} draggable={false} />
+            <Image src={img.src} alt={img.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 400px" className={collagePanelImageClass} draggable={false} loading={img.src === eagerHomeImageSrc ? "eager" : "lazy"} />
             {img.badge ? (
               <div className="pointer-events-none absolute right-2 top-2 rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-medium text-zinc-900 shadow-sm backdrop-blur dark:bg-zinc-950/55 dark:text-zinc-50">
                 <span className="inline-flex items-center gap-1">
@@ -72,9 +74,9 @@ export function StackedScrollSection({ cards = stackScrollCards }: { cards?: Sta
   return (
     <section aria-label="Nilai dan cara kerja" className="w-full bg-background">
       <div className="space-y-4">
-        <header className="space-y-1">
-          <h2 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">Produk yang <br className="sm:hidden" /> aku bangun sendiri</h2>
-          <p className="text-base text-zinc-600 dark:text-zinc-500">I am the CEO of my own small business.</p>
+        <header className="space-y-1 text-center sm:text-left">
+          <h2 className="text-[36px] font-bold tracking-tight leading-10 text-zinc-950 dark:text-zinc-50">Produk Yang Aku <br className="sm:hidden" /> Bangun Sendiri</h2>
+          <p className="text-base text-zinc-600 dark:text-zinc-500">Yuk, liat apa aja yang ada </p>
         </header>
         <ul className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
           {cards.map(c => {
@@ -90,7 +92,7 @@ export function StackedScrollSection({ cards = stackScrollCards }: { cards?: Sta
                   {c.link ? (
                     <div className="flex items-end justify-between gap-4">
                       <p className="max-w-[60%] text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">{c.description}</p>
-                      <Link href={c.link} className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-zinc-950 px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-80 dark:bg-zinc-50 dark:text-zinc-950">
+                      <Link href={c.link} className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-[#001E36] px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-80 dark:bg-zinc-50 dark:text-zinc-950">
                         Kunjungi
                         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                           <path d="M7 7h10v10" />

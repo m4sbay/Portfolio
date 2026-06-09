@@ -1,79 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { testimonials } from "@/data/testimonials";
 
-const testimonials = [
-  {
-    id: 1,
-    name: "Andi Pratama",
-    role: "Content Creator",
-    quote: "Konten aku jauh lebih konsisten dan engagement-nya naik drastis. Highly recommended!",
-    image: "/pptestimoni1.png",
-  },
-  {
-    id: 2,
-    name: "Sari Dewi",
-    role: "Digital Marketer",
-    quote: "Fitur auto-posting-nya bikin kerjaan aku lebih efisien. Nggak perlu upload manual lagi.",
-    image: "/pptestimoni2.png",
-  },
-  {
-    id: 3,
-    name: "Budi Santoso",
-    role: "Pemilik UMKM",
-    quote: "Bisnis aku jadi keliatan lebih profesional di sosmed. Pelanggan makin percaya.",
-    image: "/pptestimoni3.png",
-  },
-  {
-    id: 4,
-    name: "Rini Kusuma",
-    role: "Social Media Manager",
-    quote: "Kelola lima akun klien sekaligus jadi jauh lebih gampang. Klien puas semua.",
-    image: "/pptestimoni4.png",
-  },
-  {
-    id: 5,
-    name: "Dian Purnama",
-    role: "Fotografer",
-    quote: "Portfolio aku jadi lebih rapi. Banyak inquiry masuk lewat feed yang sudah tertata.",
-    image: "/pptestimoni5.png",
-  },
-  {
-    id: 6,
-    name: "Fajar Nugroho",
-    role: "Founder Startup",
-    quote: "Kami bisa gerak cepat tanpa perlu rekrut tim konten yang besar.",
-    image: "/pptestimoni6.png",
-  },
-  {
-    id: 7,
-    name: "Maya Indira",
-    role: "Brand Strategist",
-    quote: "Konsistensi visual brand klien terjaga. Analitiknya bantu aku ambil keputusan lebih tajam.",
-    image: "/pptestimoni7.png",
-  },
-  {
-    id: 8,
-    name: "Hendra Wijaya",
-    role: "Video Editor",
-    quote: "Distribusi konten video ke berbagai platform sekarang tinggal satu klik.",
-    image: "/pptestimoni8.png",
-  },
-  {
-    id: 9,
-    name: "Lestari Ningrum",
-    role: "Graphic Designer",
-    quote: "Klien bisa langsung approve dan langsung terjadwal posting-nya. Workflow jadi smooth.",
-    image: "/pptestimoni9.png",
-  },
-  {
-    id: 10,
-    name: "Rizky Aditya",
-    role: "Event Organizer",
-    quote: "Promosi event kami menjangkau audiens yang tepat. Tiket habis lebih cepat dari target.",
-    image: "/pptestimoni10.png",
-  },
-];
+
 
 // 3 columns — cards within each column consistently spaced,
 // but each column starts at a different vertical offset (berantakan antar kolom)
@@ -169,12 +99,12 @@ function FloatColumn({ indices, dur, delay }: (typeof COLUMNS)[number]) {
 export function TestimonialsFloat() {
   return (
     <section aria-labelledby="testimonials-float-title" className="space-y-6">
-      <div className="space-y-1">
+      <div className="space-y-1 text-center sm:text-left">
         <h2
-          id="testimonials-float-title"
-          className="text-xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50"
+         
+          className="text-[36px] font-bold tracking-tight leading-10 text-zinc-950 dark:text-zinc-50"
         >
-          Kata mereka yang pernah kerja sama
+          Kata Mereka Yang Pernah Kerja Sama
         </h2>
         <p className="text-sm text-zinc-500 dark:text-zinc-400">
           Dari klien freelance, pembeli template, sampai sesama kreator yang pernah berkolaborasi.

@@ -8,7 +8,7 @@ export const stackScrollCards: StackScrollCard[] = [
       "Preset Lightroom untuk fotografer yang ingin konsistensi warna tanpa edit manual. Satu klik, hasil langsung berkarakter.",
     gridClass: "lg:col-span-7",
     heroImage: {
-      src: "/profil.png",
+      src: "/Arsipreset_card_home_11.jpg",
       alt: "Preview preset Lightroom ArsiPreset",
     },
     link: "/arsipreset",

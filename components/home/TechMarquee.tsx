@@ -160,8 +160,8 @@ export function TechMarquee() {
       className="space-y-4"
     >
       {/* Section header */}
-      <div className="space-y-1">
-        <h2 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+      <div className="space-y-1 text-center sm:text-left">
+        <h2 className="text-[36px] font-bold tracking-tight leading-10 text-zinc-950 dark:text-zinc-50">
           Tools &amp; Stack
         </h2>
         <p className="text-base text-zinc-600 dark:text-zinc-500">

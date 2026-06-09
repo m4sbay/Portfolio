@@ -1,92 +1,11 @@
 "use client";
 
 import { useState } from "react";
-
-const testimonials = [
-  {
-    id: 1,
-    name: "Andi Pratama",
-    role: "Content Creator",
-    quote:
-      "Sejak pakai tools ini, konten aku jauh lebih konsisten dan engagement-nya naik drastis. Highly recommended!",
-    image: "/pptestimoni1.png",
-  },
-  {
-    id: 2,
-    name: "Sari Dewi",
-    role: "Digital Marketer",
-    quote:
-      "Fitur auto-posting-nya bikin kerjaan aku lebih efisien. Nggak perlu lagi upload manual ke tiap platform.",
-    image: "/pptestimoni2.png",
-  },
-  {
-    id: 3,
-    name: "Budi Santoso",
-    role: "Pemilik UMKM",
-    quote:
-      "Bisnis kecil aku jadi keliatan lebih profesional di media sosial. Pelanggan makin percaya dan order terus naik.",
-    image: "/pptestimoni3.png",
-  },
-  {
-    id: 4,
-    name: "Rini Kusuma",
-    role: "Social Media Manager",
-    quote:
-      "Kelola lima akun klien sekaligus jadi jauh lebih gampang. Laporan performa-nya juga detail banget, klien puas semua.",
-    image: "/pptestimoni4.png",
-  },
-  {
-    id: 5,
-    name: "Dian Purnama",
-    role: "Fotografer",
-    quote:
-      "Portfolio aku jadi lebih rapi dan mudah diakses klien. Banyak inquiry masuk lewat feed yang sudah tertata.",
-    image: "/pptestimoni5.png",
-  },
-  {
-    id: 6,
-    name: "Fajar Nugroho",
-    role: "Founder Startup",
-    quote:
-      "Kami bisa gerak cepat tanpa perlu rekrut tim konten yang besar. Satu orang bisa handle semua channel dengan lancar.",
-    image: "/pptestimoni6.png",
-  },
-  {
-    id: 7,
-    name: "Maya Indira",
-    role: "Brand Strategist",
-    quote:
-      "Konsistensi visual brand klien aku terjaga dengan baik. Analitiknya membantu aku ambil keputusan strategi yang lebih tajam.",
-    image: "/pptestimoni7.png",
-  },
-  {
-    id: 8,
-    name: "Hendra Wijaya",
-    role: "Video Editor",
-    quote:
-      "Distribusi konten video ke berbagai platform sekarang tinggal satu klik. Hemat waktu berjam-jam setiap minggunya.",
-    image: "/pptestimoni8.png",
-  },
-  {
-    id: 9,
-    name: "Lestari Ningrum",
-    role: "Graphic Designer",
-    quote:
-      "Klien aku bisa langsung approve desain dan langsung terjadwal posting-nya. Workflow jadi jauh lebih smooth.",
-    image: "/pptestimoni9.png",
-  },
-  {
-    id: 10,
-    name: "Rizky Aditya",
-    role: "Event Organizer",
-    quote:
-      "Promosi event kami bisa menjangkau audiens yang tepat. Tiket terjual habis lebih cepat dari target awal.",
-    image: "/pptestimoni10.png",
-  },
-];
+import { testimonials } from "@/data/testimonials";
 
 const row1 = testimonials.slice(0, 5);
 const row2 = testimonials.slice(5, 10);
+
 
 function Avatar({ name, image }: { name: string; image: string }) {
   const [errored, setErrored] = useState(false);
@@ -177,12 +96,12 @@ function MarqueeRow({
 export function TestimonialsMarquee() {
   return (
     <section aria-labelledby="testimonials-title" className="space-y-4">
-      <header className="space-y-1">
+      <header className="space-y-1 text-center sm:text-left">
         <h2
           id="testimonials-title"
-          className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50"
+          className="text-[36px] font-bold tracking-tight leading-10 text-zinc-950 dark:text-zinc-50"
         >
-          Kata mereka yang pernah kerja sama
+          Kata Mereka Yang Pernah Kerja Sama
         </h2>
         <p className="text-base text-zinc-600 dark:text-zinc-500">
           Dari klien freelance, pembeli template, sampai sesama kreator yang pernah berkolaborasi.

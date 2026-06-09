@@ -8,7 +8,7 @@ export function IntroWidget() {
         alt="Masbay Profile"
         width={80}
         height={80}
-        className="rounded-md object-cover"
+        className="shrink-0 rounded-md object-cover"
         draggable={false}
       />
       <div className="space-y-2">

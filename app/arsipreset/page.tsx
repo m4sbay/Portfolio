@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FaqList } from "@/components/arsipreset/FaqItem";
+import { ArrowRightIcon } from "@/design-system/icons";
 
 export const metadata: Metadata = {
   title: "ArsiPreset — Preset Lightroom Editorial",
@@ -89,9 +90,7 @@ export default function ArsiPresetPage() {
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <a href="#packs" className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-85" style={{ background: ACCENT }}>
               Lihat Preset Pack
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+              <ArrowRightIcon className="h-[13px] w-[13px]" />
             </a>
           </div>
         </div>
@@ -191,9 +190,7 @@ export default function ArsiPresetPage() {
           <p className="text-sm text-zinc-500 dark:text-zinc-400">Compatible dengan Lightroom Classic, CC, dan Mobile.</p>
           <a href="#packs" className="mt-2 inline-flex items-center gap-2 rounded-full px-7 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-85" style={{ background: ACCENT }}>
             Lihat semua pack
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <ArrowRightIcon className="h-[13px] w-[13px]" />
           </a>
         </div>
       </section>

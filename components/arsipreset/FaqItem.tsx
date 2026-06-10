@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PlusIcon } from "@/design-system/icons";
 
 interface FaqItemProps {
   q: string;
@@ -22,19 +23,10 @@ export function FaqItem({ q, a, glass, open, onToggle }: FaqItemProps) {
         <span className="text-sm font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
           {q}
         </span>
-        <svg
+        <PlusIcon
           className="w-4 h-4 shrink-0 text-zinc-400 transition-transform duration-300 ease-in-out"
           style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden
-        >
-          <path d="M12 5v14M5 12h14" />
-        </svg>
+        />
       </div>
 
       <div

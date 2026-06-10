@@ -8,6 +8,7 @@ import { StackedScrollSection } from "@/components/home/StackedScrollSection";
 import { AnimatedGreeting } from "@/components/home/AnimatedGreeting";
 import { SelectedWork } from "@/components/projects/SelectedWork";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
+import { ArrowRightIcon } from "@/design-system/icons";
 
 export const metadata: Metadata = {
   title: site.title,
@@ -56,10 +57,7 @@ export default function Home() {
           className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-80 dark:bg-zinc-50 dark:text-zinc-950"
         >
           Mulai kerja sama
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14" />
-            <path d="m12 5 7 7-7 7" />
-          </svg>
+          <ArrowRightIcon className="h-3.5 w-3.5" />
         </Link>
       </div>
     </div>

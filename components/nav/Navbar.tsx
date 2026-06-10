@@ -6,6 +6,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { GlassSurface } from "@/components/ui/GlassSurface";
+import { MenuIcon, XIcon } from "@/design-system/icons";
 
 /** Jarak scroll (px): 0 = lebar besar, sampai ini = kolom penuh */
 const NAVBAR_SCROLL_EXPAND_PX = 140;
@@ -184,7 +185,7 @@ export function Navbar() {
         greenOffset={8}
         blueOffset={18}
         mixBlendMode="normal"
-        className="pointer-events-auto"
+        className="navbar-glass pointer-events-auto"
       >
         <div className="relative z-20 flex h-full w-full min-w-0 items-center justify-between px-4">
           <Link href="/" className={`${navTextClass} text-sm tracking-tight ${isHome ? "font-semibold opacity-100" : "font-medium opacity-70 hover:opacity-100"}`}>
@@ -215,48 +216,21 @@ export function Navbar() {
               aria-expanded={menuOpen}
             >
               <span className="relative block h-5 w-5">
-                {/* Hamburger icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                <MenuIcon
                   className="absolute inset-0 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
                   style={{
                     opacity: menuOpen ? 0 : 1,
                     transform: menuOpen ? "rotate(90deg) scale(0.7)" : "rotate(0deg) scale(1)",
                   }}
-                >
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
-                {/* Close (X) icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="absolute inset-0 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
-                style={{
-                  opacity: menuOpen ? 1 : 0,
-                  transform: menuOpen ? "rotate(0deg) scale(1)" : "rotate(-90deg) scale(0.7)",
-                }}
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </span>
+                />
+                <XIcon
+                  className="absolute inset-0 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+                  style={{
+                    opacity: menuOpen ? 1 : 0,
+                    transform: menuOpen ? "rotate(0deg) scale(1)" : "rotate(-90deg) scale(0.7)",
+                  }}
+                />
+              </span>
           </button>
         </div>
       </div>

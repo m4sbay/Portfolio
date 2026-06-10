@@ -3,46 +3,7 @@
 import { useEffect, useState } from "react";
 import { LazyMotion, domAnimation, m, useReducedMotion } from "framer-motion";
 import { useTheme } from "next-themes";
-
-/** Matahari — pusat + sinar, stroke seragam dengan MoonIcon */
-function SunIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-      {...props}
-    >
-      <circle cx="12" cy="12" r="3.75" />
-      <path d="M12 2.25v2M12 19.75v2M4.25 12h2M17.75 12h2M6.34 6.34l1.41 1.41M16.24 16.24l1.42 1.42M17.66 6.34l-1.41 1.41M7.76 16.24l-1.42 1.42" />
-    </svg>
-  );
-}
-
-/**
- * Bulan sabit (satu path, beda dari varian “bulan + highlight”) —
- * stroke sama dengan SunIcon supaya serasi di dalam lingkaran tombol.
- */
-function MoonIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-      {...props}
-    >
-      <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
-    </svg>
-  );
-}
+import { MoonIcon, SunIcon } from "@/design-system/icons";
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();

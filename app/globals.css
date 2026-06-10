@@ -109,6 +109,42 @@ details[open] .ap-faq-answer {
     #050e16;
 }
 
+/* ─── Navbar glass: mobile-safe fallback ──────────────────────────────────── */
+
+.navbar-glass {
+  background-color: rgba(255, 255, 255, 0.72) !important;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.36);
+}
+
+html.dark .navbar-glass {
+  background-color: rgba(24, 24, 27, 0.72) !important;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .navbar-glass {
+    background-color: rgba(255, 255, 255, 0.34) !important;
+    backdrop-filter: blur(14px) saturate(1.45);
+    -webkit-backdrop-filter: blur(14px) saturate(1.45);
+  }
+
+  html.dark .navbar-glass {
+    background-color: rgba(24, 24, 27, 0.42) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-glass {
+    background-color: rgba(255, 255, 255, 0.84) !important;
+  }
+
+  html.dark .navbar-glass {
+    background-color: rgba(24, 24, 27, 0.86) !important;
+  }
+}
+
 /* ─── Liquid Glass: fallback non-Chromium — lensing utama hanya blur di sini ─ */
 
 @supports not (backdrop-filter: url(#__liquid_glass_probe__)) {

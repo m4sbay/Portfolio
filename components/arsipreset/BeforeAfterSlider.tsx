@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@/design-system/icons";
 
 interface BeforeAfterSliderProps {
   beforeLabel?: string;
@@ -101,15 +102,10 @@ export function BeforeAfterSlider({
         aria-hidden
       >
         <div className="w-10 h-10 rounded-full bg-white shadow-[0_2px_20px_rgba(0,0,0,0.6)] flex items-center justify-center">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-            <path
-              d="M5 6L2 9L5 12M13 6L16 9L13 12"
-              stroke="#141414"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <span className="flex items-center text-[#141414]" aria-hidden>
+            <ChevronLeftIcon className="h-[18px] w-[9px]" />
+            <ChevronRightIcon className="h-[18px] w-[9px]" />
+          </span>
         </div>
       </div>
 

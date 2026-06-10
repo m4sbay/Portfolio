@@ -5,6 +5,7 @@ import { projects } from "@/data/projects";
 import { ProjectTag } from "@/components/projects/ProjectTag";
 import { ScrollToButton } from "@/components/ui/ScrollToButton";
 import { StickyGallery } from "@/components/projects/StickyGallery";
+import { ArrowUpLeftIcon, ArrowUpRightIcon } from "@/design-system/icons";
 import type { Metadata } from "next";
 
 const brandLinksByProject: Record<
@@ -152,21 +153,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
         <div className="lg:sticky lg:top-24 space-y-7">
           <div>
             <Link href="/" className="group mb-7 inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50">
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:-translate-x-0.5"
-                aria-hidden
-              >
-                <line x1="17" y1="17" x2="7" y2="7" />
-                <polyline points="17 7 7 7 7 17" />
-              </svg>
+              <ArrowUpLeftIcon className="h-3 w-3 shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:-translate-x-0.5" />
               Kembali
             </Link>
 
@@ -213,20 +200,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
                 className="group inline-flex h-10 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-transparent px-4 text-[11px] font-bold uppercase tracking-wider text-zinc-900 transition-colors hover:bg-zinc-50 dark:border-white/10 dark:text-zinc-50 dark:hover:bg-white/5"
               >
                 {project.externalLinkLabel || "Visit Project"}
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                >
-                  <line x1="7" y1="17" x2="17" y2="7"></line>
-                  <polyline points="7 7 17 7 17 17"></polyline>
-                </svg>
+                <ArrowUpRightIcon className="h-3 w-3 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
             )}
           </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import type { HeroImage, StackScrollCard } from "@/data/stack-scroll-cards";
 import { stackScrollCards } from "@/data/stack-scroll-cards";
+import { ArrowUpRightIcon, HeartIcon } from "@/design-system/icons";
 
 const visualWrapClass = "relative h-44 w-full overflow-hidden bg-zinc-100 sm:h-48 dark:bg-zinc-900/40";
 
@@ -23,14 +24,6 @@ const imageHoverClass = "object-cover transition-transform duration-300 ease-out
 const collagePanelImageClass = "object-cover";
 
 const eagerHomeImageSrc = "/projects/cover_itailwind.png";
-
-function HeartIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden className={className} fill="currentColor">
-      <path d="M12 21s-7-4.35-9.33-8.35C.98 9.63 2.2 6.7 4.83 5.65c1.62-.65 3.38-.26 4.62.86.93.84 1.55 1.93 1.55 1.93s.62-1.09 1.55-1.93c1.24-1.12 3-1.51 4.62-.86 2.63 1.05 3.85 3.98 2.16 7C19 16.65 12 21 12 21Z" />
-    </svg>
-  );
-}
 
 function BentoSingleImage({ image }: { image: HeroImage }) {
   return (
@@ -94,10 +87,7 @@ export function StackedScrollSection({ cards = stackScrollCards }: { cards?: Sta
                       <p className="max-w-[60%] text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">{c.description}</p>
                       <Link href={c.link} className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-[#001E36] px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-80 dark:bg-zinc-50 dark:text-zinc-950">
                         Kunjungi
-                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                          <path d="M7 7h10v10" />
-                          <path d="M7 17 17 7" />
-                        </svg>
+                        <ArrowUpRightIcon className="h-[11px] w-[11px]" />
                       </Link>
                     </div>
                   ) : (

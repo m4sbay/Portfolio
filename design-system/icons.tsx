@@ -210,6 +210,35 @@ export function ListIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+export function Grid3Icon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
+      <rect x="3.5" y="4" width="5" height="5" rx="1.4" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="9.5" y="4" width="5" height="5" rx="1.4" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="15.5" y="4" width="5" height="5" rx="1.4" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="3.5" y="10.5" width="5" height="5" rx="1.4" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="9.5" y="10.5" width="5" height="5" rx="1.4" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="15.5" y="10.5" width="5" height="5" rx="1.4" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="3.5" y="17" width="5" height="3" rx="1.2" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="9.5" y="17" width="5" height="3" rx="1.2" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="15.5" y="17" width="5" height="3" rx="1.2" stroke="currentColor" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
+export function Rows3Icon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
+      <rect x="4" y="5" width="4" height="4" rx="1.2" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M11 6.25h9M11 8.75h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <rect x="4" y="10" width="4" height="4" rx="1.2" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M11 11.25h9M11 13.75h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <rect x="4" y="15" width="4" height="4" rx="1.2" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M11 16.25h9M11 18.75h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function HeartIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden fill="currentColor" {...props}>

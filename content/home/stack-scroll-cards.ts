@@ -14,22 +14,22 @@ export const stackScrollCards: StackScrollCard[] = [
     link: "/arsipreset",
   },
   {
-    title: "ArsiPernikahan",
+    title: "ArsiPidio",
     description:
-      "Template PowerPoint undangan pernikahan — elegan, siap pakai, tinggal isi data. Cocok untuk WO maupun pasangan yang urus sendiri.",
+      "Template PowerPoint undangan pernikahan video, tinggal isi data. Cocok untuk WO maupun pasangan yang urus sendiri.",
     gridClass: "lg:col-span-5",
     sliderImages: [
       {
-        src: "/projects/cover_project_itailwind_hover.png",
-        alt: "Preview template undangan pernikahan 1",
+        src: "/arsipidio_1.JPG",
+        alt: "Preview template video ArsiPidio 1",
       },
       {
-        src: "/projects/cover_itailwind.png",
-        alt: "Preview template undangan pernikahan 2",
+        src: "/arsipidio_2.JPG",
+        alt: "Preview template video ArsiPidio 2",
       },
       {
-        src: "/projects/project_vokasi.png",
-        alt: "Preview template undangan pernikahan 3",
+        src: "/arsipidio_3.png",
+        alt: "Preview template video ArsiPidio 3",
       },
     ] satisfies readonly [HeroImage, HeroImage, HeroImage],
   },

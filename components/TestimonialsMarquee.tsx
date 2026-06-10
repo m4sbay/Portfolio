@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { testimonials } from "@/data/testimonials";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 const row1 = testimonials.slice(0, 5);
 const row2 = testimonials.slice(5, 10);
@@ -96,17 +97,11 @@ function MarqueeRow({
 export function TestimonialsMarquee() {
   return (
     <section aria-labelledby="testimonials-title" className="space-y-4">
-      <header className="space-y-1 text-center sm:text-left">
-        <h2
-          id="testimonials-title"
-          className="text-[36px] font-bold tracking-tight leading-10 text-zinc-950 dark:text-zinc-50"
-        >
-          Kata Mereka Yang Pernah Kerja Sama
-        </h2>
-        <p className="text-base text-zinc-600 dark:text-zinc-500">
-          Dari klien freelance, pembeli template, sampai sesama kreator yang pernah berkolaborasi.
-        </p>
-      </header>
+      <SectionHeader
+        titleId="testimonials-title"
+        title="Kata Mereka Yang Pernah Kerja Sama"
+        description="Dari klien freelance, pembeli template, sampai sesama kreator yang pernah berkolaborasi."
+      />
 
       <div className="space-y-2 sm:space-y-4">
         <MarqueeRow items={row1} />

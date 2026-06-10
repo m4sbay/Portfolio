@@ -32,7 +32,7 @@ export function SelectedWork({ projects }: SelectedWorkProps) {
         {/* Header row */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex w-full items-end justify-between gap-4">
-            <h2 className="text-[36px] font-bold tracking-tight leading-10 text-zinc-950 dark:text-zinc-50">
+            <h2 className="mas-section-heading">
               Selected <span className="block sm:inline"> Project,</span>{" "}
               <span className="block sm:inline">Work</span>
             </h2>

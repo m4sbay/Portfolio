@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 // ─────────────────────────────────────────────
 // Logo list — Simple Icons via jsDelivr CDN
@@ -159,15 +160,7 @@ export function TechMarquee() {
       aria-label="Tech stack dan tools yang dipakai"
       className="space-y-4"
     >
-      {/* Section header */}
-      <div className="space-y-1 text-center sm:text-left">
-        <h2 className="text-[36px] font-bold tracking-tight leading-10 text-zinc-950 dark:text-zinc-50">
-          Tools &amp; Stack
-        </h2>
-        <p className="text-base text-zinc-600 dark:text-zinc-500">
-          Teknologi yang aku pakai sehari-hari.
-        </p>
-      </div>
+      <SectionHeader title="Tools & Stack" description="Teknologi yang aku pakai sehari-hari." />
 
       {/* Marquee container */}
       <div

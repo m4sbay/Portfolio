@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { testimonials } from "@/data/testimonials";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 
 
@@ -99,17 +100,12 @@ function FloatColumn({ indices, dur, delay }: (typeof COLUMNS)[number]) {
 export function TestimonialsFloat() {
   return (
     <section aria-labelledby="testimonials-float-title" className="space-y-6">
-      <div className="space-y-1 text-center sm:text-left">
-        <h2
-         
-          className="text-[36px] font-bold tracking-tight leading-10 text-zinc-950 dark:text-zinc-50"
-        >
-          Kata Mereka Yang Pernah Kerja Sama
-        </h2>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">
-          Dari klien freelance, pembeli template, sampai sesama kreator yang pernah berkolaborasi.
-        </p>
-      </div>
+      <SectionHeader
+        titleId="testimonials-float-title"
+        title="Kata Mereka Yang Pernah Kerja Sama"
+        description="Dari klien freelance, pembeli template, sampai sesama kreator yang pernah berkolaborasi."
+        descriptionClassName="text-sm text-zinc-500 dark:text-zinc-400"
+      />
 
       <div
         className="h-[280px] overflow-hidden sm:h-[460px]"

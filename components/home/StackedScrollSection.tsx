@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { HeroImage, StackScrollCard } from "@/data/stack-scroll-cards";
 import { stackScrollCards } from "@/data/stack-scroll-cards";
 import { ArrowUpRightIcon, HeartIcon } from "@/design-system/icons";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 const visualWrapClass = "relative h-44 w-full overflow-hidden bg-zinc-100 sm:h-48 dark:bg-zinc-900/40";
 
@@ -67,10 +68,14 @@ export function StackedScrollSection({ cards = stackScrollCards }: { cards?: Sta
   return (
     <section aria-label="Nilai dan cara kerja" className="w-full bg-background">
       <div className="space-y-4">
-        <header className="space-y-1 text-center sm:text-left">
-          <h2 className="text-[36px] font-bold tracking-tight leading-10 text-zinc-950 dark:text-zinc-50">Produk Yang Aku <br className="sm:hidden" /> Bangun Sendiri</h2>
-          <p className="text-base text-zinc-600 dark:text-zinc-500">Yuk, liat apa aja yang ada </p>
-        </header>
+        <SectionHeader
+          title={
+            <>
+              Produk Yang Aku <br className="sm:hidden" /> Bangun Sendiri
+            </>
+          }
+          description="Yuk, liat apa aja yang ada "
+        />
         <ul className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
           {cards.map(c => {
             const hasSlider = Boolean(c.sliderImages?.length === 3);

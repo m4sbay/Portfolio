@@ -1,8 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { WritingPost } from "@/types/writing";
-import { FileTextIcon, FolderIcon } from "@/design-system/icons";
+import { FolderIcon } from "@/design-system/icons";
 import { WritingMetaLine } from "@/components/writing/WritingMetaLine";
+import { IconLabel } from "@/components/ui/IconLabel";
+import { MediaThumb } from "@/components/ui/MediaThumb";
 
 export function WritingListCard({
   post,
@@ -19,10 +20,9 @@ export function WritingListCard({
       <div className="flex min-h-0 min-w-0 flex-col md:h-full">
         <div>
           {showCategory ? (
-            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-              <FolderIcon className="h-3.5 w-3.5 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
+            <IconLabel icon={FolderIcon}>
               {post.category}
-            </p>
+            </IconLabel>
           ) : null}
           <h2
             className={`text-xl font-semibold tracking-tight text-zinc-950/80 transition-colors group-hover:text-zinc-950 dark:text-zinc-50/80 dark:group-hover:text-zinc-50 md:text-2xl ${
@@ -38,23 +38,7 @@ export function WritingListCard({
           <WritingMetaLine publishedAt={post.publishedAt} readMinutes={post.readMinutes} />
         </div>
       </div>
-      {post.heroImage ? (
-        <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900 md:aspect-square">
-          <Image
-            src={post.heroImage.src}
-            alt={post.heroImage.alt}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-            sizes="(max-width: 768px) 100vw, 220px"
-          />
-        </div>
-      ) : (
-        <div className="relative hidden aspect-square w-full rounded-2xl bg-linear-to-br from-zinc-200 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 md:block">
-          <span className="absolute inset-0 flex items-center justify-center" aria-hidden>
-            <FileTextIcon className="h-10 w-10 text-zinc-300 dark:text-zinc-600" />
-          </span>
-        </div>
-      )}
+      <MediaThumb image={post.heroImage} imageClassName="object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
     </Link>
   );
 }

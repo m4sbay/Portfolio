@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-import { App, DEFAULT_FONT, resolveFont } from "./CircularGalleryOGL.js";
+import { App, AppOptions, DEFAULT_FONT, resolveFont } from "./CircularGalleryOGL.js";
 import "./CircularGallery.css";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
@@ -39,13 +39,12 @@ export default function CircularGallery({
 
   useEffect(() => {
     if (!containerRef.current) return;
-    // App diimport dari .js — TypeScript tidak check OGL internal types.
-    let app: InstanceType<typeof App> | undefined;
+    let app: App | undefined;
     let isMounted = true;
 
     resolveFont(font, fontUrl).then((resolvedFont: string) => {
       if (!isMounted || !containerRef.current) return;
-      app = new App(containerRef.current, {
+      const opts: AppOptions = {
         items,
         bend,
         textColor,
@@ -53,7 +52,8 @@ export default function CircularGallery({
         font: resolvedFont,
         scrollSpeed,
         scrollEase,
-      });
+      };
+      app = new App(containerRef.current, opts);
     });
 
     return () => {

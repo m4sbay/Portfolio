@@ -1,10 +1,7 @@
+// @ts-nocheck — OGL internal types tidak selalu match dengan public API types.
+// Komponen ini adalah port langsung dari React Bits (JS); TS check dimatikan
+// di level file karena OGL tidak export semua internal types-nya.
 "use client";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck — OGL internal types tidak selalu match dengan public API types
-//   Komponen ini adalah port langsung dari React Bits (JS) dan
-//   berjalan dengan baik di runtime; TS check dimatikan di level file
-//   karena OGL tidak export semua internal types-nya.
 
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from "ogl";
 import { useEffect, useRef } from "react";

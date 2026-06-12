@@ -14,7 +14,7 @@ export const stackScrollCards: StackScrollCard[] = [
     link: "/arsipreset",
   },
   {
-    title: "ArsiPidio",
+    title: "Arsipidio",
     description:
       "Template PowerPoint undangan pernikahan video, tinggal isi data. Cocok untuk WO maupun pasangan yang urus sendiri.",
     gridClass: "lg:col-span-5",
@@ -34,17 +34,18 @@ export const stackScrollCards: StackScrollCard[] = [
     ] satisfies readonly [HeroImage, HeroImage, HeroImage],
   },
   {
-    title: "ArsiFoto",
+    title: "Arsipoto",
     description:
-      "Jasa editing foto profesional untuk produk, portrait, dan dokumentasi. Hasil bersih, warna konsisten, dan tepat waktu.",
+      "Kalau kamu punya foto yang kurang rapi, biar @arsipoto bantu benerin.",
     gridClass: "lg:col-span-6",
-    heroImage: {
-      src: "/projects/cover_itailwind.png",
-      alt: "Contoh hasil editing foto ArsiFoto",
+    visualClassName: "aspect-video",
+    heroVideo: {
+      src: "/video/card_arsipoto.mp4",
+      label: "Preview layanan editing foto Arsipoto",
     },
   },
   {
-    title: "ArsiPortofolio",
+    title: "Arsipolio",
     description:
       "Template portofolio untuk desainer, kreator, dan profesional yang ingin tampil percaya diri di hadapan klien.",
     gridClass: "lg:col-span-6",

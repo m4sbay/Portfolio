@@ -1,12 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import type { HeroImage, StackScrollCard } from "@/data/stack-scroll-cards";
+import type { HeroImage, HeroVideo, StackScrollCard } from "@/data/stack-scroll-cards";
 import { stackScrollCards } from "@/data/stack-scroll-cards";
 import { ArrowUpRightIcon, HeartIcon } from "@/design-system/icons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
-const visualWrapClass = "relative h-44 w-full overflow-hidden bg-zinc-100 sm:h-48 dark:bg-zinc-900/40";
+const visualWrapBaseClass = "relative w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900/40";
+
+const visualWrapDefaultSizeClass = "h-44 sm:h-48";
 
 const cardShellClass = "flex flex-col overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-50 shadow-sm transition-[border-color,box-shadow] duration-300 dark:border-white/10 dark:bg-white/5";
 
@@ -21,14 +23,20 @@ const cardBodyStaticClass = "gap-3";
 
 const imageHoverClass = "object-cover transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100";
 
+const videoHoverClass = `${imageHoverClass} h-full w-full`;
+
 /** Gambar dalam strip kolase tidak di-scale agar pergeseran tetap bersih. */
 const collagePanelImageClass = "object-cover";
 
 const eagerHomeImageSrc = "/projects/cover_itailwind.png";
 
-function BentoSingleImage({ image }: { image: HeroImage }) {
+function getVisualWrapClass(visualClassName?: string) {
+  return [visualWrapBaseClass, visualClassName ?? visualWrapDefaultSizeClass].join(" ");
+}
+
+function BentoSingleImage({ image, visualClassName }: { image: HeroImage; visualClassName?: string }) {
   return (
-    <div className={visualWrapClass}>
+    <div className={getVisualWrapClass(visualClassName)}>
       <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 520px" className={imageHoverClass} loading={image.src === eagerHomeImageSrc ? "eager" : "lazy"} />
       <div
         className="pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-950/10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:opacity-0 dark:from-zinc-950/35"
@@ -38,9 +46,21 @@ function BentoSingleImage({ image }: { image: HeroImage }) {
   );
 }
 
-function BentoHoverSlider({ images }: { images: readonly [HeroImage, HeroImage, HeroImage] }) {
+function BentoSingleVideo({ video, visualClassName }: { video: HeroVideo; visualClassName?: string }) {
   return (
-    <div className={`${visualWrapClass} isolate`}>
+    <div className={getVisualWrapClass(visualClassName)}>
+      <video src={video.src} aria-label={video.label} className={videoHoverClass} autoPlay muted loop playsInline preload="metadata" />
+      <div
+        className="pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-950/10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:opacity-0 dark:from-zinc-950/35"
+        aria-hidden
+      />
+    </div>
+  );
+}
+
+function BentoHoverSlider({ images, visualClassName }: { images: readonly [HeroImage, HeroImage, HeroImage]; visualClassName?: string }) {
+  return (
+    <div className={`${getVisualWrapClass(visualClassName)} isolate`}>
       <div className="bento-collage-track flex h-full gap-2 p-2">
         {images.map((img, i) => (
           <div key={`${img.src}-${i}`} className="relative h-full flex-1 overflow-hidden rounded-2xl bg-white/40 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10">
@@ -79,14 +99,15 @@ export function StackedScrollSection({ cards = stackScrollCards }: { cards?: Sta
         <ul className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
           {cards.map(c => {
             const hasSlider = Boolean(c.sliderImages?.length === 3);
+            const hasVideo = Boolean(c.heroVideo);
             const hasHero = Boolean(c.heroImage);
-            const hasVisual = hasSlider || hasHero;
+            const hasVisual = hasSlider || hasVideo || hasHero;
 
             return (
               <li key={c.title} className={["group", cardShellClass, cardHoverBorder, c.gridClass].filter(Boolean).join(" ")}>
-                {hasSlider && c.sliderImages ? <BentoHoverSlider images={c.sliderImages} /> : hasHero && c.heroImage ? <BentoSingleImage image={c.heroImage} /> : null}
+                {hasSlider && c.sliderImages ? <BentoHoverSlider images={c.sliderImages} visualClassName={c.visualClassName} /> : hasVideo && c.heroVideo ? <BentoSingleVideo video={c.heroVideo} visualClassName={c.visualClassName} /> : hasHero && c.heroImage ? <BentoSingleImage image={c.heroImage} visualClassName={c.visualClassName} /> : null}
                 <div className={[cardBodyBaseClass, hasVisual ? "pt-5" : "pt-6", c.link ? cardBodyWithActionClass : cardBodyStaticClass].join(" ")}>
-                  <h3 className="text-base font-semibold text-zinc-950 dark:text-zinc-50">{c.title}</h3>
+                  <h3 className="text-lg font-semibold text-zinc-950 dark:text-zinc-50">{c.title}</h3>
                   {c.link ? (
                     <div className="flex items-end justify-between gap-4">
                       <p className="max-w-[60%] text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">{c.description}</p>

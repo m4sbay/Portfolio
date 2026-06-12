@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { Bricolage_Grotesque } from "next/font/google";
 import Link from "next/link";
 import { FaqList } from "@/components/arsipreset/FaqItem";
 import { ArrowRightIcon } from "@/design-system/icons";
+import CircularGallery from "@/components/arsipreset/CircularGallery";
 
 export const metadata: Metadata = {
   title: "ArsiPreset — Preset Lightroom Editorial",
@@ -9,6 +11,12 @@ export const metadata: Metadata = {
 };
 
 const ACCENT = "#6AADCE";
+
+const bricolageGrotesque = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: "variable",
+  axes: ["opsz", "wdth"],
+});
 
 const glass = "bg-white/50 dark:bg-white/[0.04] backdrop-blur-xl border border-white/70 dark:border-white/10 shadow-[0_2px_20px_rgba(106,173,206,0.08)]";
 const fullSection = "w-screen min-h-svh overflow-visible";
@@ -65,34 +73,77 @@ const packs: Pack[] = [
 ];
 
 
+const galleryItems = [
+  { image: "https://picsum.photos/seed/101/900/600", text: "AR2020 · Film" },
+  { image: "https://picsum.photos/seed/102/900/600", text: "AR2020 · Grain" },
+  { image: "https://picsum.photos/seed/201/900/600", text: "AR2021 · Cinematic" },
+  { image: "https://picsum.photos/seed/202/900/600", text: "AR2021 · Teal" },
+  { image: "https://picsum.photos/seed/301/900/600", text: "AR2022 · Editorial" },
+  { image: "https://picsum.photos/seed/302/900/600", text: "AR2022 · Warm" },
+  { image: "https://picsum.photos/seed/401/900/600", text: "Portrait" },
+  { image: "https://picsum.photos/seed/501/900/600", text: "Landscape" },
+];
+
 export default function ArsiPresetPage() {
   return (
     <div className="ap-page text-zinc-950 dark:text-zinc-50">
       {/* ══ 1 · HERO ══════════════════════════════════════════════════════════ */}
       <section id="hero" className="ap-bg-hero w-screen min-h-svh flex flex-col items-center justify-center overflow-hidden">
         {/* pt-[4.5rem] mendorong konten ke bawah navbar (navbar height = 4.5rem) */}
-        <div className="flex flex-col items-center text-center w-full max-w-screen-lg mx-auto px-6 gap-4 pb-6 pt-[4.5rem]">
+        <div className="flex w-full max-w-none flex-col items-center gap-3 px-4 pb-4 pt-[4.5rem] text-center sm:gap-4 sm:px-6">
           <div className={`inline-flex items-center gap-2 rounded-md px-3 py-1 text-xs text-zinc-600 dark:text-zinc-300 ${glass}`}>
             <span className="h-1.5 w-1.5 rounded-full" style={{ background: ACCENT }} />
             Lightroom Preset Collection
           </div>
 
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
-            Warnai Instagram Kamu <br className="hidden sm:block" />
-            <span style={{ color: ACCENT }}>Dengan Arsipreset</span>
+          {/* Mobile: 36px · sm: 48px · lg: 86px */}
+          <h1 className={`${bricolageGrotesque.className} w-full text-[36px] font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-[86px] xl:text-[96px]`}>
+            <span className="block sm:whitespace-nowrap">Warnai Instagram<span className="hidden sm:inline"> Kamu</span></span>
+            <span className="block sm:whitespace-nowrap" style={{ color: ACCENT }}>Dengan Arsipreset</span>
           </h1>
 
-          <p className="flex flex-col text-base font-medium leading-relaxed text-zinc-600 dark:text-zinc-400">
-            Jadikan Sat Set
-            <span>Bersama Arsipreset</span>
+          {/* Mobile: 16px */}
+          <p className="flex flex-col text-[16px] font-medium leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
+            Jadikan Sat Set Bersama Arsipreset
+            <span>Yuk Jadikan Foto Kamu Lebih Estetik Sekarang</span>
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
             <a href="#packs" className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-85" style={{ background: ACCENT }}>
               Lihat Preset Pack
               <ArrowRightIcon className="h-[13px] w-[13px]" />
             </a>
           </div>
+        </div>
+
+        {/* ── Circular Gallery dengan fade edges ───────────────────────── */}
+        <div className="relative w-full overflow-hidden" style={{ height: "340px" }}>
+          {/* Gradient fade kiri */}
+          <div
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36"
+            style={{
+              background: "linear-gradient(to right, var(--ap-hero-bg, #f0f8fc), transparent)",
+            }}
+            aria-hidden
+          />
+          {/* Gradient fade kanan */}
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36"
+            style={{
+              background: "linear-gradient(to left, var(--ap-hero-bg, #f0f8fc), transparent)",
+            }}
+            aria-hidden
+          />
+          <CircularGallery
+            items={galleryItems}
+            bend={0}
+            textColor="#6AADCE"
+            borderRadius={0.14}
+            scrollSpeed={1.2}
+            scrollEase={0.03}
+            fontUrl="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap"
+            font="bold 20px Geist"
+          />
         </div>
       </section>
 
@@ -104,29 +155,30 @@ export default function ArsiPresetPage() {
             <h2 className="text-3xl font-semibold tracking-tight">Sat Set, Sat Set, Langsung Jadi Aesthetic</h2>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
             {packs.map(pack => (
               <div key={pack.id} className={`group flex flex-col overflow-hidden rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(106,173,206,0.14)] ${glass}`}>
-                <div className="relative h-36 w-full overflow-hidden sm:h-40 lg:h-44" style={{ background: pack.previewGradient }} aria-label={`Preview ${pack.id} ${pack.name}`}>
+                {/* Preview lebih compact */}
+                <div className="relative h-28 w-full overflow-hidden sm:h-32" style={{ background: pack.previewGradient }} aria-label={`Preview ${pack.id} ${pack.name}`}>
                   {pack.featured && (
-                    <div className="absolute top-3 right-3 rounded-full px-2.5 py-0.5 text-[10px] font-semibold text-white" style={{ background: ACCENT }}>
+                    <div className="absolute top-2.5 right-2.5 rounded-full px-2 py-0.5 text-[10px] font-semibold text-white" style={{ background: ACCENT }}>
                       Populer
                     </div>
                   )}
-                  <span className="absolute bottom-3 left-4 text-4xl font-bold opacity-20 select-none text-white" aria-hidden>
+                  <span className="absolute bottom-2.5 left-3.5 text-3xl font-bold opacity-20 select-none text-white" aria-hidden>
                     {pack.id}
                   </span>
                 </div>
 
-                <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
+                <div className="flex flex-1 flex-col gap-2.5 p-4">
                   <div>
-                    <p className="text-[10px] font-semibold tracking-widest uppercase text-zinc-400 dark:text-zinc-500 mb-1">{pack.tag}</p>
-                    <h3 className="text-base font-semibold tracking-tight">{pack.name}</h3>
+                    <p className="text-[10px] font-semibold tracking-widest uppercase text-zinc-400 dark:text-zinc-500 mb-0.5">{pack.tag}</p>
+                    <h3 className="text-sm font-semibold tracking-tight">{pack.name}</h3>
                   </div>
-                  <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 flex-1">{pack.desc}</p>
-                  <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/50 dark:border-white/10">
-                    <span className="text-base font-semibold">{pack.price}</span>
-                    <a href={pack.href} target="_blank" rel="noopener noreferrer" className="rounded-lg px-4 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-80" style={{ background: pack.accentHex }}>
+                  <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-400 flex-1">{pack.desc}</p>
+                  <div className="flex flex-wrap items-center justify-between gap-2.5 pt-2.5 border-t border-white/50 dark:border-white/10">
+                    <span className="text-sm font-semibold">{pack.price}</span>
+                    <a href={pack.href} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3.5 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-80" style={{ background: pack.accentHex }}>
                       Beli sekarang
                     </a>
                   </div>

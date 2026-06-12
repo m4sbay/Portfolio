@@ -90,6 +90,7 @@ details[open] .ap-faq-answer {
 /* ─── ArsiPreset: section backgrounds ─────────────────────────────────────── */
 
 .ap-bg-hero {
+  --ap-hero-bg: #f0f8fc;
   background:
     radial-gradient(ellipse 70% 65% at 15% 85%, #c8e8f6 0%, transparent 55%),
     radial-gradient(ellipse 55% 50% at 85% 10%, #d8eef8 0%, transparent 50%),
@@ -98,6 +99,7 @@ details[open] .ap-faq-answer {
 }
 
 .dark .ap-bg-hero {
+  --ap-hero-bg: #07101a;
   background:
     radial-gradient(ellipse 70% 65% at 15% 85%, #081e2e 0%, transparent 55%),
     radial-gradient(ellipse 55% 50% at 85% 10%, #0a1828 0%, transparent 50%),

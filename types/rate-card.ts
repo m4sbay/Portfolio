@@ -10,6 +10,7 @@ export type BundlePackage = {
   subtitle: string;
   price: number;
   pricePerUnit?: string;
+  designTurnaround: string;
   phase: string;
   description: string;
   items: string[];

@@ -24,6 +24,11 @@ function waLink(packageName: string): string {
 
 function PricingCard({ pkg }: { pkg: BundlePackage }) {
   const isFeatured = pkg.featured === true;
+  const includedItems = [
+    pkg.items[0],
+    pkg.designTurnaround,
+    ...pkg.items.slice(1),
+  ];
 
   return (
     <article
@@ -135,7 +140,7 @@ function PricingCard({ pkg }: { pkg: BundlePackage }) {
 
       {/* ── Feature list — included ── */}
       <ul className="space-y-3">
-        {pkg.items.map((item) => (
+        {includedItems.map((item) => (
           <li key={item} className="flex items-start gap-3">
             <span
               className={[

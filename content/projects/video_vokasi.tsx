@@ -8,7 +8,7 @@ export const videoVokasi: Project = {
     "Project ini dibuat untuk memperkenalkan Fakultas Vokasi ITP kepada calon mahasiswa dan audiens umum melalui video profil yang lebih engaging. Fokus utamanya adalah menampilkan identitas fakultas, suasana pembelajaran, fasilitas, dan aktivitas akademik dalam format visual yang mudah dipahami.\n\nDalam proses editing, saya menyusun ritme video agar informasi formal tetap terasa menarik. Alur visual dibuat dari pengenalan fakultas, highlight aktivitas, hingga penutup yang memperkuat citra profesional Institut Teknologi Padang.",
   category: "Video",
   logo: "/projects/icon_yt.svg",
-  tags: ["Video Editing", "Motion", "Capcut", "2025"],
+  tags: ["Video Editing", "Motion", "Capcut"],
   slug: "video_vokasi",
   externalLink: "https://www.instagram.com/p/DUDJRCfkjFo/",
   externalLinkLabel: "Lihat video",

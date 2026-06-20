@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import type { Project } from "@/types/project";
+import { getDisplayTags } from "@/lib/project-tags";
 import { ProjectTag } from "./ProjectTag";
 
 export function ProjectCard({ project }: { project: Project }) {
@@ -161,7 +162,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
       {/* CONTENT */}
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="text-base font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+        <h3 className="text-xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
           {project.title}
         </h3>
 
@@ -170,7 +171,7 @@ export function ProjectCard({ project }: { project: Project }) {
         </p>
 
         <ul className="mt-auto flex flex-wrap gap-2 pt-1">
-          {project.tags.map((tag) => (
+          {getDisplayTags(project.tags).map((tag) => (
             <ProjectTag key={tag} tag={tag} />
           ))}
         </ul>

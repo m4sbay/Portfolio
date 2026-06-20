@@ -7,16 +7,7 @@ export const notionAutoStatus: Project = {
   longDescription:
     "Notion Auto Status menjaga database Notion tetap rapi dengan memperbarui status task dan event secara otomatis berdasarkan Group dan Date.\n\nAutomation ini bisa berjalan lokal dengan Node.js scheduler atau terjadwal per jam melalui GitHub Actions. Workflow juga menyiapkan email digest dan reminder agenda via Gmail.",
   category: "Tools",
-  tags: [
-    "Node.js",
-    "Notion API",
-    "Automation",
-    "GitHub Actions",
-    "Nodemailer",
-    "dotenv",
-    "node-cron",
-    "2026",
-  ],
+  tags: ["Node.js", "Notion API", "Automation", "GitHub Actions"],
   slug: "notion-auto-status",
   // TODO: Ganti dengan URL repo publik atau demo ketika sudah siap.
   // externalLink: "https://github.com/m4sbay/notion-auto-status",

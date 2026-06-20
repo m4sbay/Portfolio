@@ -45,6 +45,7 @@ export const bundlePackages: BundlePackage[] = [
     name: "MaluBay",
     subtitle: "untuk brand baru",
     price: 1_200_000,
+    designTurnaround: "Estimasi 1-3 hari",
     phase: "Kebutuhan konten ringan, frekuensi rendah",
     description:
       "Cocok untuk komunitas kecil atau brand yang baru mulai aktif di media sosial.",
@@ -69,6 +70,7 @@ export const bundlePackages: BundlePackage[] = [
     name: "SeriusBay",
     subtitle: "untuk brand aktif",
     price: 4_000_000,
+    designTurnaround: "Prioritas 1 hari",
     phase: "Fase event aktif & campaign lebih intens",
     description:
       "Fase event aktif & campaign intensif. Semua yang kamu butuhkan dalam satu paket.",
@@ -96,6 +98,7 @@ export const bundlePackages: BundlePackage[] = [
     name: "GasBay",
     subtitle: "untuk brand rutin",
     price: 2_500_000,
+    designTurnaround: "Estimasi 1-2 hari",
     phase: "Konten rutin, intensitas ringan–menengah",
     description:
       "Konten rutin, intensitas ringan–menengah. Cocok untuk fase pre-event atau maintenance.",

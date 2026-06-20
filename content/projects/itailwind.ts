@@ -5,7 +5,7 @@ export const itailwind: Project = {
   description: "Plugin Figma",
   longDescription:
     "iTailwind adalah plugin Figma yang memudahkan para desainer untuk membuat desain yang konsisten dan mudah dikonversi ke kode Tailwind CSS. Plugin ini dirancang dengan antarmuka yang intuitif dan mudah digunakan.",
-  tags: ["Figma", "Plugin", "Tailwind", "Design System", "2025"],
+  tags: ["Figma", "Plugin", "Tailwind", "Design System"],
   category: "Tools",
   slug: "itailwind",
   logo: "/projects/itailwind_icon.PNG",

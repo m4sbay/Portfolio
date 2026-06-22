@@ -17,11 +17,11 @@ const tagToSlug: Record<string, string> = {
   "Notion": "notion",
 };
 
-export function ProjectTag({ tag }: { tag: string }) {
+export function ProjectTag({ tag, className }: { tag: string; className?: string }) {
   const slug = tagToSlug[tag];
 
   return (
-    <li className="tech-logo-container group flex items-center gap-1.5 rounded-[8px] border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs text-zinc-700 transition-colors dark:border-white/10 dark:bg-white/5 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-white/20 hover:text-zinc-900 dark:hover:text-zinc-50 cursor-default">
+    <li className={`tech-logo-container group flex items-center gap-1.5 rounded-[8px] border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs text-zinc-700 transition-colors dark:border-white/10 dark:bg-white/5 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-white/20 hover:text-zinc-900 dark:hover:text-zinc-50 cursor-default ${className || ""}`}>
       {slug && (
         <img
           src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${slug}.svg`}

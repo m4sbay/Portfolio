@@ -172,7 +172,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
         <ul className="mt-auto flex flex-wrap gap-2 pt-1">
           {getDisplayTags(project.tags).map((tag) => (
-            <ProjectTag key={tag} tag={tag} />
+            <ProjectTag key={tag} tag={tag} className="grow justify-center" />
           ))}
         </ul>
       </div>

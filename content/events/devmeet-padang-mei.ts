@@ -14,13 +14,13 @@ export const event: CalendarEvent = {
   ],
   images: [
     {
-      src: "/profil.png",
+      src: "/profile/profil.png",
       alt: "Dokumentasi non formal komunitas",
       width: 800,
       height: 800,
     },
     {
-      src: "/projects/cover_itailwind.png",
+      src: "/projects/itailwind/cover_itailwind.png",
       alt: "Backdrop acara komunitas",
       width: 1200,
       height: 800,

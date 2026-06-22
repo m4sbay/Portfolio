@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import { AnimatedSectionHeader } from "@/components/ui/AnimatedSectionHeader";
 
 // ─────────────────────────────────────────────
 // Logo list — Simple Icons via jsDelivr CDN
@@ -160,7 +160,7 @@ export function TechMarquee() {
       aria-label="Tech stack dan tools yang dipakai"
       className="space-y-4"
     >
-      <SectionHeader title="Tools & Stack" description="Teknologi yang aku pakai sehari-hari." />
+      <AnimatedSectionHeader title="Tools & Stack" description="Teknologi yang aku pakai sehari-hari." />
 
       {/* Marquee container */}
       <div

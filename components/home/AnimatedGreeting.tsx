@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { m, LazyMotion, domAnimation } from "framer-motion";
+import { useRef, useState } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 const greetings = [
   "Hello 👋🏻",
@@ -12,7 +12,7 @@ const greetings = [
   "Kon'nichiwa",
   "Annyeong-haseyo",
   "Nǐ hǎo",
-  "Assalamu’alaikum",
+  "Assalamu'alaikum",
   "Ahlan",
   "Ciao",
   "Guten Tag",
@@ -32,45 +32,59 @@ const greetings = [
 
 export function AnimatedGreeting() {
   const [index, setIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const cursorRef = useRef<HTMLSpanElement>(null);
 
-  useEffect(() => {
-    const currentWord = greetings[index];
-    const typeSpeed = isDeleting ? 40 : 100;
-    let pauseTimer: ReturnType<typeof setTimeout> | undefined;
+  // Cursor blink — runs once on mount
+  useGSAP(() => {
+    gsap.to(cursorRef.current, {
+      opacity: 0,
+      repeat: -1,
+      yoyo: true,
+      duration: 0.4,
+      ease: "power2.inOut",
+    });
+  }, []);
 
-    const tickTimer = setTimeout(() => {
-      if (!isDeleting && displayedText === currentWord) {
-        pauseTimer = setTimeout(() => setIsDeleting(true), 3000);
-      } else if (isDeleting && displayedText === "") {
-        setIsDeleting(false);
-        setIndex((prev) => (prev + 1) % greetings.length);
-      } else {
-        const nextText = isDeleting
-          ? currentWord.substring(0, displayedText.length - 1)
-          : currentWord.substring(0, displayedText.length + 1);
-        setDisplayedText(nextText);
-      }
-    }, typeSpeed);
+  // Typewriter per word — re-runs when index changes
+  useGSAP(() => {
+    const word = greetings[index];
+    const el = textRef.current;
+    if (!el) return;
 
-    return () => {
-      clearTimeout(tickTimer);
-      if (pauseTimer) clearTimeout(pauseTimer);
-    };
-  }, [displayedText, isDeleting, index]);
+    const counter = { val: 0 };
+    const tl = gsap.timeline();
+
+    tl.to(counter, {
+      val: word.length,
+      duration: word.length * 0.08,
+      ease: "none",
+      onUpdate: () => {
+        el.textContent = word.substring(0, Math.round(counter.val));
+      },
+    })
+      .to({}, { duration: 2.5 })
+      .to(counter, {
+        val: 0,
+        duration: word.length * 0.04,
+        ease: "none",
+        onUpdate: () => {
+          el.textContent = word.substring(0, Math.round(counter.val));
+        },
+        onComplete: () => {
+          setIndex((prev) => (prev + 1) % greetings.length);
+        },
+      });
+  }, { dependencies: [index] });
 
   return (
     <div className="space-y-1">
       <h2 className="flex items-center h-[32px] sm:h-[36px] text-2xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-3xl">
-        <LazyMotion features={domAnimation}>
-          <span>{displayedText}</span>
-          <m.span
-            animate={{ opacity: [1, 0] }}
-            transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-            className="ml-1 inline-block h-[0.9em] w-[3px] bg-zinc-950 dark:bg-zinc-50"
-          />
-        </LazyMotion>
+        <span ref={textRef} />
+        <span
+          ref={cursorRef}
+          className="ml-1 inline-block h-[0.9em] w-[3px] bg-zinc-950 dark:bg-zinc-50"
+        />
       </h2>
       <h1 className="text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-5xl">
         <span className="block">

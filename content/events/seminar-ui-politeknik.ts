@@ -14,7 +14,7 @@ export const event: CalendarEvent = {
   ],
   images: [
     {
-      src: "/projects/ui-kit-1.svg",
+      src: "/events/seminar-ui-politeknik/ui-kit-1.svg",
       alt: "Contoh board desain",
       width: 800,
       height: 600,

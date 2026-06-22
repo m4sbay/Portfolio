@@ -9,7 +9,7 @@ export const post = {
   publishedAt: "2026-03-22T10:00:00.000Z",
   readMinutes: 5,
   heroImage: {
-    src: "/projects/cover_project_itailwind_hover.png",
+    src: "/projects/itailwind/cover_project_itailwind_hover.png",
     alt: "Ilustrasi layout dan grid",
     width: 1200,
     height: 800,

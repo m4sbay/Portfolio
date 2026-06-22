@@ -7,7 +7,7 @@ import { ProjectCard } from "@/components/projects/ProjectCard";
 export function ProjectsGrid({ projects }: { projects: Project[] }) {
   return (
     <LazyMotion features={domAnimation}>
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
         <AnimatePresence mode="popLayout">
           {projects.map((project, idx) => (
             <m.div

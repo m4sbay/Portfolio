@@ -4,7 +4,7 @@ export function MacFolderWidget() {
   return (
     <div className="relative">
       <Image
-        src="/mac-folder-96.png"
+        src="/widgets/mac-folder-96.png"
         alt="Mac folder"
         width={56}
         height={56}

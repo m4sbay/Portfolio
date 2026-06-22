@@ -8,7 +8,7 @@ export const stackScrollCards: StackScrollCard[] = [
       "Preset Lightroom untuk fotografer yang ingin konsistensi warna tanpa edit manual. Satu klik, hasil langsung berkarakter.",
     gridClass: "lg:col-span-7",
     heroImage: {
-      src: "/Arsipreset_card_home_11.jpg",
+      src: "/arsipreset/Arsipreset_card_home_11.jpg",
       alt: "Preview preset Lightroom ArsiPreset",
     },
     link: "/arsipreset",
@@ -20,15 +20,15 @@ export const stackScrollCards: StackScrollCard[] = [
     gridClass: "lg:col-span-5",
     sliderImages: [
       {
-        src: "/arsipidio_1.JPG",
+        src: "/arsipreset/arsipidio_1.JPG",
         alt: "Preview template video ArsiPidio 1",
       },
       {
-        src: "/arsipidio_2.JPG",
+        src: "/arsipreset/arsipidio_2.JPG",
         alt: "Preview template video ArsiPidio 2",
       },
       {
-        src: "/arsipidio_3.png",
+        src: "/arsipreset/arsipidio_3.png",
         alt: "Preview template video ArsiPidio 3",
       },
     ] satisfies readonly [HeroImage, HeroImage, HeroImage],
@@ -50,7 +50,7 @@ export const stackScrollCards: StackScrollCard[] = [
       "Template portofolio untuk desainer, kreator, dan profesional yang ingin tampil percaya diri di hadapan klien.",
     gridClass: "lg:col-span-6",
     heroImage: {
-      src: "/projects/project_vokasi.png",
+      src: "/projects/video-vokasi/project_vokasi.png",
       alt: "Preview template portofolio ArsiPortofolio",
     },
   },

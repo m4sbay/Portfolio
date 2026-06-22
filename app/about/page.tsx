@@ -23,7 +23,7 @@ export default function AboutPage() {
     <div className="space-y-10 py-12">
       <header className="grid grid-cols-1 gap-8 sm:grid-cols-[160px_1fr] sm:items-center">
         <div className="relative h-40 w-40 overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/5">
-          <Image src="/profil.png" alt="Foto profil Masbay" fill className="object-cover" sizes="160px" priority />
+          <Image src="/profile/profil.png" alt="Foto profil Masbay" fill className="object-cover" sizes="160px" priority />
           <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/5 dark:ring-white/10" />
         </div>
 

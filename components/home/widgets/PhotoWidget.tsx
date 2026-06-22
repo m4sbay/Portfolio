@@ -4,11 +4,11 @@ import Image from "next/image";
 import { useState } from "react";
 
 const allPhotos = [
-  { src: "/profile_2.png", alt: "Foto Masbay" },
-  { src: "/profile_3.png", alt: "Foto Masbay 3" },
-  { src: "/profile_4.png", alt: "Foto Masbay 4" },
-  { src: "/profile_5.png", alt: "Foto Masbay 5" },
-  { src: "/profile_6.png", alt: "Foto Masbay 6" },
+  { src: "/profile/profile_2.png", alt: "Foto Masbay" },
+  { src: "/profile/profile_3.png", alt: "Foto Masbay 3" },
+  { src: "/profile/profile_4.png", alt: "Foto Masbay 4" },
+  { src: "/profile/profile_5.png", alt: "Foto Masbay 5" },
+  { src: "/profile/profile_6.png", alt: "Foto Masbay 6" },
 ];
 
 export function PhotoWidget() {
@@ -21,7 +21,7 @@ export function PhotoWidget() {
     <div className="flex gap-3 rounded-xl bg-white p-3 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10">
       {/* Kiri: foto utama + lokasi — flex-1 agar memenuhi ruang tersedia */}
       <div className="flex flex-1 flex-col items-center gap-2">
-        <div className="relative w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-white/5" style={{ aspectRatio: "1 / 1" }}>
+        <div className="relative w-full sm:w-[130px] overflow-hidden rounded-lg bg-zinc-100 dark:bg-white/5" style={{ aspectRatio: "1 / 1" }}>
           <Image
             key={mainPhoto.src}
             src={mainPhoto.src}
@@ -33,9 +33,6 @@ export function PhotoWidget() {
             draggable={false}
           />
         </div>
-        <span className="text-xs text-zinc-600 dark:text-zinc-300">
-          Padang, Indonesia
-        </span>
       </div>
 
       {/* Kanan: kolom foto kecil (selain aktif) */}

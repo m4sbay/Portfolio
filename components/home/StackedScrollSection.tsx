@@ -4,7 +4,8 @@ import Link from "next/link";
 import type { HeroImage, HeroVideo, StackScrollCard } from "@/data/stack-scroll-cards";
 import { stackScrollCards } from "@/data/stack-scroll-cards";
 import { ArrowUpRightIcon, HeartIcon } from "@/design-system/icons";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import { AnimatedSectionHeader } from "@/components/ui/AnimatedSectionHeader";
+import { CardGridAnimator } from "@/components/home/CardGridAnimator";
 
 const visualWrapBaseClass = "relative w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900/40";
 
@@ -28,7 +29,7 @@ const videoHoverClass = `${imageHoverClass} h-full w-full`;
 /** Gambar dalam strip kolase tidak di-scale agar pergeseran tetap bersih. */
 const collagePanelImageClass = "object-cover";
 
-const eagerHomeImageSrc = "/projects/cover_itailwind.png";
+const eagerHomeImageSrc = "/projects/itailwind/cover_itailwind.png";
 
 function getVisualWrapClass(visualClassName?: string) {
   return [visualWrapBaseClass, visualClassName ?? visualWrapDefaultSizeClass].join(" ");
@@ -88,15 +89,11 @@ export function StackedScrollSection({ cards = stackScrollCards }: { cards?: Sta
   return (
     <section aria-label="Nilai dan cara kerja" className="w-full bg-background">
       <div className="space-y-4">
-        <SectionHeader
-          title={
-            <>
-              Produk Yang Aku <br className="sm:hidden" /> Bangun Sendiri
-            </>
-          }
+        <AnimatedSectionHeader
+          title="Produk Yang Aku Bangun Sendiri"
           description="Yuk, liat apa aja yang ada "
         />
-        <ul className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
+        <CardGridAnimator>
           {cards.map(c => {
             const hasSlider = Boolean(c.sliderImages?.length === 3);
             const hasVideo = Boolean(c.heroVideo);
@@ -123,7 +120,7 @@ export function StackedScrollSection({ cards = stackScrollCards }: { cards?: Sta
               </li>
             );
           })}
-        </ul>
+        </CardGridAnimator>
       </div>
     </section>
   );

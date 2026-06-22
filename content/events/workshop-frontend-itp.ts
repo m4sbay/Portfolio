@@ -15,7 +15,7 @@ export const event: CalendarEvent = {
   ],
   images: [
     {
-      src: "/projects/project_vokasi.png",
+      src: "/projects/video-vokasi/project_vokasi.png",
       alt: "Ilustrasi suasana workshop",
       width: 1200,
       height: 900,

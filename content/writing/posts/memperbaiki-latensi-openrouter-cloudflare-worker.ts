@@ -11,7 +11,7 @@ export const post = {
   pinned: true,
   tags: ["ai", "cloudflare", "openrouter", "infra"],
   heroImage: {
-    src: "/projects/cover_itailwind.png",
+    src: "/projects/itailwind/cover_itailwind.png",
     alt: "Ilustrasi alur request dan worker",
     width: 1200,
     height: 800,

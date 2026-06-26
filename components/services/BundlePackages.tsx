@@ -193,6 +193,20 @@ function PricingCard({ pkg }: { pkg: BundlePackage }) {
         </ul>
       )}
 
+      {/* ── Validity note ── */}
+      <div
+        className={[
+          "mt-5 border-t pt-4",
+          isFeatured
+            ? "border-teal-500/20 dark:border-teal-500/20"
+            : "border-zinc-200 dark:border-zinc-800",
+        ].join(" ")}
+      >
+        <p className="text-[11px] leading-snug text-zinc-400 dark:text-zinc-600">
+          ⏱ Berlaku 30 hari sejak brief pertama diterima
+        </p>
+      </div>
+
       {/* ── Spacer — mendorong revisi ke bawah card ── */}
       <div className="flex-1" />
 
@@ -230,6 +244,9 @@ export function BundlePackages({ packages }: { packages: BundlePackage[] }) {
         Revisi di luar paket:{" "}
         <span className="text-zinc-600 dark:text-zinc-400">Rp 75.000 / konten</span>
       </p>
+
+      {/* Ketentuan Umum */}
+   
     </section>
   );
 }

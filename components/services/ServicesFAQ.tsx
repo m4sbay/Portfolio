@@ -5,36 +5,28 @@ import { useState } from "react";
 
 const FAQ_ITEMS = [
   {
-    q: "Kontennya termasuk tulisannya juga?",
-    a: "Tergantung kesepakatan. Kalau kamu sediakan brief atau teks, aku desain. Kalau butuh copywriting juga, bisa dibahas di awal.",
-  },
-  {
     q: "Satu revisi itu hitungannya gimana?",
-    a: "Satu kali kirim feedback = satu revisi. Jadi kalau ada 3 hal yang mau diubah, kirim sekaligus, bukan satu-satu.",
+    a: "Hitungannya per pengiriman feedback, bukan per poin. Jadi kalau ada tiga hal yang mau diubah, gabungkan dulu dalam satu pesan dan tetap dihitung satu revisi.",
   },
   {
-    q: "Kalau bulan ini kontennya tidak terpakai semua, hangus?",
-    a: "Ya, kuota per bulan tidak bisa dipindah ke bulan berikutnya. Makanya penting dari awal kita tentukan jadwal konten yang realistis.",
-  },
-  {
-    q: "Priority turnaround itu artinya berapa hari?",
-    a: "Paket SeriusBay dapat pengerjaan 1x24 jam per konten. Paket lain estimasi 2x24 jam, tergantung antrian.",
-  },
-  {
-    q: "Strategy consultation call-nya gimana formatnya?",
-    a: "Via Google Meet atau Zoom, durasi 30 menit. Bisa dipakai untuk bahas arah konten, evaluasi bulanan, atau planning campaign.",
-  },
-  {
-    q: "Mau upgrade paket di tengah bulan, bisa?",
-    a: "Bisa. Selisih harganya dihitung proporsional dari sisa hari di bulan itu.",
-  },
-  {
-    q: "File finalnya dalam format apa?",
-    a: "Semua paket dapat file siap posting (JPG/PNG/MP4). Master file Figma, PSD, atau AI hanya tersedia di paket SeriusBay.",
+    q: "Kalau kuota bulan ini tidak terpakai semua, hangus?",
+    a: "Kuotanya memang tidak bisa dibawa ke bulan berikutnya. Di awal kita tentukan jadwal konten yang sesuai keinginan kamu, biar tidak ada yang terbuang.",
   },
   {
     q: "Brief kontennya dari siapa?",
-    a: "Dari kamu. Aku butuh info minimal: tema bulan ini, momen penting, dan produk/program yang mau ditonjolkan. Tanpa brief, pengerjaan tidak bisa mulai.",
+    a: "Brief dari kamu, dan itu yang jadi titik awal segalanya. Aku butuh minimal tiga hal, tema bulan ini (kalau ada), momen penting, dan produk atau program yang mau ditonjolkan. Bisa diskusi dengan Aku.",
+  },
+  {
+    q: "File finalnya dalam format apa?",
+    a: "Semua paket sudah termasuk file siap posting dalam format JPG, PNG, atau MP4. Kalau kamu butuh master file-nya seperti Figma, PSD, atau AI itu tersedia di paket SeriusBay.",
+  },
+  {
+    q: "Apa yang dimaksud masa berlaku 30 hari?",
+    a: "Waktunya mulai dihitung dari brief pertama yang kamu kirim, bukan dari tanggal pembelian. Semua deliverable harus selesai dalam 30 hari itu. Kalau belum ada brief masuk, waktu belum mulai berjalan.",
+  },
+  {
+    q: "Apa yang terjadi kalau project belum selesai dalam 30 hari?",
+    a: "Tergantung penyebabnya. Kalau keterlambatan dari aku, pengerjaan tetap lanjut tanpa biaya tambahan. Kalau dari sisi kamu, brief atau revisi belum masuk, sisa deliverable bisa dikenakan tarif per item.",
   },
 ];
 

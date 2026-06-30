@@ -40,5 +40,15 @@ export type Project = {
       height: number;
     }[];
   };
+  processSections?: Array<{
+    title: string;
+    description: string;
+    gallery: {
+      src: string;
+      alt: string;
+      width: number;
+      height: number;
+    }[];
+  }>;
 };
 

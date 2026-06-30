@@ -247,7 +247,28 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
         </section>
       </div>
 
-      {/* Section 2: Case Study */}
+      {/* Section 2: Process Sections (per-day design journey) */}
+      {project.processSections && project.processSections.length > 0 && project.processSections.map((section, i) => (
+        <div
+          key={i}
+          className="grid grid-cols-1 items-start gap-12 border-t border-zinc-200 pt-10 dark:border-white/10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.45fr)] lg:gap-20"
+        >
+          <div className="lg:sticky lg:top-24 space-y-5">
+            <div className="space-y-3">
+              <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Proses Desain</p>
+              <h3 className="text-[38px] font-medium leading-[1.08] tracking-tight text-pretty text-zinc-900 dark:text-zinc-50">
+                {section.title}
+              </h3>
+            </div>
+            <div className="space-y-5 text-base leading-7 tracking-normal text-zinc-600 dark:text-zinc-400">
+              {renderTextSections(section.description, project.slug)}
+            </div>
+          </div>
+          <StickyGallery images={section.gallery} />
+        </div>
+      ))}
+
+      {/* Section 3: Case Study */}
       {project.caseStudy && (
         <div id="case-study" className="grid grid-cols-1 items-start gap-12 border-t border-zinc-200 pt-10 dark:border-white/10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.45fr)] lg:gap-20">
           {/* Kolom 1: Sticky Case Study Info */}

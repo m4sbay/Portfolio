@@ -512,6 +512,12 @@ export function InvoiceForm() {
   const [status, setStatus] = useState<{ type: "ok" | "error"; msg: string } | null>(null);
   const formId = useId();
 
+  useEffect(() => {
+    if (!status) return;
+    const t = window.setTimeout(() => setStatus(null), 4000);
+    return () => window.clearTimeout(t);
+  }, [status]);
+
   // Load history from localStorage on mount (client only)
   useEffect(() => {
     const stored = loadHistory();
@@ -943,19 +949,21 @@ export function InvoiceForm() {
         </div>
       </div>
 
+      {/* ── Toast ── */}
+      {status && (
+        <div
+          className={`fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-xl px-4 py-3 text-sm font-medium shadow-lg ring-1 transition-all ${
+            status.type === "ok"
+              ? "bg-zinc-950 text-white ring-black/10 dark:bg-zinc-50 dark:text-zinc-950"
+              : "bg-red-600 text-white ring-red-700/20"
+          }`}
+        >
+          {status.msg}
+        </div>
+      )}
+
       {/* ── Action ── */}
       <div className="space-y-3">
-        {status && (
-          <p
-            className={`text-sm ${
-              status.type === "ok"
-                ? "text-green-600 dark:text-green-400"
-                : "text-red-600 dark:text-red-400"
-            }`}
-          >
-            {status.msg}
-          </p>
-        )}
 
         <button
           type="button"
@@ -963,7 +971,7 @@ export function InvoiceForm() {
           disabled={loading || !data.clientName || (data.mode === "bundle" ? !data.packageName : data.lineItems.length === 0)}
           className="w-full rounded-xl bg-zinc-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200"
         >
-          {loading ? "Generating PDF..." : "Generate & Download PDF"}
+          {loading ? "Generating PDF..." : "Download"}
         </button>
         <p className="text-center text-xs text-zinc-400">
           Invoice akan otomatis tersimpan di riwayat browser setelah berhasil didownload.

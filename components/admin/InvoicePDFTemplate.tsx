@@ -418,7 +418,7 @@ export function InvoiceDocument({ data, bankName, bankAccount, bankHolder }: Inv
         {/* ── Footer ── */}
         <View style={styles.footer}>
           <Text style={styles.footerNote}>{footerNote}</Text>
-          <Text style={styles.thankYou}>Terima kasih 🙏</Text>
+          <Text style={styles.thankYou}>Terima kasih:)</Text>
         </View>
 
         <Text

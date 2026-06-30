@@ -7,6 +7,7 @@ export const grs: Project = {
   category: "Design",
   tags: ["Figma", "Photoshop", "Affinity Designer"],
   slug: "grs",
+  logo: "/tools/photoshop_logo.png",
   image: {
     src: "/projects/grs/cover-grs.jpg",
     alt: "Cover desain Geopark Run Series",

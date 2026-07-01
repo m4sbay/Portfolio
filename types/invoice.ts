@@ -40,6 +40,7 @@ export interface InvoiceData {
   lineItems: LineItem[];
   // Common
   extraRevisiCount: number;
+  discountAmount?: number;
   notes: string;
 }
 

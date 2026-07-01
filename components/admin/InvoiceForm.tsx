@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback, useId } from "react";
+import { useState, useEffect, useCallback, useId, useRef } from "react";
 import { bundlePackages, perItemRates, revisiLuarPaket } from "@/data/rate-card";
-import type { InvoiceData, Deliverable, LineItem, StoredInvoice } from "@/types/invoice";
+import type { InvoiceData, Deliverable, DeliverableStatus, LineItem, StoredInvoice } from "@/types/invoice";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -16,12 +16,18 @@ const DELIVERABLE_OPTIONS = [
 ] as const;
 
 const DESIGN_TYPE_OPTIONS = [
-  "Feed Instagram",
+  "Feed IG",
   "Poster",
   "Banner",
   "Flyer",
   "Story",
 ] as const;
+
+const PACKAGE_CONTENT_COUNT: Record<string, number> = {
+  MaluBay: 6,
+  GasBay: 12,
+  SeriusBay: 28,
+};
 
 function isSingleDesign(name: string): boolean {
   return name === "Single Post";
@@ -43,16 +49,28 @@ function formatRupiah(n: number) {
 
 function calcTotal(data: InvoiceData): number {
   const extraRevisi = data.extraRevisiCount * revisiLuarPaket;
+  const discount = data.discountAmount ?? 0;
   if (data.mode === "bundle") {
-    return data.packagePrice + extraRevisi;
+    return data.packagePrice - discount + extraRevisi;
   }
   return (
-    data.lineItems.reduce((sum, item) => sum + item.qty * item.unitPrice, 0) + extraRevisi
+    data.lineItems.reduce((sum, item) => sum + item.qty * item.unitPrice, 0) - discount + extraRevisi
   );
 }
 
 function calcRemaining(data: InvoiceData): number {
   return Math.max(0, calcTotal(data) - (data.dp ?? 0));
+}
+
+function makeDefaultDeliverables(count: number): Deliverable[] {
+  return Array.from({ length: count }, () => ({
+    id: uid(),
+    name: "Single Post" as Deliverable["name"],
+    slideCount: 1,
+    designType: "Feed IG",
+    keterangan: "-",
+    status: "Delivered" as DeliverableStatus,
+  }));
 }
 
 function generateInvoiceNumber(count: number): string {
@@ -79,15 +97,14 @@ function saveHistory(list: StoredInvoice[]) {
 // ─── Empty state ─────────────────────────────────────────────────────────────
 
 function emptyData(invoiceCount: number): InvoiceData {
-  const pkg = bundlePackages[1]; // GasBay sebagai default
   return {
     invoiceNumber: generateInvoiceNumber(invoiceCount),
     date: todayIso(),
     clientName: "",
     projectName: "",
     mode: "bundle",
-    packageName: pkg.name,
-    packagePrice: pkg.price,
+    packageName: "",
+    packagePrice: 0,
     periodStart: "",
     periodEnd: "",
     deliverables: [],
@@ -157,6 +174,72 @@ function NumberInput({
   );
 }
 
+function SelectInput({
+  value,
+  onChange,
+  options,
+  placeholder,
+  className = "",
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  options: readonly string[];
+  placeholder?: string;
+  className?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleOutside);
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, [open]);
+
+  const isEmpty = !value;
+
+  return (
+    <div ref={ref} className={`relative ${className}`}>
+      <button
+        type="button"
+        onClick={() => setOpen((p) => !p)}
+        className="flex w-full items-center justify-between gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-400 dark:border-white/10 dark:bg-white/5"
+      >
+        <span className={isEmpty ? "text-zinc-400 dark:text-zinc-600" : "text-zinc-950 dark:text-zinc-50"}>
+          {isEmpty ? (placeholder ?? "Pilih...") : value}
+        </span>
+        <svg className="shrink-0 text-zinc-400 dark:text-zinc-500" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {open && (
+        <div className="absolute left-0 top-[calc(100%+4px)] z-50 w-full overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-lg dark:border-white/10 dark:bg-zinc-900">
+          {options.map((opt) => (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => { onChange(opt); setOpen(false); }}
+              className={`flex w-full px-3 py-2 text-left text-sm transition hover:bg-zinc-50 dark:hover:bg-white/5 ${
+                opt === value
+                  ? "font-semibold text-zinc-950 dark:text-zinc-50"
+                  : "text-zinc-700 dark:text-zinc-300"
+              }`}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-zinc-400 dark:text-zinc-500">
@@ -222,15 +305,11 @@ function DeliverableTable({
             <span className="text-center text-xs text-zinc-400">{i + 1}</span>
 
             {/* Dropdown nama deliverable */}
-            <select
+            <SelectInput
               value={item.name}
-              onChange={(e) => handleNameChange(item.id, e.target.value)}
-              className="w-full rounded-lg border border-zinc-200 bg-white px-2 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-400 dark:border-white/10 dark:bg-white/5 dark:text-zinc-50"
-            >
-              {DELIVERABLE_OPTIONS.map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
+              onChange={(v) => handleNameChange(item.id, v)}
+              options={DELIVERABLE_OPTIONS}
+            />
 
             {/* Count */}
             <input
@@ -243,15 +322,11 @@ function DeliverableTable({
             />
 
             {/* Design Type */}
-            <select
+            <SelectInput
               value={item.designType ?? DESIGN_TYPE_OPTIONS[0]}
-              onChange={(e) => updateRow(item.id, { designType: e.target.value })}
-              className="w-full rounded-lg border border-zinc-200 bg-white px-2 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-400 dark:border-white/10 dark:bg-white/5 dark:text-zinc-50"
-            >
-              {DESIGN_TYPE_OPTIONS.map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
+              onChange={(v) => updateRow(item.id, { designType: v })}
+              options={DESIGN_TYPE_OPTIONS}
+            />
 
             <TextInput
               value={item.keterangan}
@@ -535,12 +610,14 @@ export function InvoiceForm() {
   function handlePackageChange(name: string) {
     const pkg = bundlePackages.find((p) => p.name === name);
     if (!pkg) return;
+    const count = PACKAGE_CONTENT_COUNT[name] ?? 0;
     setData((prev) =>
       prev
         ? {
             ...prev,
             packageName: pkg.name,
             packagePrice: pkg.price,
+            deliverables: makeDefaultDeliverables(count),
           }
         : prev
     );
@@ -747,25 +824,19 @@ export function InvoiceForm() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <FieldLabel>Paket</FieldLabel>
-                  <select
+                  <SelectInput
                     value={data.packageName}
-                    onChange={(e) => handlePackageChange(e.target.value)}
-                    className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-950 outline-none focus:border-zinc-400 dark:border-white/10 dark:bg-white/5 dark:text-zinc-50"
-                  >
-                    {bundlePackages.map((p) => (
-                      <option key={p.name} value={p.name}>
-                        {p.name} — {formatRupiah(p.price)}/bulan
-                      </option>
-                    ))}
-                    <option value="Custom">Custom</option>
-                  </select>
+                    onChange={handlePackageChange}
+                    options={bundlePackages.map((p) => p.name)}
+                    placeholder="Pilih paket..."
+                  />
                 </div>
                 <div className="space-y-1.5">
-                  <FieldLabel>Harga Paket (Rp)</FieldLabel>
+                  <FieldLabel>Harga Potongan (Rp, opsional)</FieldLabel>
                   <NumberInput
-                    value={data.packagePrice}
-                    onChange={(v) => patch("packagePrice", v)}
-                    placeholder="2500000"
+                    value={data.discountAmount ?? 0}
+                    onChange={(v) => patch("discountAmount", v)}
+                    placeholder="Nominal diskon/potongan"
                   />
                 </div>
               </div>
@@ -861,6 +932,15 @@ export function InvoiceForm() {
                   />
                 </div>
               </div>
+
+              <div className="space-y-1.5">
+                <FieldLabel>Harga Potongan (Rp, opsional)</FieldLabel>
+                <NumberInput
+                  value={data.discountAmount ?? 0}
+                  onChange={(v) => patch("discountAmount", v)}
+                  placeholder="Nominal diskon — harga asli = total + nominal ini, tampil coret di PDF"
+                />
+              </div>
             </div>
           )}
 
@@ -905,9 +985,18 @@ export function InvoiceForm() {
         <SectionTitle>Ringkasan</SectionTitle>
         <div className="mt-3 space-y-2 text-sm">
           {data.mode === "bundle" ? (
-            <div className="flex justify-between">
+            <div className="flex justify-between items-start">
               <span className="text-zinc-600 dark:text-zinc-400">Total paket ({data.packageName})</span>
-              <span className="font-semibold">{formatRupiah(data.packagePrice)}</span>
+              <div className="text-right">
+                {(data.discountAmount ?? 0) > 0 && (
+                  <span className="block text-xs text-zinc-400 line-through">
+                    {formatRupiah(data.packagePrice)}
+                  </span>
+                )}
+                <span className="font-semibold">
+                  {formatRupiah(data.packagePrice - (data.discountAmount ?? 0))}
+                </span>
+              </div>
             </div>
           ) : (
             <div className="flex justify-between">

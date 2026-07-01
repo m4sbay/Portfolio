@@ -1,10 +1,15 @@
-import { Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
+import { Document, Page, View, Text, StyleSheet, Image } from "@react-pdf/renderer";
 import type { InvoiceData } from "@/types/invoice";
+import path from "path";
 
 // ─── Colors ──────────────────────────────────────────────────────────────────
-const BRAND     = "#171717";
-const SECONDARY = "rgba(23,23,23,0.5)";
-const ORANGE    = "#ea580c";
+const BRAND          = "#171717";
+const SECONDARY      = "rgba(23,23,23,0.5)";
+const ORANGE         = "#ea580c";
+const INVOICE_ACCENT      = "#DE5900";
+const INVOICE_ACCENT_MUTED = "rgba(222,89,0,0.55)";
+
+const LOGO_PATH = path.join(process.cwd(), "public", "logo_artal.jpeg");
 const WHITE     = "#ffffff";
 const ZINC_50   = "#fafafa";
 const ZINC_100  = "#f4f4f5";
@@ -23,15 +28,16 @@ const styles = StyleSheet.create({
 
   // ── Header ──────────────────────────────────────────────────────────────────
   header: { flexDirection: "row", justifyContent: "space-between", marginBottom: 20 },
-  brandName: { fontSize: 16, fontFamily: "Helvetica-Bold", color: BRAND },
-  brandTagline: { fontSize: 8, color: SECONDARY, marginTop: 3 },
+  brandName: { fontSize: 16, fontFamily: "Helvetica-Bold", color: INVOICE_ACCENT },
+  brandTagline: { fontSize: 8, color: INVOICE_ACCENT_MUTED, marginTop: 3 },
   metaRight: { alignItems: "flex-end" },
-  invoiceLabel: { fontSize: 8, color: SECONDARY, textTransform: "uppercase", letterSpacing: 1 },
-  invoiceNumber: { fontSize: 13, fontFamily: "Helvetica-Bold", marginTop: 2 },
-  invoiceDate: { fontSize: 8, color: SECONDARY, marginTop: 2 },
+  invoiceLabel: { fontSize: 8, color: INVOICE_ACCENT, textTransform: "uppercase", letterSpacing: 1 },
+  invoiceNumber: { fontSize: 13, fontFamily: "Helvetica-Bold", marginTop: 2, color: INVOICE_ACCENT },
+  invoiceDate: { fontSize: 8, color: INVOICE_ACCENT_MUTED, marginTop: 2 },
+  logoImage: { width: 36, height: 36, borderRadius: 4 },
 
   // ── Divider ─────────────────────────────────────────────────────────────────
-  divider: { height: 1, backgroundColor: ZINC_200, marginVertical: 14 },
+  divider: { height: 1, backgroundColor: ZINC_200, marginVertical: 8 },
 
   // ── Bill To ─────────────────────────────────────────────────────────────────
   sectionEyebrow: {
@@ -140,6 +146,7 @@ const styles = StyleSheet.create({
   },
   remainingLabel: { color: WHITE, fontSize: 8, fontFamily: "Helvetica-Bold" },
   remainingValue: { color: WHITE, fontSize: 14, fontFamily: "Helvetica-Bold" },
+  originalPriceStrike: { textDecoration: "line-through", color: SECONDARY },
 
   // ── Payment info ─────────────────────────────────────────────────────────────
   paymentSection: {
@@ -199,13 +206,15 @@ function BundleTable({ data }: { data: InvoiceData }) {
         <Text style={[styles.thCell, { width: "17%", textAlign: "right" }]}>Status</Text>
       </View>
 
-      {data.deliverables.map((item, i) => (
+      {data.deliverables.map((item, i) => {
+        const isExpired = item.status === "Expired";
+        return (
         <View key={item.id} style={[styles.tableRow, i % 2 === 1 ? styles.tableRowAlt : {}]}>
           <Text style={[styles.tdCellMuted, styles.colNo]}>{i + 1}</Text>
-          <Text style={[styles.tdCell, styles.colName]}>{item.name}</Text>
-          <Text style={[styles.tdCellMuted, styles.colJumlah]}>{item.slideCount ?? 1}</Text>
-          <Text style={[styles.tdCellMuted, styles.colDesignType]}>{item.designType ?? "-"}</Text>
-          <Text style={[styles.tdCellMuted, styles.colKet]}>{item.keterangan}</Text>
+          <Text style={[styles.tdCell, styles.colName]}>{isExpired ? "-" : item.name}</Text>
+          <Text style={[styles.tdCellMuted, styles.colJumlah]}>{isExpired ? "-" : (item.slideCount ?? 1)}</Text>
+          <Text style={[styles.tdCellMuted, styles.colDesignType]}>{isExpired ? "-" : (item.designType ?? "-")}</Text>
+          <Text style={[styles.tdCellMuted, styles.colKet]}>{isExpired ? "-" : item.keterangan}</Text>
           <View style={styles.colStatus}>
             <View
               style={
@@ -226,7 +235,8 @@ function BundleTable({ data }: { data: InvoiceData }) {
             </View>
           </View>
         </View>
-      ))}
+        );
+      })}
     </View>
   );
 }
@@ -264,14 +274,27 @@ function SatuanTable({ data }: { data: InvoiceData }) {
 function Summary({ data, total, remaining }: { data: InvoiceData; total: number; remaining: number }) {
   const isBundle = data.mode === "bundle";
   const extraRevisiAmount = data.extraRevisiCount * 75_000;
+  const discountAmount = data.discountAmount ?? 0;
+  const hasDiscount = discountAmount > 0;
 
   return (
     <View style={styles.summaryWrapper}>
       <View style={styles.summaryTable}>
+        {isBundle && hasDiscount && (
+          <View style={styles.summaryRow}>
+            <Text style={styles.summaryLabel}>Harga Paket ({data.packageName})</Text>
+            <Text style={[styles.summaryValue, styles.originalPriceStrike]}>
+              {formatRupiah(data.packagePrice)}
+            </Text>
+          </View>
+        )}
+
         {isBundle ? (
           <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Total Paket ({data.packageName})</Text>
-            <Text style={styles.summaryValue}>{formatRupiah(data.packagePrice)}</Text>
+            <Text style={styles.summaryLabel}>
+              {hasDiscount ? `Setelah Diskon (${data.packageName})` : `Total Paket (${data.packageName})`}
+            </Text>
+            <Text style={styles.summaryValue}>{formatRupiah(data.packagePrice - discountAmount)}</Text>
           </View>
         ) : (
           <View style={styles.summaryRow}>
@@ -318,11 +341,12 @@ interface InvoiceDocumentProps {
 
 export function InvoiceDocument({ data, bankName, bankAccount, bankHolder }: InvoiceDocumentProps) {
   const extraRevisiAmount = data.extraRevisiCount * 75_000;
+  const discount = data.discountAmount ?? 0;
 
   const total =
     data.mode === "bundle"
-      ? data.packagePrice + extraRevisiAmount
-      : data.lineItems.reduce((sum, item) => sum + item.qty * item.unitPrice, 0) + extraRevisiAmount;
+      ? data.packagePrice - discount + extraRevisiAmount
+      : data.lineItems.reduce((sum, item) => sum + item.qty * item.unitPrice, 0) - discount + extraRevisiAmount;
 
   const remaining = Math.max(0, total - (data.dp ?? 0));
 
@@ -335,9 +359,12 @@ export function InvoiceDocument({ data, bankName, bankAccount, bankHolder }: Inv
       <Page size="A4" style={styles.page}>
         {/* ── Header ── */}
         <View style={styles.header}>
-          <View>
-            <Text style={styles.brandName}>Maulana Bayu</Text>
-            <Text style={styles.brandTagline}>Design & Content Creative Services</Text>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Image src={LOGO_PATH} style={styles.logoImage} />
+            <View>
+              <Text style={styles.brandName}>ARTAL BY MASBAY</Text>
+              <Text style={styles.brandTagline}>Design & Content Creative Services</Text>
+            </View>
           </View>
           <View style={styles.metaRight}>
             <Text style={styles.invoiceLabel}>Invoice</Text>
@@ -349,7 +376,7 @@ export function InvoiceDocument({ data, bankName, bankAccount, bankHolder }: Inv
         <View style={styles.divider} />
 
         {/* ── Bill To ── */}
-        <Text style={styles.sectionEyebrow}>Bill To</Text>
+       
         <Text style={styles.clientName}>{data.clientName}</Text>
         {data.projectName ? <Text style={styles.projectName}>{data.projectName}</Text> : null}
 

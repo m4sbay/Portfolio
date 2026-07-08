@@ -23,8 +23,9 @@ export function WritingCard({ post }: { post: WritingPost }) {
 
       <WritingCardPreview post={post} />
 
-      {/* Card 3: di bawah Card 2, selalu menempati ruang agar hover tidak menggeser layout */}
-      <footer className="flex items-center justify-between opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 motion-reduce:transition-none">
+      {/* Card 3: di bawah Card 2, selalu menempati ruang agar hover tidak menggeser layout.
+          Mobile: selalu tampil (tidak ada hover); ≥sm: hidden sampai card di-hover. */}
+      <footer className="flex items-center justify-between transition-opacity duration-300 ease-out sm:opacity-0 sm:group-hover:opacity-100 motion-reduce:transition-none">
         <span className="text-xs text-zinc-500 dark:text-zinc-400">
           {post.topic}
         </span>

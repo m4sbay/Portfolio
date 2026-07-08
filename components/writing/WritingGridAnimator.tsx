@@ -12,7 +12,7 @@ export function WritingGridAnimator({ children }: { children: ReactNode }) {
 
   useGSAP(
     () => {
-      const cards = gridRef.current?.querySelectorAll(":scope > a");
+      const cards = gridRef.current?.querySelectorAll(":scope > *");
       if (!cards?.length) return;
 
       gsap.from(cards, {

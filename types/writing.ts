@@ -1,3 +1,8 @@
+export interface WritingTopicGroup {
+  topic: string;
+  posts: WritingPost[];
+}
+
 export interface WritingPost {
   slug: string;
   title: string;

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { sortedWritingPosts } from "@/data/writing";
-import { WritingCard } from "@/components/writing/WritingCard";
-import { WritingGridAnimator } from "@/components/writing/WritingGridAnimator";
+import { groupPostsByTopic } from "@/data/writing";
+import { WritingTopicSection } from "@/components/writing/WritingTopicSection";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -15,25 +14,18 @@ export const metadata: Metadata = {
 };
 
 export default function WritingPage() {
-  const posts = sortedWritingPosts();
+  const groups = groupPostsByTopic();
 
   return (
     <div className="py-12">
-      <header className="mb-12 space-y-3">
-        <h1 className="text-[38px] font-semibold leading-tight tracking-tight text-zinc-950 dark:text-zinc-50">Writing</h1>
-        <p className="max-w-xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-          Hal-hal yang aku pelajari, temuin, atau emang pengen aku tulis aja.
-        </p>
-      </header>
-
-      {posts.length === 0 ? (
+      {groups.length === 0 ? (
         <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-400">Belum ada tulisan.</p>
       ) : (
-        <WritingGridAnimator>
-          {posts.map(post => (
-            <WritingCard key={post.slug} post={post} />
+        <div className="space-y-14">
+          {groups.map(group => (
+            <WritingTopicSection key={group.topic} group={group} />
           ))}
-        </WritingGridAnimator>
+        </div>
       )}
     </div>
   );

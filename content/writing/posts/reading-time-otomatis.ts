@@ -5,7 +5,7 @@ export const post: WritingPost = {
   title: "Reading Time Nggak Perlu Ditulis Manual",
   topic: "Development",
   publishedAt: "2026-05-30",
-  image: { src: "/writing/post1.JPG", alt: "Preview artikel tentang reading time otomatis" },
+  image: { src: "/writing/post1.png", alt: "Preview artikel tentang reading time otomatis" },
   content: [
     "Estimasi waktu baca itu informasi kecil yang sering di-hardcode. Padahal begitu artikelnya diedit, angkanya langsung bohong dan nggak ada yang inget buat update.",
     "Cara paling aman: hitung dari kontennya langsung. Ambil semua paragraf, hitung jumlah kata, bagi dengan kecepatan baca rata-rata sekitar 200 kata per menit, lalu bulatkan ke atas.",

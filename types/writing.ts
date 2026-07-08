@@ -1,36 +1,11 @@
-export type WritingInlineText =
-  | string
-  | {
-      text: string;
-      bold?: boolean;
-      href?: string;
-    };
-
-export type WritingRichText = string | WritingInlineText[];
-
-export type WritingBlock =
-  | { kind: "p"; text: WritingRichText }
-  | { kind: "lead"; text: WritingRichText }
-  | { kind: "h2"; text: string }
-  | { kind: "hr" }
-  | { kind: "ul"; items: WritingRichText[] };
-
-export type WritingPost = {
+export interface WritingPost {
   slug: string;
   title: string;
-  /** Label kategori seperti "In Development", "In Thoughts" */
-  category: string;
-  excerpt: string;
-  content: WritingBlock[];
+  /** Label topik, mis. "Design", "Development" */
+  topic: string;
   /** ISO tanggal publikasi */
   publishedAt: string;
-  readMinutes: number;
-  pinned?: boolean;
-  tags?: string[];
-  heroImage?: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
-};
+  image: { src: string; alt: string };
+  /** Paragraf konten; index 0 dipakai sebagai preview di card */
+  content: string[];
+}

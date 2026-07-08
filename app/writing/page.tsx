@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { WRITING_CATEGORY_ORDER } from "@/content/writing/categories";
 import { sortedWritingPosts } from "@/data/writing";
-import { WritingListCard } from "@/components/writing/WritingListCard";
+import { WritingCard } from "@/components/writing/WritingCard";
+import { WritingGridAnimator } from "@/components/writing/WritingGridAnimator";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -14,47 +14,27 @@ export const metadata: Metadata = {
   },
 };
 
-function groupByCategory(posts: ReturnType<typeof sortedWritingPosts>) {
-  const map = new Map<string, typeof posts>();
-  for (const p of posts) {
-    const list = map.get(p.category) ?? [];
-    list.push(p);
-    map.set(p.category, list);
-  }
-  const categoryOrder: string[] = [...WRITING_CATEGORY_ORDER];
-  const keys = [...map.keys()].sort((a, b) => {
-    const ia = categoryOrder.indexOf(a);
-    const ib = categoryOrder.indexOf(b);
-    if (ia === -1 && ib === -1) return a.localeCompare(b);
-    if (ia === -1) return 1;
-    if (ib === -1) return -1;
-    return ia - ib;
-  });
-  return keys.map(k => ({ category: k, posts: map.get(k)! }));
-}
-
 export default function WritingPage() {
-  const all = sortedWritingPosts();
-  const groups = groupByCategory(all);
+  const posts = sortedWritingPosts();
 
   return (
     <div className="py-12">
       <header className="mb-12 space-y-3">
-        <h1 className="flex items-center gap-3 text-[38px] font-semibold leading-tight tracking-tight text-zinc-950 dark:text-zinc-50">Writing</h1>
+        <h1 className="text-[38px] font-semibold leading-tight tracking-tight text-zinc-950 dark:text-zinc-50">Writing</h1>
         <p className="max-w-xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-          Hal-hal yang aku pelajari, temuin, atau emang <span className="font-medium text-zinc-600 dark:text-zinc-200">pengen aku tulis</span> aja
+          Hal-hal yang aku pelajari, temuin, atau emang pengen aku tulis aja.
         </p>
       </header>
 
-      {groups.map(({ category, posts }, groupIndex) => (
-        <div key={category} className={groupIndex > 0 ? "mt-10" : undefined}>
-          <div className="flex flex-col gap-4">
-            {posts.map(post => (
-              <WritingListCard key={post.slug} post={post} showCategory />
-            ))}
-          </div>
-        </div>
-      ))}
+      {posts.length === 0 ? (
+        <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-400">Belum ada tulisan.</p>
+      ) : (
+        <WritingGridAnimator>
+          {posts.map(post => (
+            <WritingCard key={post.slug} post={post} />
+          ))}
+        </WritingGridAnimator>
+      )}
     </div>
   );
 }

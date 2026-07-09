@@ -7,7 +7,7 @@ export const post: WritingPost = {
   status: "published",
   publishedAt: "2026-07-09",
   image: {
-    src: "/writing/wfr4.png",
+    src: "/writing/work_ruang.png",
     alt: "Suasana Work From Ruang di Ruang Tambah, Kota Padang",
   },
   content: [
@@ -31,7 +31,7 @@ export const post: WritingPost = {
     "Ruangannya nggak besar-besar amat, tapi lega. Cahayanya cukup, sirkulasi udaranya enak, dan yang paling penting: suasananya tenang tanpa jadi kaku kayak perpustakaan. Orang masih bisa ngobrol pelan tanpa merasa mengganggu. Aku pilih spot dekat jendela, colok charger, sambung WiFi, dan mulai buka kerjaan yang udah aku siapkan dari malamnya.",
     "Satu jam pertama rasanya aneh dalam artian yang bagus. Biasanya jam segitu aku masih perang sama distraksi di kamar. Di sini, begitu duduk, kerjaan langsung jalan. Mungkin karena otak sadar aku udah niat keluar rumah buat ini, jadi nggak enak sendiri kalau ujung-ujungnya cuma scroll.",
     { type: "heading", text: "Ngobrol Sama Orang yang Baru Ketemu" },
-    "Bagian yang paling aku suka justru terjadi di jeda-jeda kecil. Waktu ambil air minum, waktu istirahat makan siang, waktu sama-sama ngelurusin punggung. Obrolannya dimulai dari yang paling standar, \"lagi ngerjain apa?\", terus melebar ke mana-mana.",
+    'Bagian yang paling aku suka justru terjadi di jeda-jeda kecil. Waktu ambil air minum, waktu istirahat makan siang, waktu sama-sama ngelurusin punggung. Obrolannya dimulai dari yang paling standar, "lagi ngerjain apa?", terus melebar ke mana-mana.',
     "Pesertanya ternyata campur. Ada yang kerja remote buat perusahaan di luar kota, ada freelancer, ada juga yang masih kuliah dan bawa laporan buat dikerjain. Karena latar belakangnya beda-beda, obrolannya nggak muter di topik yang sama. Aku sempat dapat insight soal cara orang lain ngatur klien, dan gantian cerita soal gimana aku nyusun portfolio.",
     "Yang menarik, semua obrolan itu terjadi tanpa dipaksa. Nggak ada sesi perkenalan formal yang bikin canggung. Kamu bisa milih fokus kerja seharian tanpa ngomong sama siapa pun, dan itu juga nggak apa-apa. Tapi begitu kamu buka obrolan, orang-orangnya welcome. Keseimbangan kayak gitu susah didapat di tempat lain.",
     { type: "heading", text: "Produktif yang Rasanya Beda" },

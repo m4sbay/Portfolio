@@ -4,6 +4,7 @@ export const post: WritingPost = {
   slug: "kapan-butuh-use-memo",
   title: "Kapan Sebenarnya Kamu Butuh useMemo",
   topic: "Development",
+  status: "published",
   publishedAt: "2026-05-12",
   image: { src: "/writing/post1.png", alt: "Preview artikel tentang useMemo" },
   content: [

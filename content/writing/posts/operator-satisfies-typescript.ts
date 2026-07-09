@@ -4,6 +4,7 @@ export const post: WritingPost = {
   slug: "operator-satisfies-typescript",
   title: "Operator satisfies di TypeScript Itu Underrated",
   topic: "Development",
+  status: "published",
   publishedAt: "2026-05-22",
   image: { src: "/writing/post1.png", alt: "Preview artikel tentang operator satisfies" },
   content: [

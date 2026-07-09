@@ -4,6 +4,7 @@ export const post: WritingPost = {
   slug: "whitespace-bukan-ruang-kosong",
   title: "Whitespace Itu Bukan Ruang yang Kebuang",
   topic: "Design",
+  status: "published",
   publishedAt: "2026-06-28",
   image: { src: "/writing/post1.png", alt: "Preview artikel tentang whitespace" },
   content: [

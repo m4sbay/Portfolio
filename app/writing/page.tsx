@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { groupPostsByTopic } from "@/data/writing";
-import { WritingTopicSection } from "@/components/writing/WritingTopicSection";
+import { WritingSection } from "@/components/writing/WritingSection";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function WritingPage() {
-  const groups = groupPostsByTopic();
+export default async function WritingPage() {
+  const groups = await groupPostsByTopic();
 
   return (
     <div className="py-12">
@@ -23,7 +23,14 @@ export default function WritingPage() {
       ) : (
         <div className="space-y-14">
           {groups.map(group => (
-            <WritingTopicSection key={group.topic} group={group} />
+            <WritingSection
+              key={group.topic.slug}
+              title={group.topic.label}
+              posts={group.posts}
+              maxVisible={6}
+              responsiveVisibility
+              action={{ href: `/writing/${group.topic.slug}`, label: "Baca Selengkapnya" }}
+            />
           ))}
         </div>
       )}

@@ -1,50 +1,78 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getPostBySlug, sortedWritingPosts, writingPosts } from "@/data/writing";
+import { WRITING_TOPICS } from "@/types/writing";
+import type { WritingPost, WritingTopic } from "@/types/writing";
+import {
+  getPostsByTopic,
+  getPublishedPostBySlug,
+  getPublishedPosts,
+  getRecommendations,
+  getTopicBySlug,
+} from "@/data/writing";
 import { formatReadingTime, formatWritingDate, getFirstParagraph } from "@/lib/writing";
 import { DetailBreadcrumb } from "@/components/ui/DetailBreadcrumb";
 import { MediaThumb } from "@/components/ui/MediaThumb";
 import { WritingSidebar } from "@/components/writing/WritingSidebar";
-import { WritingMoreSection } from "@/components/writing/WritingMoreSection";
+import { WritingSection } from "@/components/writing/WritingSection";
+import { WritingArticleBody } from "@/components/writing/WritingArticleBody";
+import { WritingCategoryView } from "@/components/writing/WritingCategoryView";
 
-export function generateStaticParams() {
-  return writingPosts.map(p => ({ slug: p.slug }));
+/** Slug di luar generateStaticParams (termasuk draft) → 404 tanpa fs runtime. */
+export const dynamicParams = false;
+
+/** Route ini melayani dua hal: detail artikel DAN halaman topic (/writing/life). */
+export async function generateStaticParams() {
+  const posts = await getPublishedPosts();
+  return [
+    ...posts.map(p => ({ slug: p.slug })),
+    ...WRITING_TOPICS.map(t => ({ slug: t.slug })),
+  ];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
-  if (!post) return {};
 
-  const description = getFirstParagraph(post.content);
+  const post = await getPublishedPostBySlug(slug);
+  if (post) {
+    const description = getFirstParagraph(post.content);
+    return {
+      title: `${post.title} — Writing`,
+      description,
+      openGraph: {
+        title: post.title,
+        description,
+        type: "article",
+        url: `/writing/${post.slug}`,
+        publishedTime: post.publishedAt,
+        images: [{ url: post.image.src, alt: post.image.alt }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: post.title,
+        description,
+        images: [post.image.src],
+      },
+    };
+  }
 
-  return {
-    title: `${post.title} — Writing`,
-    description,
-    openGraph: {
-      title: post.title,
+  const topic = getTopicBySlug(slug);
+  if (topic) {
+    const description = `Semua tulisan pada topik ${topic.label}.`;
+    return {
+      title: `${topic.label} — Writing`,
       description,
-      type: "article",
-      url: `/writing/${post.slug}`,
-      publishedTime: post.publishedAt,
-      images: [{ url: post.image.src, alt: post.image.alt }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description,
-      images: [post.image.src],
-    },
-  };
+      openGraph: {
+        title: `${topic.label} — Writing`,
+        description,
+        url: `/writing/${topic.slug}`,
+      },
+    };
+  }
+
+  return {};
 }
 
-export default async function WritingArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
-  if (!post) notFound();
-
-  const morePosts = sortedWritingPosts().filter(p => p.slug !== post.slug);
-
+function ArticleView({ post, morePosts }: { post: WritingPost; morePosts: WritingPost[] }) {
   return (
     <div className="py-12">
       {/* Area 2 kolom: artikel kiri, sidebar kanan (lg). Di bawah lg menumpuk:
@@ -72,13 +100,7 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
             />
           </div>
 
-          <div className="mt-10 space-y-5">
-            {post.content.map((paragraph, i) => (
-              <p key={i} className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          <WritingArticleBody content={post.content} />
         </article>
 
         <WritingSidebar />
@@ -86,8 +108,31 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
 
       {/* Layout 2 kolom berakhir di sini; section berikut full-width tanpa sidebar */}
       <div className="mt-16">
-        <WritingMoreSection posts={morePosts} />
+        <WritingSection title="Lainnya seperti ini" posts={morePosts} />
       </div>
     </div>
   );
+}
+
+async function CategoryPage({ topic }: { topic: WritingTopic }) {
+  const [posts, recommendations] = await Promise.all([
+    getPostsByTopic(topic.slug),
+    getRecommendations({ excludeTopicSlug: topic.slug }),
+  ]);
+  return <WritingCategoryView topic={topic} posts={posts} recommendations={recommendations} />;
+}
+
+export default async function WritingSlugPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
+  const post = await getPublishedPostBySlug(slug);
+  if (post) {
+    const morePosts = await getRecommendations({ excludeSlug: post.slug });
+    return <ArticleView post={post} morePosts={morePosts} />;
+  }
+
+  const topic = getTopicBySlug(slug);
+  if (topic) return <CategoryPage topic={topic} />;
+
+  notFound();
 }

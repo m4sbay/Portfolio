@@ -4,6 +4,7 @@ export const post: WritingPost = {
   slug: "line-clamp-detail-kecil",
   title: "Line Clamp: Detail Kecil yang Bikin Card Rapi",
   topic: "Development",
+  status: "published",
   publishedAt: "2026-06-18",
   image: { src: "/writing/post1.png", alt: "Preview artikel tentang line clamp" },
   content: [

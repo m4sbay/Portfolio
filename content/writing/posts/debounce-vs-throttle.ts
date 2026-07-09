@@ -4,6 +4,7 @@ export const post: WritingPost = {
   slug: "debounce-vs-throttle",
   title: "Debounce vs Throttle, Kapan Pakai yang Mana",
   topic: "Development",
+  status: "draft",
   publishedAt: "2026-06-25",
   image: { src: "/writing/post1.png", alt: "Preview artikel tentang debounce dan throttle" },
   content: [

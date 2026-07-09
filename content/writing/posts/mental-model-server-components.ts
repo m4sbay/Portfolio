@@ -4,6 +4,7 @@ export const post: WritingPost = {
   slug: "mental-model-server-components",
   title: "Mental Model Buat Mahamin Server Components",
   topic: "Development",
+  status: "draft",
   publishedAt: "2026-07-05",
   image: { src: "/writing/post1.png", alt: "Preview artikel tentang server components" },
   content: [

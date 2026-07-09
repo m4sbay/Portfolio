@@ -1,0 +1,16 @@
+{
+  // Munculkan saran otomatis saat mengetik di dalam string (className, dll.)
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  // Anggap file .css sebagai Tailwind CSS agar at-rule v4 (@theme, @import) dikenali
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    // Konstanta string yang namanya mengandung "class", mis. paragraphClass, navTextClass
+    ["\\w*[cC]lass(?:Name)?\\w*\\s*[:=]\\s*[\"'`]([^\"'`]*)[\"'`]"],
+    // Pemanggilan twMerge("...", "...")
+    ["twMerge\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]
+  ]
+}

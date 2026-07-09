@@ -4,6 +4,7 @@ export const post: WritingPost = {
   slug: "reading-time-otomatis",
   title: "Reading Time Nggak Perlu Ditulis Manual",
   topic: "Development",
+  status: "published",
   publishedAt: "2026-05-30",
   image: { src: "/writing/post1.png", alt: "Preview artikel tentang reading time otomatis" },
   content: [

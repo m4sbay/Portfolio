@@ -4,6 +4,7 @@ export const post: WritingPost = {
   slug: "strategi-loading-web-font",
   title: "Strategi Loading Web Font Tanpa Layout Shift",
   topic: "Development",
+  status: "published",
   publishedAt: "2026-06-10",
   image: { src: "/writing/post1.png", alt: "Preview artikel tentang loading web font" },
   content: [

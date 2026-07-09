@@ -4,6 +4,7 @@ export const post: WritingPost = {
   slug: "reset-ulang-halaman-writing",
   title: "Kenapa Aku Reset Ulang Halaman Writing dari Nol",
   topic: "Process",
+  status: "published",
   publishedAt: "2026-07-01",
   image: { src: "/writing/post1.png", alt: "Preview artikel reset ulang halaman writing" },
   content: [

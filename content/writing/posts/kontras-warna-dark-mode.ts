@@ -4,6 +4,7 @@ export const post: WritingPost = {
   slug: "kontras-warna-dark-mode",
   title: "Kontras Warna di Dark Mode Sering Kebalik",
   topic: "Design",
+  status: "published",
   publishedAt: "2026-06-02",
   image: { src: "/writing/post1.png", alt: "Preview artikel tentang kontras warna dark mode" },
   content: [

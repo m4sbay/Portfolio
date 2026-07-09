@@ -6,10 +6,12 @@ export const post: WritingPost = {
   topic: "Design",
   status: "published",
   publishedAt: "2026-06-02",
-  image: { src: "/writing/post1.png", alt: "Preview artikel tentang kontras warna dark mode" },
+  image: { src: "/writing/kontras_warna_dark.png", alt: "Preview artikel tentang kontras warna dark mode" },
   content: [
-    "Bikin dark mode bukan sekadar dibalik dari terang ke gelap. Teks putih murni di background hitam pekat justru bikin silau dan cepat capek dibaca.",
-    "Yang lebih nyaman biasanya abu terang di atas permukaan gelap yang nggak benar-benar hitam, dengan border tipis dari putih ber-opacity rendah.",
-    "Makanya tiap komponen di sini selalu ditulis bareng varian dark:-nya sejak awal, bukan ditempel belakangan.",
+    "Dulu aku juga sempat mikir bikin dark mode itu gampang. Tinggal dibalik aja, background putih jadi hitam, teks hitam jadi putih. Ternyata pas dipakai beberapa menit, matanya malah cepat capek. Dari situ aku baru sadar kalau dark mode yang nyaman ternyata nggak sesederhana mengganti warna.",
+
+    "Salah satu hal yang baru aku tahu, banyak aplikasi besar juga jarang memakai hitam dan putih yang benar-benar murni. Permukaannya biasanya dibuat sedikit abu-abu gelap, sementara teksnya juga bukan putih penuh. Perbedaannya memang tipis, tapi mata terasa jauh lebih nyaman kalau dipakai membaca dalam waktu lama.",
+
+    "Sejak itu setiap kali bikin komponen baru, aku langsung membuat versi dark mode-nya di awal. Jadi bukan menunggu semuanya selesai dulu baru diubah ke tema gelap. Selain lebih rapi, hasil akhirnya juga terasa lebih konsisten karena kedua tema berkembang bareng dari awal.",
   ],
 };

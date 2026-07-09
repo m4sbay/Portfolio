@@ -244,28 +244,32 @@ html.dark .navbar-glass {
   }
 }
 
-@media (max-width: 767px) {
-  .navbar-glass {
-    background-color: rgba(255, 255, 255, 0.84) !important;
-  }
+/* Mobile pekat hanya jika browser tidak punya backdrop-filter sama sekali */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  @media (max-width: 767px) {
+    .navbar-glass {
+      background-color: rgba(255, 255, 255, 0.84) !important;
+    }
 
-  html.dark .navbar-glass {
-    background-color: rgba(24, 24, 27, 0.86) !important;
+    html.dark .navbar-glass {
+      background-color: rgba(24, 24, 27, 0.86) !important;
+    }
   }
 }
 
-/* ─── Liquid Glass: fallback non-Chromium — lensing utama hanya blur di sini ─ */
+/* ─── Liquid Glass: fallback non-Chromium — lensing utama hanya blur di sini ─
+   Sengaja tanpa @supports: Safari mengaku support backdrop-filter url() padahal
+   tidak merendernya. Di Chromium, inline style url() dari komponen menang atas
+   rule ini, jadi aman berlaku global. */
 
-@supports not (backdrop-filter: url(#__liquid_glass_probe__)) {
-  .liquid-glass {
-    backdrop-filter: blur(24px) saturate(1.8);
-    -webkit-backdrop-filter: blur(24px) saturate(1.8);
-    background: rgba(255, 255, 255, 0.2);
-  }
+.liquid-glass {
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  background: rgba(255, 255, 255, 0.2);
+}
 
-  html.dark .liquid-glass {
-    background: rgba(255, 255, 255, 0.1);
-  }
+html.dark .liquid-glass {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .eq-bar {

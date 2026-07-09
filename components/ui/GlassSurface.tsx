@@ -46,14 +46,18 @@ function useSupportsSvgBackdropFilter() {
   useLayoutEffect(() => {
     if (typeof CSS === "undefined" || typeof window === "undefined") return;
 
-    const isFirefox = /Firefox\//.test(navigator.userAgent);
-    const chromiumLike =
-      typeof (window as unknown as { chrome?: unknown }).chrome !==
-        "undefined" && !isFirefox;
+    // WebKit (Safari/iOS) lolos CSS.supports untuk url() tapi tidak pernah
+    // merender filter SVG di backdrop-filter, jadi jalur SVG dibatasi ke Chromium.
+    const ua = navigator.userAgent;
+    const isIOS =
+      /iP(hone|ad|od)/.test(ua) ||
+      (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    const isChromium = /Chrome\/|Chromium\/|Edg\//.test(ua) && !isIOS;
 
     const isSupported =
-      CSS.supports("backdrop-filter", PROBE_FILTER) ||
-      (chromiumLike && CSS.supports("backdrop-filter", "blur(2px)"));
+      isChromium &&
+      (CSS.supports("backdrop-filter", PROBE_FILTER) ||
+        CSS.supports("backdrop-filter", "blur(2px)"));
 
     queueMicrotask(() => setSupports(isSupported));
   }, []);
@@ -101,9 +105,11 @@ export function GlassSurface({
         WebkitBackdropFilter: `url(#${filterId}) blur(${blur}px) saturate(${saturation})`,
       }
     : {
+        // Meniru UIBlurEffect iOS: blur tebal + saturasi tinggi di atas tint tipis.
         backgroundColor: `rgba(255, 255, 255, ${Math.max(backgroundOpacity, 0.18)})`,
-        backdropFilter: `blur(${blur}px) saturate(${Math.max(saturation, 1.4)}) brightness(1.08)`,
-        WebkitBackdropFilter: `blur(${blur}px) saturate(${Math.max(saturation, 1.4)}) brightness(1.08)`,
+        backdropFilter: `blur(${Math.max(blur, 16)}px) saturate(${Math.max(saturation, 1.7)}) brightness(1.08)`,
+        WebkitBackdropFilter: `blur(${Math.max(blur, 16)}px) saturate(${Math.max(saturation, 1.7)}) brightness(1.08)`,
+        isolation: "isolate",
       };
 
   return (

@@ -13,7 +13,8 @@ const PROBE = "url(#__liquid_glass_probe__)";
 
 /**
  * Filter SVG tidak diduplikasi di sini — wajib mount LiquidGlassFilterProvider di root.
- * CSS.supports url() bisa false negative di beberapa Chromium; fallback heuristic ringan.
+ * WebKit (Safari/iOS) lolos CSS.supports untuk url() tapi tidak merendernya di
+ * backdrop-filter, jadi jalur url() dibatasi ke engine Chromium saja.
  */
 function useSupportsBackdropUrl() {
   const [supports, setSupports] = useState(false);
@@ -21,17 +22,17 @@ function useSupportsBackdropUrl() {
     if (typeof CSS === "undefined" || typeof window === "undefined") {
       return;
     }
-    let ok = CSS.supports("backdrop-filter", PROBE);
-    if (!ok) {
-      const isFirefox = /Firefox\//.test(navigator.userAgent);
-      const chromiumish =
-        typeof (window as unknown as { chrome?: unknown }).chrome !==
-          "undefined" && !isFirefox;
-      if (chromiumish && CSS.supports("backdrop-filter", "blur(2px)")) {
-        ok = true;
-      }
-    }
-    setSupports(ok);
+    const ua = navigator.userAgent;
+    const isIOS =
+      /iP(hone|ad|od)/.test(ua) ||
+      (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    const isChromium = /Chrome\/|Chromium\/|Edg\//.test(ua) && !isIOS;
+
+    const ok =
+      isChromium &&
+      (CSS.supports("backdrop-filter", PROBE) ||
+        CSS.supports("backdrop-filter", "blur(2px)"));
+    queueMicrotask(() => setSupports(ok));
   }, []);
   return supports;
 }

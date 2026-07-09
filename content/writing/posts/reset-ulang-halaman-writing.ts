@@ -6,11 +6,14 @@ export const post: WritingPost = {
   topic: "Process",
   status: "published",
   publishedAt: "2026-07-01",
-  image: { src: "/writing/post1.png", alt: "Preview artikel reset ulang halaman writing" },
+  image: { src: "/writing/tulis_ulang_writing.png", alt: "Preview artikel reset ulang halaman writing" },
   content: [
-    "Halaman writing di portfolio ini sempat aku hapus total. Bukan karena rusak, tapi karena strukturnya keburu ribet sebelum arahnya jelas. Daripada nambal terus, aku pilih mulai lagi dari satu halaman kosong.",
-    "Keputusan kayak gini kelihatannya mundur, padahal justru ngirit waktu. Setiap komponen yang aku pertahankan waktu itu punya asumsi desain lama yang udah nggak relevan. Kalau dipaksa dipakai, setiap fitur baru harus kompromi sama asumsi itu.",
-    "Sekarang fondasinya sederhana: satu tipe data, satu file data, satu halaman. Nambah tulisan cukup nambah satu file konten, tanpa nyentuh komponen sama sekali.",
-    "Pelajarannya buat aku: arsitektur yang enak dikembangin itu bukan yang paling lengkap dari awal, tapi yang paling gampang ditambahin belakangan.",
+    "Sebelum tampilannya seperti sekarang, halaman Writing di portfolio ini pernah aku hapus total. Bukan karena ada bug besar atau rusak, tapi karena makin lama aku ngerasa fondasinya mulai berantakan. Setiap kali mau nambah fitur baru, rasanya selalu ada bagian lain yang ikut harus diperbaiki.",
+
+    "Awalnya sempat sayang juga buat menghapus semuanya. Soalnya beberapa bagian udah lumayan jadi. Tapi setelah dipikir-pikir, aku malah bakal lebih banyak buang waktu kalau terus mempertahankan struktur yang dari awal memang bukan dibuat untuk berkembang.",
+
+    "Akhirnya aku mulai lagi dari halaman kosong. Pelan-pelan aku susun ulang semuanya dengan aturan yang lebih sederhana. Sekarang setiap tulisan cukup punya satu file sendiri. Mau nambah artikel baru tinggal bikin file baru tanpa perlu menyentuh komponen lain. Rasanya jauh lebih lega karena semuanya sudah punya tempatnya masing-masing.",
+
+    "Lucunya, keputusan yang awalnya terasa seperti mundur itu malah bikin proses ngembanginnya jauh lebih cepat. Aku jadi lebih berani mencoba ide baru karena nggak lagi kepikiran bakal merusak bagian yang lain. Kadang memang harus rela mengulang dari awal supaya langkah berikutnya jadi lebih ringan.",
   ],
 };

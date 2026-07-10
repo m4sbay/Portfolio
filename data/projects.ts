@@ -54,6 +54,12 @@ export async function getPublishedProjects(): Promise<Project[]> {
   return projects.filter(project => project.status === "published").sort(byOrder);
 }
 
+/** Ada draft di studio? Dipakai teaser "bab berikutnya" di /work; detail draft tidak dibocorkan. */
+export async function hasDraftProjects(): Promise<boolean> {
+  const projects = await getAllProjects();
+  return projects.some(project => project.status === "draft");
+}
+
 /** Project published by slug; draft/tidak ada → undefined (halaman detail 404). */
 export async function getPublishedProjectBySlug(slug: string): Promise<Project | undefined> {
   const projects = await getPublishedProjects();

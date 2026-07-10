@@ -42,6 +42,8 @@ export type Project = {
   status: ProjectStatus;
   /** Urutan kurasi tampilan; angka kecil tampil lebih dulu. */
   order: number;
+  /** Tahun pengerjaan — dipakai label plate rute /work. */
+  year?: number;
   tags: string[];
   slug: string;
   href?: string;

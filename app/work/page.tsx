@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
-import { WorkViewSwitcher } from "@/components/projects/WorkViewSwitcher";
-import { getPublishedProjects } from "@/data/projects";
+import { Fragment } from "react";
+import { ExhibitionArrival } from "@/components/projects/exhibition/ExhibitionArrival";
+import { ExhibitionChapter } from "@/components/projects/exhibition/ExhibitionChapter";
+import { ExhibitionCorridor } from "@/components/projects/exhibition/ExhibitionCorridor";
+import { ExhibitionExit } from "@/components/projects/exhibition/ExhibitionExit";
+import { exhibitionRoute } from "@/content/work/exhibition";
+import { chapterNumeral, getExhibitionChapters } from "@/data/exhibition";
+import { hasDraftProjects } from "@/data/projects";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -13,24 +19,46 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Exhibition Route — rute pameran empat bab.
+ * Spec: docs/superpowers/specs/2026-07-10-work-exhibition-route-*.md
+ * Halaman ini murni komposisi; struktur (server) memikul cerita, motion menyusul sebagai lapisan.
+ */
 export default async function WorkPage() {
-  const projects = await getPublishedProjects();
+  const chapters = await getExhibitionChapters();
+  const hasDraft = await hasDraftProjects();
+  const total = chapters.length;
 
   return (
-    <div className="py-12 lg:ml-[calc((100%_-_48rem)/2_+_2rem)]">
-      <header className="mb-10 max-w-3xl space-y-3 sm:mb-12">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-400 dark:text-zinc-500">
-          Portfolio
-        </p>
-        <h1 className="text-[38px] font-semibold uppercase leading-tight tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-5xl">
-          All works
-        </h1>
-        <p className="max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-400">
-          Kumpulan project, eksperimen, dan karya digital yang bisa dilihat dalam mode grid atau list.
-        </p>
-      </header>
+    <div>
+      <ExhibitionArrival
+        eyebrow={exhibitionRoute.arrival.eyebrow}
+        title={exhibitionRoute.arrival.title}
+        chapters={exhibitionRoute.chapters}
+      />
 
-      <WorkViewSwitcher projects={projects} />
+      {chapters.map((vm, i) => {
+        const next = chapters[i + 1];
+        return (
+          <Fragment key={vm.project.slug}>
+            <ExhibitionChapter vm={vm} total={total} />
+            {next ? (
+              <ExhibitionCorridor
+                nextNumeral={chapterNumeral(next.index)}
+                nextVerb={next.chapter.verb}
+                tall={i === total - 2}
+              />
+            ) : null}
+          </Fragment>
+        );
+      })}
+
+      <ExhibitionExit
+        total={total}
+        hasDraft={hasDraft}
+        ctaLabel={exhibitionRoute.exit.ctaLabel}
+        ctaHref={exhibitionRoute.exit.ctaHref}
+      />
     </div>
   );
 }

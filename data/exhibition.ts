@@ -3,6 +3,11 @@ import type { ExhibitionChapter } from "@/types/exhibition";
 import { exhibitionRoute } from "@/content/work/exhibition";
 import { getPublishedProjects } from "@/data/projects";
 
+/** Numeral tampilan bab: 0 → "01". Dipakai marker, counter, koridor, dan exit. */
+export function chapterNumeral(index: number): string {
+  return String(index + 1).padStart(2, "0");
+}
+
 /** Satu bab siap render: identitas kurasi + project-nya. Numeral tampilan = index + 1. */
 export type ChapterViewModel = {
   chapter: ExhibitionChapter;

@@ -1,45 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { projects } from "@/data/projects";
+import { getPublishedProjects, getPublishedProjectBySlug } from "@/data/projects";
 import { ProjectTag } from "@/components/projects/ProjectTag";
 import { ScrollToButton } from "@/components/ui/ScrollToButton";
 import { StickyGallery } from "@/components/projects/StickyGallery";
 import { ArrowUpLeftIcon, ArrowUpRightIcon } from "@/design-system/icons";
 import type { Metadata } from "next";
-
-const brandLinksByProject: Record<
-  string,
-  {
-    label: string;
-    href: string;
-  }[]
-> = {
-  "notion-auto-status": [
-    { label: "@notionhq/client", href: "https://www.npmjs.com/package/@notionhq/client" },
-    { label: "GitHub Actions", href: "https://github.com/features/actions" },
-    { label: "Notion API", href: "https://developers.notion.com/" },
-    { label: "Nodemailer", href: "https://nodemailer.com/" },
-    { label: "node-cron", href: "https://www.npmjs.com/package/node-cron" },
-    { label: "Node.js", href: "https://nodejs.org/" },
-    { label: "dotenv", href: "https://www.npmjs.com/package/dotenv" },
-    { label: "Gmail", href: "https://www.google.com/gmail/about/" },
-    { label: "Notion", href: "https://www.notion.com/" },
-  ],
-  video_vokasi: [
-    { label: "Fakultas Vokasi ITP", href: "https://itp.ac.id/fakultas-vokasi" },
-    { label: "Institut Teknologi Padang", href: "https://itp.ac.id/" },
-    { label: "ITP", href: "https://itp.ac.id/" },
-  ],
-};
+import type { ProjectBrandLink } from "@/types/project";
 
 function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function renderBrandLinks(text: string, projectSlug: string, keyPrefix: string) {
-  const brandLinks = brandLinksByProject[projectSlug];
-
+function renderBrandLinks(text: string, brandLinks: ProjectBrandLink[] | undefined, keyPrefix: string) {
   if (!brandLinks?.length) return text;
 
   const pattern = new RegExp(
@@ -66,17 +40,17 @@ function renderBrandLinks(text: string, projectSlug: string, keyPrefix: string) 
   });
 }
 
-function renderEmphasis(text: string, projectSlug: string) {
+function renderEmphasis(text: string, brandLinks: ProjectBrandLink[] | undefined) {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) => {
     if (part.startsWith("**") && part.endsWith("**")) {
-      return renderBrandLinks(part.slice(2, -2), projectSlug, `strong-${index}`);
+      return renderBrandLinks(part.slice(2, -2), brandLinks, `strong-${index}`);
     }
 
-    return renderBrandLinks(part, projectSlug, `text-${index}`);
+    return renderBrandLinks(part, brandLinks, `text-${index}`);
   });
 }
 
-function renderTextSections(text: string, projectSlug: string) {
+function renderTextSections(text: string, brandLinks: ProjectBrandLink[] | undefined) {
   return text.split(/\n{2,}/).map((para, idx) => {
     const sectionHeading = para.match(/^\*\*([^*]+)\*\*$/);
 
@@ -93,19 +67,23 @@ function renderTextSections(text: string, projectSlug: string) {
 
     return (
       <p key={idx} className="text-pretty">
-        {renderEmphasis(para, projectSlug)}
+        {renderEmphasis(para, brandLinks)}
       </p>
     );
   });
 }
 
-export function generateStaticParams() {
+/** Slug di luar generateStaticParams (termasuk draft) → 404. */
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const projects = await getPublishedProjects();
   return projects.map(p => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects.find(p => p.slug === slug);
+  const project = await getPublishedProjectBySlug(slug);
 
   if (!project) return {};
 
@@ -141,7 +119,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function WorkDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = projects.find(p => p.slug === slug);
+  const project = await getPublishedProjectBySlug(slug);
 
   if (!project) notFound();
 
@@ -211,7 +189,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
               Overview
             </h2>
             <div className="space-y-5 text-base leading-7 tracking-normal text-zinc-600 dark:text-zinc-400">
-              {renderTextSections(project.longDescription, project.slug)}
+              {renderTextSections(project.longDescription, project.brandLinks)}
             </div>
           </section>
 
@@ -241,7 +219,9 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
             images={
               project.gallery && project.gallery.length > 0
                 ? project.gallery
-                : [project.image, project.hoverImage]
+                : project.hoverImage
+                  ? [project.image, project.hoverImage]
+                  : [project.image]
             }
           />
         </section>
@@ -261,7 +241,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
               </h3>
             </div>
             <div className="space-y-5 text-base leading-7 tracking-normal text-zinc-600 dark:text-zinc-400">
-              {renderTextSections(section.description, project.slug)}
+              {renderTextSections(section.description, project.brandLinks)}
             </div>
           </div>
           <StickyGallery images={section.gallery} />
@@ -281,7 +261,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
             </div>
 
             <div className="space-y-5 text-base leading-7 tracking-normal text-zinc-600 dark:text-zinc-400">
-              {renderTextSections(project.caseStudy.description, project.slug)}
+              {renderTextSections(project.caseStudy.description, project.brandLinks)}
             </div>
           </div>
 

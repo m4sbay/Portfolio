@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { WorkViewSwitcher } from "@/components/projects/WorkViewSwitcher";
-import { projects } from "@/data/projects";
+import { getPublishedProjects } from "@/data/projects";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -13,7 +13,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function WorkPage() {
+export default async function WorkPage() {
+  const projects = await getPublishedProjects();
+
   return (
     <div className="py-12 lg:ml-[calc((100%_-_48rem)/2_+_2rem)]">
       <header className="mb-10 max-w-3xl space-y-3 sm:mb-12">

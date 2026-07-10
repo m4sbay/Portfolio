@@ -1,12 +1,14 @@
 import type { Project } from "@/types/project";
 
-export const notionAutoStatus: Project = {
+export const project: Project = {
   title: "Notion Auto Status",
   description:
     "Automation tool untuk memperbarui status task dan event di Notion berdasarkan tanggal, group, dan jadwal otomatis.",
   longDescription:
     "Notion Auto Status menjaga database Notion tetap rapi dengan memperbarui status task dan event secara otomatis berdasarkan Group dan Date.\n\nAutomation ini bisa berjalan lokal dengan Node.js scheduler atau terjadwal per jam melalui GitHub Actions. Workflow juga menyiapkan email digest dan reminder agenda via Gmail.",
   category: "Tools",
+  status: "published",
+  order: 1,
   tags: ["Node.js", "Notion API", "Automation", "GitHub Actions"],
   slug: "notion-auto-status",
   // TODO: Ganti dengan URL repo publik atau demo ketika sudah siap.
@@ -14,6 +16,17 @@ export const notionAutoStatus: Project = {
   externalLinkLabel: "Lihat repository",
   // TODO: Ganti dengan logo khusus Notion Auto Status kalau sudah ada.
   logo: "/projects/notion-auto-status/notion-logo.png",
+  brandLinks: [
+    { label: "@notionhq/client", href: "https://www.npmjs.com/package/@notionhq/client" },
+    { label: "GitHub Actions", href: "https://github.com/features/actions" },
+    { label: "Notion API", href: "https://developers.notion.com/" },
+    { label: "Nodemailer", href: "https://nodemailer.com/" },
+    { label: "node-cron", href: "https://www.npmjs.com/package/node-cron" },
+    { label: "Node.js", href: "https://nodejs.org/" },
+    { label: "dotenv", href: "https://www.npmjs.com/package/dotenv" },
+    { label: "Gmail", href: "https://www.google.com/gmail/about/" },
+    { label: "Notion", href: "https://www.notion.com/" },
+  ],
   image: {
     src: "/projects/notion-auto-status/notion-status.svg",
     alt: "Visual cover Notion Auto Status",

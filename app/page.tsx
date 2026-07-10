@@ -1,4 +1,4 @@
-import { projects } from "@/data/projects";
+import { getPublishedProjects } from "@/data/projects";
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
 import Link from "next/link";
@@ -25,7 +25,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const projects = await getPublishedProjects();
+
   return (
     <div className="space-y-20">
       <section className="space-y-6">

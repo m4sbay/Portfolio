@@ -1,20 +1,16 @@
 import type { Project } from "@/types/project";
 
-export const grs: Project = {
+export const project: Project = {
   title: "Geopark Run Series",
   description: "Desain konten sosial media dan arahan kreatif untuk event lari trail Geopark Run Series Ijen.",
   longDescription: "Geopark Run Series adalah event lari trail yang berlokasi di kawasan Geopark Ijen, Banyuwangi — salah satu lanskap paling dramatis di Indonesia. Aku dipercaya untuk menangani desain konten sosial media dan arahan kreatif dari awal sampai akhir.\n\nProyek ini bukan sekadar bikin poster. Ada sistem visual yang harus dibangun dari nol: palet warna, tipografi, grid template, dan cara bercerita visual yang konsisten selama seminggu lebih proses desain berlangsung.",
   category: "Design",
+  status: "published",
+  order: 4,
   tags: ["Figma", "Photoshop", "Affinity Designer"],
   slug: "grs",
   logo: "/tools/photoshop_logo.png",
   image: {
-    src: "/projects/grs/cover-grs.jpg",
-    alt: "Cover desain Geopark Run Series",
-    width: 2160,
-    height: 2700,
-  },
-  hoverImage: {
     src: "/projects/grs/cover-grs.jpg",
     alt: "Cover desain Geopark Run Series",
     width: 2160,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import type { Project, ProjectCategory } from "@/types/project";
+import type { Project, ProjectCategory, ProjectCategoryFilter } from "@/types/project";
 import { ProjectsFilter } from "@/components/projects/ProjectsFilter";
 import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
 import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
@@ -11,7 +11,7 @@ interface SelectedWorkProps {
 }
 
 export function SelectedWork({ projects }: SelectedWorkProps) {
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory>("All");
+  const [activeCategory, setActiveCategory] = useState<ProjectCategoryFilter>("All");
 
   const counts = useMemo(() => {
     const map: Partial<Record<ProjectCategory, number>> = {};

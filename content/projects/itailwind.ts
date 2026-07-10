@@ -1,12 +1,14 @@
 import type { Project } from "@/types/project";
 
-export const itailwind: Project = {
+export const project: Project = {
   title: "iTailwind",
   description: "Plugin Figma",
   longDescription:
     "iTailwind adalah plugin Figma yang memudahkan para desainer untuk membuat desain yang konsisten dan mudah dikonversi ke kode Tailwind CSS. Plugin ini dirancang dengan antarmuka yang intuitif dan mudah digunakan.",
   tags: ["Figma", "Plugin", "Tailwind", "Design System"],
   category: "Tools",
+  status: "published",
+  order: 3,
   slug: "itailwind",
   logo: "/projects/itailwind/itailwind_icon.PNG",
   caseStudyHref: "/work/masbay-portfolio",

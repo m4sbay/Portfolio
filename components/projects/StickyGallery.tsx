@@ -1,13 +1,7 @@
 import Image from "next/image";
+import type { ProjectImage } from "@/types/project";
 
-type GalleryImage = {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-};
-
-export function StickyGallery({ images }: { images: GalleryImage[] }) {
+export function StickyGallery({ images }: { images: ProjectImage[] }) {
   const shouldStackOnMobile = images.length > 1;
 
   return (

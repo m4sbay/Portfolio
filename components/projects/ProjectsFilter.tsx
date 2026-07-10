@@ -1,20 +1,17 @@
 "use client";
 
 import { m, LazyMotion, domAnimation } from "framer-motion";
-import type { ProjectCategory } from "@/types/project";
+import { PROJECT_CATEGORIES } from "@/types/project";
+import type { ProjectCategory, ProjectCategoryFilter } from "@/types/project";
 
-const CATEGORIES: { label: string; value: ProjectCategory }[] = [
+const CATEGORIES: { label: string; value: ProjectCategoryFilter }[] = [
   { label: "All", value: "All" },
-  { label: "Design", value: "Design" },
-  { label: "Website", value: "Website" },
-  { label: "Tools", value: "Tools" },
-  { label: "Video", value: "Video" },
-  { label: "App", value: "App" },
+  ...PROJECT_CATEGORIES.map((category) => ({ label: category, value: category })),
 ];
 
 interface ProjectsFilterProps {
-  active: ProjectCategory;
-  onChange: (category: ProjectCategory) => void;
+  active: ProjectCategoryFilter;
+  onChange: (category: ProjectCategoryFilter) => void;
   counts: Partial<Record<ProjectCategory, number>>;
 }
 

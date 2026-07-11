@@ -444,3 +444,97 @@ html.dark .liquid-glass {
     @apply font-sans;
   }
 }
+
+/* ===================================================================
+   Reading Design System — Fase 1: fondasi (ADDITIVE, belum ada konsumen)
+   Spec:    docs/superpowers/specs/2026-07-11-reading-design-system-spec.md
+   Roadmap: docs/superpowers/plans/2026-07-11-reading-design-system-implementation-roadmap.md
+   Guardrail: seluruh aturan di-scope di bawah .reading (namespace) — TIDAK ada
+   selector element global (h2/p/blockquote/...). Warna via @apply + dark:
+   (konvensi repo; dark otomatis). :where() menjaga specificity rendah agar
+   utility & ekstensi (mention/brand-link) tetap bisa meng-override.
+   =================================================================== */
+
+/* Primitive lintas-halaman: measure baca. Direferensikan tiap permukaan long-form
+   (Writing, Project, About) sebagai lebar kolom baca. */
+:root {
+  --reading-measure: 68ch; /* target 66ch, rentang nyaman 60–72 */
+}
+
+@layer components {
+  .reading {
+    /* Token rhythm dasar — multi-use: flow antar-blok + margin-top heading (calc). */
+    --reading-flow: 1.25rem; /* 20px */
+
+    max-width: var(--reading-measure);
+    font-size: 1.125rem;  /* body 18px (nilai tunggal → tidak ditokenkan) */
+    line-height: 2rem;    /* body 32px */
+    @apply text-pretty text-zinc-500 dark:text-zinc-300; /* text-body */
+  }
+
+  /* Vertical rhythm dasar: jarak antar blok (owl — aman untuk elemen pertama). */
+  .reading > * + * { margin-top: var(--reading-flow); }
+
+  /* Heading baca — space-before > space-after (grouping). Ditaruh SETELAH owl
+     karena specificity setara; urutan sumber menentukan pemenang. */
+  .reading :where(h2) {
+    @apply text-2xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50;
+    margin-top: calc(var(--reading-flow) * 2);   /* 40px */
+  }
+  .reading :where(h3) {
+    @apply text-xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50;
+    margin-top: calc(var(--reading-flow) * 1.6); /* 32px */
+  }
+  .reading :where(h4) {
+    @apply text-lg font-semibold tracking-tight text-zinc-950 dark:text-zinc-50;
+    margin-top: calc(var(--reading-flow) * 1.2); /* 24px */
+  }
+  .reading :where(h2) + * { margin-top: 0.75rem; }    /* after 12px */
+  .reading :where(h3, h4) + * { margin-top: 0.5rem; } /* after 8px */
+
+  /* Link — halus (warna + underline). Gaya tegas dicadangkan untuk CTA/UI. */
+  .reading :where(a) {
+    @apply font-medium underline decoration-zinc-400 underline-offset-[3px] transition-colors;
+    text-decoration-thickness: 1px;
+  }
+  .reading :where(a):hover { @apply text-zinc-950 decoration-current dark:text-zinc-50; }
+
+  /* Emphasis */
+  .reading :where(strong) { @apply font-semibold text-zinc-950 dark:text-zinc-50; }
+  .reading :where(em) { font-style: italic; }
+
+  /* Inline code — ringan (bukan permukaan gelap). */
+  .reading :where(code) {
+    @apply rounded-md bg-zinc-100 px-1.5 py-0.5 font-mono dark:bg-white/10;
+    font-size: 0.9em;
+  }
+
+  /* Code block — permukaan gelap, konsisten light & dark; scroll di kontainernya sendiri. */
+  .reading :where(pre) {
+    @apply overflow-x-auto rounded-xl bg-zinc-950 p-4 font-mono text-zinc-100 dark:bg-black/40;
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.6;
+  }
+  .reading :where(pre code) { @apply bg-transparent p-0; font-size: inherit; }
+
+  /* List */
+  .reading :where(ul) { padding-left: 1.5em; list-style: disc; }
+  .reading :where(ol) { padding-left: 1.5em; list-style: decimal; }
+  .reading :where(li) { @apply marker:text-zinc-400 dark:marker:text-zinc-600; }
+  .reading :where(li + li) { margin-top: 0.5rem; }       /* antar item 8px */
+  .reading :where(li > ul, li > ol) { margin-top: 0.25rem; } /* nested rapat */
+
+  /* Blockquote */
+  .reading :where(blockquote) {
+    @apply border-l-2 border-zinc-300 pl-4 text-zinc-500 dark:border-white/15 dark:text-zinc-400;
+  }
+
+  /* Table — renderer membungkus overflow-x; ini styling dasar. */
+  .reading :where(table) { width: 100%; border-collapse: collapse; }
+  .reading :where(th) { @apply border-b border-zinc-200 px-3 py-2 text-left font-semibold text-zinc-950 dark:border-white/10 dark:text-zinc-50; }
+  .reading :where(td) { @apply border-b border-zinc-200 px-3 py-2; }
+
+  /* Figure & caption — gambar alur baca menghormati rasio asli (beda dari cover 3:2). */
+  .reading :where(figure img) { @apply h-auto w-full rounded-2xl; }
+  .reading :where(figcaption) { @apply mt-2 text-sm text-zinc-500 dark:text-zinc-400; }
+}

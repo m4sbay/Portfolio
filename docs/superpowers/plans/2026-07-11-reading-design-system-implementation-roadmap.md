@@ -1,7 +1,9 @@
 # Reading Design System — Roadmap Implementasi Bertahap
 
-Status: **Roadmap untuk disetujui** · Tanggal: 2026-07-11
+Status: **Milestone Fase 1–3b DITUTUP (selesai) · Fase 4–6 ditunda** · Dibuat: 2026-07-11 · Ditutup: 2026-07-13
 Acuan spec: `docs/superpowers/specs/2026-07-11-reading-design-system-spec.md` (disepakati)
+
+> **Ringkasan status:** Fase 1 ✅ · Fase 2 ✅ · Fase 3a ✅ · Fase 3b ✅ · Fase 4 ⏸️ · Fase 5 ⏸️ · Fase 6 ⏸️ (on-demand). Detail penutupan: lihat bagian **Penutupan Milestone** di bawah.
 
 ## Prinsip eksekusi
 - Setiap fase punya **satu tujuan jelas** dan **acceptance criteria** eksplisit.
@@ -30,7 +32,7 @@ Urutan wajib: **1 → 2 → 3a → 3b**. Fase 4, 5, 6 menyusul dan boleh ditunda
 
 ---
 
-## Fase 1 — Fondasi CSS (tanpa perubahan tampilan)
+## Fase 1 — Fondasi CSS (tanpa perubahan tampilan) — ✅ SELESAI (commit `b0a84e2`)
 **Tujuan:** menaruh sistem `.reading` + primitives di `app/globals.css`. Belum ada halaman yang memakainya, jadi situs tidak berubah.
 
 **Acceptance criteria**
@@ -42,7 +44,7 @@ Urutan wajib: **1 → 2 → 3a → 3b**. Fase 4, 5, 6 menyusul dan boleh ditunda
 
 ---
 
-## Fase 2 — Migrasi Writing ke `.reading` (baseline)
+## Fase 2 — Migrasi Writing ke `.reading` (baseline) — ✅ SELESAI (commit `03f5d44`)
 **Tujuan:** `WritingArticleBody` memakai `.reading`; hasil **identik atau lebih baik**. Writing adalah acuan — fase ini membuktikan sistem mereproduksi baseline matang.
 
 **Acceptance criteria**
@@ -54,7 +56,7 @@ Urutan wajib: **1 → 2 → 3a → 3b**. Fase 4, 5, 6 menyusul dan boleh ditunda
 
 ---
 
-## Fase 3a — Project: prosa adopsi token `.reading` (tanpa ubah layout)
+## Fase 3a — Project: prosa adopsi token `.reading` (tanpa ubah layout) — ✅ SELESAI (commit `bb238a9`)
 **Tujuan:** blok prosa Project (`longDescription`, deskripsi `processSections`, body `caseStudy`) memakai token Reading — **layout belum disentuh**. Kualitas teks naik ke standar Writing.
 
 **Acceptance criteria**
@@ -66,7 +68,7 @@ Urutan wajib: **1 → 2 → 3a → 3b**. Fase 4, 5, 6 menyusul dan boleh ditunda
 
 ---
 
-## Fase 3b — Project: perbaiki reading measure
+## Fase 3b — Project: perbaiki reading measure — ✅ SELESAI (commit `947274b`)
 **Tujuan:** memberi prosa Project measure layak (~68ch), menutup gap kenyamanan baca terbesar (sekarang ~386px).
 
 **Acceptance criteria**
@@ -78,7 +80,7 @@ Urutan wajib: **1 → 2 → 3a → 3b**. Fase 4, 5, 6 menyusul dan boleh ditunda
 
 ---
 
-## Fase 4 — About & prosa lain
+## Fase 4 — About & prosa lain — ⏸️ DITUNDA (belum dimulai)
 **Tujuan:** About (dan long-form lain bila ada) mengadopsi `.reading` mode "sebagian".
 
 **Acceptance criteria**
@@ -88,7 +90,7 @@ Urutan wajib: **1 → 2 → 3a → 3b**. Fase 4, 5, 6 menyusul dan boleh ditunda
 - ✔️ **DoD:** prosa About konsisten dengan Reading DS; shell About tetap.
 - ↩️ **Revert:** lepas pembungkus `.reading` di About; independen.
 
-## Fase 5 — Konsolidasi Display
+## Fase 5 — Konsolidasi Display — ⏸️ DITUNDA (technical debt aktif: judul Project masih `font-medium`)
 **Tujuan:** selaraskan judul Project `font-medium`→`font-semibold`; definisikan utility Display (`text-title`, `text-hero`, `text-section`) sebagai satu sumber.
 
 **Acceptance criteria**
@@ -98,7 +100,7 @@ Urutan wajib: **1 → 2 → 3a → 3b**. Fase 4, 5, 6 menyusul dan boleh ditunda
 - ✔️ **DoD:** Display satu bahasa (semibold + utility bersama).
 - ↩️ **Revert:** kembalikan weight/utility; independen.
 
-## Fase 6 — Ekstensi content model (on-demand)
+## Fase 6 — Ekstensi content model (on-demand) — ⏸️ DITUNDA (YAGNI: dipicu kebutuhan konten)
 **Tujuan:** tambah blok `list`/`blockquote`/`code`/`table`/`caption` ke `WritingBlock` (`types/writing.ts`) & renderer Project **hanya saat** ada konten yang membutuhkannya (YAGNI). Style sudah siap di `.reading` sejak Fase 1.
 
 **Acceptance criteria**
@@ -122,3 +124,31 @@ Setiap fase harus lulus sebelum lanjut:
 ## Catatan
 - Roadmap ini **belum menyentuh kode**. Setelah disetujui & di-commit, mulai dari **Fase 1**.
 - Duplikasi lama (`paragraphClass` di WritingArticleBody, string body di work detail) dibersihkan saat halaman terkait bermigrasi (Fase 2 & 3a), bukan sekaligus di awal.
+
+---
+
+## Penutupan Milestone (2026-07-13)
+
+Fase 1–3b selesai dan diverifikasi (tsc + eslint + build hijau tiap fase; tiap fase = 1 commit milestone terisolasi, tidak dicampur pekerjaan lain). Ringkasan closure:
+
+### Yang sudah live & terbukti (STABLE)
+Inti Reading DS — **body 18/32, heading baca, vertical rhythm 20px, link halus** via kelas scoped `.reading` + escape hatch `.not-reading` — sudah dipakai di **dua surface produksi**:
+- **Writing detail** (adopsi Penuh) — baseline acuan, visual ≥ sebelumnya.
+- **Project detail** (adopsi Sebahagian) — prosa `longDescription`/`processSections`/`caseStudy` pakai token Reading; measure naratif ~56ch.
+
+Bagian yang di-*wire* ini stabil: aman jadi fondasi pekerjaan berikutnya.
+
+### Deviasi yang DISENGAJA & DISETUJUI (bukan bug)
+1. **Measure Project ~56ch, di bawah rentang spec §4.1 (60–72ch).** Keputusan sadar (Opsi D): di dalam `max-w-6xl` side-by-side, ~60ch+ hanya bisa dengan menyusutkan galeri hingga mematahkan identitas visual-first case study. Ikuti geometri realistis, bukan angka spec. Bila kelak layout Project pindah dari side-by-side, 68ch bisa dikejar (di luar scope milestone ini).
+2. **Overview Project tetap ~386px (~40ch).** Spec §7 menyebut `longDescription` termasuk yang harus dapat measure layak; closure sengaja mempertahankan Overview sempit karena perannya = **ringkasan + hero visual-first**, teks pendek, tak butuh measure lebar. Terdokumentasi di komentar `overviewSectionGrid` vs `narrativeSectionGrid` (`app/work/[slug]/page.tsx`).
+
+### Technical debt / follow-up yang ditunda (bukan bug)
+- **Fase 5 — Konsolidasi Display (debt aktif).** Keputusan spec #4 = seluruh Display `semibold`, tetapi judul Project (`app/work/[slug]/page.tsx`: h1/h3 `text-[38px] font-medium`, judul "Visual preview") masih `font-medium`. Display belum satu bahasa. Ditunda, bukan diperbaiki di milestone ini.
+- **Fase 6 — Ekstensi content model (YAGNI).** Style `.reading` untuk **list, blockquote, code/pre, table, figure/figcaption** sudah didefinisikan sejak Fase 1 **tetapi belum pernah dirender konten mana pun** — CSS siap, belum terbukti visual di produksi. Menunggu konten pertama yang membutuhkannya (`types/writing.ts` union + renderer Project).
+- **Fase 4 — About.** Prosa About belum mengadopsi `.reading`.
+- **Deviasi penamaan minor.** Spec §8 menulis primitive `--measure-reading`; implementasi memakai `--reading-measure`. Warna-peran (`text-strong/body/muted/faint` §3) diterapkan via `@apply` utilitas zinc langsung, bukan sebagai custom property bernama. Fungsional identik; hanya beda bentuk dari proposal spec.
+
+### Verdict stabilitas: **Stable core, rollout belum lengkap**
+- **STABLE** untuk yang sudah di-*wire*: prosa Writing + Project (body/heading/rhythm/link). Diuji lewat build + konten nyata; aman dibangun di atasnya.
+- **BELUM lengkap/terbukti** sebagai sistem menyeluruh: elemen list/quote/code/table/caption belum pernah dirender (Fase 6), Display belum dikonsolidasi (Fase 5), About belum ikut (Fase 4).
+- **Rekomendasi label:** *Core = Stable · Sistem penuh = Beta (rollout bertahap).* Jangan menganggap list/table/code sudah "battle-tested" sampai Fase 6 me-render konten nyata.

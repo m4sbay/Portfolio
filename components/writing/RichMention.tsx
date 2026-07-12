@@ -15,7 +15,7 @@ export function RichMention({ entity }: { entity: string }) {
       href={data.website}
       target="_blank"
       rel="noopener noreferrer"
-      className="group cursor-pointer whitespace-nowrap"
+      className="not-reading group cursor-pointer whitespace-nowrap"
     >
       {/* Hanya kotak ikon yang punya border dan digeser vertikal;
           teks tetap inline biasa supaya baseline-nya sejajar dengan paragraf */}

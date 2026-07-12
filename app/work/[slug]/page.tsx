@@ -55,21 +55,20 @@ function renderTextSections(text: string, brandLinks: ProjectBrandLink[] | undef
     const sectionHeading = para.match(/^\*\*([^*]+)\*\*$/);
 
     if (sectionHeading) {
+      // Micro-label = bahasa UI/editorial, BUKAN heading Reading. `.not-reading`
+      // menahan aturan tipografi h4 `.reading`; styling micro-label dipertahankan.
       return (
         <h4
           key={idx}
-          className="pt-3 text-sm font-semibold uppercase tracking-[0.14em] text-zinc-950 dark:text-zinc-50"
+          className="not-reading pt-3 text-sm font-semibold uppercase tracking-[0.14em] text-zinc-950 dark:text-zinc-50"
         >
           {sectionHeading[1]}
         </h4>
       );
     }
 
-    return (
-      <p key={idx} className="text-pretty">
-        {renderEmphasis(para, brandLinks)}
-      </p>
-    );
+    // Body: tag semantik polos — tipografi (18/32, text-pretty, rhythm) dari `.reading`.
+    return <p key={idx}>{renderEmphasis(para, brandLinks)}</p>;
   });
 }
 
@@ -188,7 +187,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
             <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">
               Overview
             </h2>
-            <div className="space-y-5 text-base leading-7 tracking-normal text-zinc-600 dark:text-zinc-400">
+            <div className="reading">
               {renderTextSections(project.longDescription, project.brandLinks)}
             </div>
           </section>
@@ -240,7 +239,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
                 {section.title}
               </h3>
             </div>
-            <div className="space-y-5 text-base leading-7 tracking-normal text-zinc-600 dark:text-zinc-400">
+            <div className="reading">
               {renderTextSections(section.description, project.brandLinks)}
             </div>
           </div>
@@ -260,7 +259,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
               </div>
             </div>
 
-            <div className="space-y-5 text-base leading-7 tracking-normal text-zinc-600 dark:text-zinc-400">
+            <div className="reading">
               {renderTextSections(project.caseStudy.description, project.brandLinks)}
             </div>
           </div>

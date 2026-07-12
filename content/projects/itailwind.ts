@@ -1,4 +1,5 @@
 import type { Project } from "@/types/project";
+import { COVER_MASTER } from "@/lib/cover";
 
 export const project: Project = {
   title: "iTailwind",
@@ -15,10 +16,10 @@ export const project: Project = {
   externalLink: "https://www.figma.com/community/plugin/1586682727528531603/itailwind",
   externalLinkLabel: "View Plugin",
   image: {
-    src: "/projects/itailwind/cover_itailwind.png",
+    src: "/projects/itailwind/itailwind_card.png",
     alt: "Preview Masbay Portfolio (default)",
-    width: 1200,
-    height: 900,
+    width: COVER_MASTER.width,
+    height: COVER_MASTER.height,
   },
   hoverImage: {
     src: "/projects/itailwind/cover_project_itailwind_hover.png",

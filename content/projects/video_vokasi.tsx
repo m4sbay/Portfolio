@@ -1,5 +1,6 @@
 // content/projects/nama-video.ts
 import type { Project } from "@/types/project";
+import { COVER_MASTER } from "@/lib/cover";
 
 export const project: Project = {
   title: "Video Profile Fakultas Vokasi ITP",
@@ -20,10 +21,10 @@ export const project: Project = {
     { label: "ITP", href: "https://itp.ac.id/" },
   ],
   image: {
-    src: "/projects/video-vokasi/project_vokasi.png",
+    src: "/projects/video-vokasi/project_vokasi_card.png",
     alt: "Preview nama video (default)",
-    width: 1200,
-    height: 900,
+    width: COVER_MASTER.width,
+    height: COVER_MASTER.height,
   },
   hoverImage: {
     src: "/projects/video-vokasi/visual-preview-vokasi-2.svg",

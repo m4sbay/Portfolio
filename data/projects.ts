@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Project } from "@/types/project";
+import { COVER_RATIO, COVER_RATIO_TOLERANCE } from "@/lib/cover";
 
 const PROJECTS_DIR = path.join(process.cwd(), "content", "projects");
 
@@ -31,6 +32,31 @@ async function loadAllProjects(): Promise<Project[]> {
       throw new Error(`Slug duplikat "${project.slug}" (${existing} & ${project.title}).`);
     }
     seen.set(project.slug, project.title);
+  }
+
+  // Guard cover rasio kanonik (design system, lib/cover.ts): migration-friendly.
+  // Dev → warning jelas tapi app tetap jalan; production/build → fail-loud agar standar terjaga.
+  const offenders = projects
+    .map(project => {
+      const { width, height } = project.image;
+      const ratio = width / height;
+      return { project, width, height, ratio };
+    })
+    .filter(({ ratio }) => Math.abs(ratio - COVER_RATIO) > COVER_RATIO_TOLERANCE);
+
+  if (offenders.length > 0) {
+    const detail = offenders
+      .map(({ project, width, height, ratio }) => `  • "${project.slug}": ${ratio.toFixed(3)} (${width}×${height})`)
+      .join("\n");
+    const message =
+      `Cover tidak sesuai design system 3:2 (${COVER_RATIO.toFixed(3)} ±${COVER_RATIO_TOLERANCE}):\n${detail}\n` +
+      `Export ulang cover ke 3:2 (mis. 2400×1600) & samakan width/height di content/projects.`;
+
+    // Production/build → gagalkan; dev → warning agar migrasi aset bisa bertahap tanpa blokir.
+    if (process.env.NODE_ENV === "production") {
+      throw new Error(message);
+    }
+    console.warn(`\n⚠️  [cover-guard] ${message}\n`);
   }
 
   return projects;

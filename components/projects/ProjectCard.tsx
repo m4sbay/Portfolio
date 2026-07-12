@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import type { Project } from "@/types/project";
 import { getDisplayTags } from "@/lib/project-tags";
+import { COVER_ASPECT } from "@/lib/cover";
 import { ProjectTag } from "./ProjectTag";
 
 export function ProjectCard({ project }: { project: Project }) {
@@ -64,14 +65,14 @@ export function ProjectCard({ project }: { project: Project }) {
       }}
     >
       {/* IMAGE */}
-      <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
+      <div className={`relative ${COVER_ASPECT} overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900`}>
         <Image
           src={project.image.src}
           alt={project.image.alt}
-          width={project.image.width}
-          height={project.image.height}
+          fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="
-            h-full w-full object-cover
+            object-cover
             transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]
             group-hover:scale-105
           "

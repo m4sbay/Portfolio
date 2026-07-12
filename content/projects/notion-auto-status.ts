@@ -1,4 +1,5 @@
 import type { Project } from "@/types/project";
+import { COVER_MASTER } from "@/lib/cover";
 
 export const project: Project = {
   title: "Notion Auto Status",
@@ -28,13 +29,13 @@ export const project: Project = {
     { label: "Notion", href: "https://www.notion.com/" },
   ],
   image: {
-    src: "/projects/notion-auto-status/notion-status.svg",
+    src: "/projects/notion-auto-status/nas_cover.png",
     alt: "Visual cover Notion Auto Status",
-    width: 1500,
-    height: 1200,
+    width: COVER_MASTER.width,
+    height: COVER_MASTER.height,
   },
   hoverImage: {
-    src: "/projects/notion-auto-status/notion-status.svg",
+    src: "/projects/notion-auto-status/nas_cover.png",
     alt: "Visual cover Notion Auto Status",
     width: 1500,
     height: 1200,
@@ -46,12 +47,6 @@ export const project: Project = {
       alt: "Contoh kartu Event dengan status Waiting List, Live, atau Done",
       width: 1448,
       height: 1086,
-    },
-    {
-      src: "/projects/notion-auto-status/notion-status.svg",
-      alt: "Visual cover Notion Auto Status",
-      width: 1500,
-      height: 1200,
     },
   ],
   caseStudy: {

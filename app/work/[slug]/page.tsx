@@ -116,6 +116,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+/**
+ * Grid section detail /work — sengaja DUA layout berbeda; angka fr bukan magic
+ * number tapi keputusan identitas vs keterbacaan:
+ *
+ * - overviewSectionGrid (0.9fr/1.45fr, kolom teks ~386px): Overview = kesan
+ *   pertama. Mempertahankan karakter case-study VISUAL-FIRST dengan galeri
+ *   dominan (~622px). Teksnya ringkasan pendek → tidak butuh reading measure lebar.
+ *
+ * - narrativeSectionGrid (1.2fr/1fr, kolom teks ~544px ≈ 56ch): Process Design &
+ *   Case Study = area BACA PANJANG. Kolom teks dilebarkan mendekati reading
+ *   measure demi kenyamanan baca, dengan sengaja MENGORBANKAN sedikit lebar
+ *   galeri (~458px). Trade-off tak terhindarkan: di dalam max-w-6xl, ~56ch
+ *   side-by-side hanya mungkin dengan menyusutkan galeri. Cap `.reading` (68ch)
+ *   tetap jadi plafon. Keduanya hanya berlaku lg+; di bawah lg tetap stack.
+ */
+const overviewSectionGrid =
+  "grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.45fr)] lg:gap-20";
+const narrativeSectionGrid =
+  "grid grid-cols-1 items-start gap-12 border-t border-zinc-200 pt-10 dark:border-white/10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-20";
+
 export default async function WorkDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = await getPublishedProjectBySlug(slug);
@@ -125,7 +145,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
   return (
     <div className="flex flex-col gap-20 pb-24 lg:gap-28">
       {/* Section 1: Project Overview */}
-      <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.45fr)] lg:gap-20">
+      <div className={overviewSectionGrid}>
         {/* Kolom 1: Sticky Info */}
         <div className="lg:sticky lg:top-24 space-y-7">
           <div>
@@ -230,7 +250,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
       {project.processSections && project.processSections.length > 0 && project.processSections.map((section, i) => (
         <div
           key={i}
-          className="grid grid-cols-1 items-start gap-12 border-t border-zinc-200 pt-10 dark:border-white/10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.45fr)] lg:gap-20"
+          className={narrativeSectionGrid}
         >
           <div className="lg:sticky lg:top-24 space-y-5">
             <div className="space-y-3">
@@ -249,7 +269,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
 
       {/* Section 3: Case Study */}
       {project.caseStudy && (
-        <div id="case-study" className="grid grid-cols-1 items-start gap-12 border-t border-zinc-200 pt-10 dark:border-white/10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.45fr)] lg:gap-20">
+        <div id="case-study" className={narrativeSectionGrid}>
           {/* Kolom 1: Sticky Case Study Info */}
           <div className="lg:sticky lg:top-24 space-y-7">
             <div className="space-y-4">

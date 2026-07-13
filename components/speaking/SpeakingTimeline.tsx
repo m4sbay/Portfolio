@@ -7,22 +7,33 @@ import type { SpeakingSession } from "@/types/speaking";
 import { ClockIcon, FileTextIcon, MapPinIcon } from "@/design-system/icons";
 import { formatSpeakingListDate } from "@/lib/speaking-date";
 
+// Garis timeline = elemen sekunder: 1px, warna netral lembut agar card tetap fokus.
+const railLineClass = "w-px shrink-0 bg-zinc-200 dark:bg-zinc-800";
+// Jarak antar-card, mengikuti ritme daftar (setara pb-5/pb-6 sebelumnya). Token
+// spacing biasa — bukan calc, tidak bergantung tinggi card — dipakai sebagai
+// tinggi segmen garis penghubung antar node.
+const railGapClass = "h-5 md:h-6";
+// Lebar kolom rail; dijaga konsisten antara baris card dan segmen penghubung.
+const railColClass = "w-5 shrink-0 md:w-6";
+
 export function SpeakingTimeline({ sessions }: { sessions: SpeakingSession[] }) {
   const reduceMotion = useReducedMotion();
+  const lastIndex = sessions.length - 1;
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="relative">
-        <div
-          className="pointer-events-none absolute bottom-8 left-3 top-4 hidden w-px bg-linear-to-b from-zinc-300 via-zinc-200 to-zinc-100/90 dark:from-zinc-700 dark:via-zinc-800 dark:to-zinc-900/90 md:block"
-          aria-hidden
-        />
-        <ol className="relative m-0 list-none space-y-0 p-0">
-          {sessions.map((session, index) => (
-            <TimelineItem key={session.slug} session={session} index={index} reduceMotion={Boolean(reduceMotion)} />
-          ))}
-        </ol>
-      </div>
+      <ol className="m-0 list-none p-0">
+        {sessions.map((session, index) => (
+          <TimelineItem
+            key={session.slug}
+            session={session}
+            index={index}
+            isFirst={index === 0}
+            isLast={index === lastIndex}
+            reduceMotion={Boolean(reduceMotion)}
+          />
+        ))}
+      </ol>
     </LazyMotion>
   );
 }
@@ -30,17 +41,25 @@ export function SpeakingTimeline({ sessions }: { sessions: SpeakingSession[] }) 
 function TimelineItem({
   session,
   index,
+  isFirst,
+  isLast,
   reduceMotion,
 }: {
   session: SpeakingSession;
   index: number;
+  isFirst: boolean;
+  isLast: boolean;
   reduceMotion: boolean;
 }) {
   const hero = session.images?.[0];
+  const dotClass = isFirst
+    ? // Sesi terbaru: dot terisi lembut sebagai penanda paling baru (subtle, tanpa animasi).
+      "size-3 rounded-full border border-zinc-400 bg-zinc-400 dark:border-zinc-500 dark:bg-zinc-500"
+    : "size-3 rounded-full border border-zinc-300 bg-white dark:border-zinc-600 dark:bg-zinc-950";
 
   return (
     <m.li
-      className="relative flex gap-2 pb-5 last:pb-0 md:gap-3 md:pb-6"
+      className="relative flex flex-col"
       initial={reduceMotion ? undefined : { opacity: 0, y: 12 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={reduceMotion ? undefined : { once: true, margin: "-8% 0px -6% 0px", amount: 0.12 }}
@@ -48,52 +67,72 @@ function TimelineItem({
         reduceMotion ? undefined : { duration: 0.35, delay: index * 0.04, ease: [0.25, 0.1, 0.25, 1] }
       }
     >
-      <div className="relative flex w-5 shrink-0 flex-col items-center pt-3 md:w-6 md:pt-3.5" aria-hidden>
-        <span className="relative z-10 size-3 rounded-full border border-zinc-300 bg-white dark:border-zinc-600 dark:bg-zinc-950" />
-        <span className="mt-2 h-[calc(100%+1.25rem)] w-px shrink-0 bg-zinc-200 dark:bg-zinc-800 md:hidden" />
+      {/* Baris card: rail stretch ke tinggi CARD saja. Dua flex-1 mengapit dot →
+          dot selalu di vertical center card, auto-adaptif untuk tinggi card apa pun
+          (tanpa calc / magic number). */}
+      <div className="flex gap-2 md:gap-3">
+        <div className={`flex flex-col items-center ${railColClass}`} aria-hidden>
+          {/* Segmen atas: kosong di item pertama (garis mulai DI dot pertama). */}
+          <span className={`flex-1 ${isFirst ? "" : railLineClass}`} />
+          <span className={dotClass} />
+          {/* Segmen bawah: kosong di item terakhir (garis berhenti DI dot terakhir). */}
+          <span className={`flex-1 ${isLast ? "" : railLineClass}`} />
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <Link
+            href={`/speaking/${session.slug}`}
+            className="group relative flex w-full min-w-0 gap-3 rounded-xl border border-zinc-200/90 bg-zinc-50/90 p-3 transition-[border-color,background-color,box-shadow] duration-200 hover:border-zinc-300 hover:bg-white hover:shadow-sm hover:shadow-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-900/80 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 md:gap-3.5 md:p-3.5"
+          >
+            {hero ? (
+              <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-zinc-200 ring-1 ring-zinc-200/80 dark:bg-zinc-800 dark:ring-zinc-700 md:size-20">
+                <Image
+                  src={hero.src}
+                  alt={hero.alt}
+                  fill
+                  className="object-cover"
+                  sizes="80px"
+                  unoptimized={hero.src.endsWith(".svg")}
+                />
+              </div>
+            ) : (
+              <div className="flex size-16 shrink-0 items-center justify-center rounded-lg bg-zinc-100 ring-1 ring-zinc-200/80 dark:bg-zinc-800 dark:ring-zinc-700 md:size-20">
+                <FileTextIcon className="size-7 text-zinc-400 dark:text-zinc-500" aria-hidden />
+              </div>
+            )}
+
+            <div className="min-w-0 flex-1 border-l border-zinc-200/90 pl-3 dark:border-zinc-700/90">
+              <p className="text-[11px] font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+                {formatSpeakingListDate(session.date)}
+              </p>
+              <h2 className="mt-1 line-clamp-2 text-base font-semibold leading-snug tracking-tight text-zinc-950 dark:text-zinc-50">
+                {session.title}
+              </h2>
+              <p className="mt-1 line-clamp-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{session.excerpt}</p>
+              <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-zinc-600 dark:text-zinc-400">
+                <span className="inline-flex min-w-0 max-w-full items-center gap-1">
+                  <MapPinIcon className="size-3 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
+                  <span className="truncate">{session.location}</span>
+                </span>
+                <span className="inline-flex items-center gap-1 shrink-0">
+                  <ClockIcon className="size-3 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
+                  {session.timeLabel}
+                </span>
+              </div>
+            </div>
+          </Link>
+        </div>
       </div>
 
-      <Link
-        href={`/speaking/${session.slug}`}
-        className="group relative flex min-w-0 flex-1 gap-3 rounded-xl border border-zinc-200/90 bg-zinc-50/90 p-3 transition-[border-color,background-color,box-shadow] duration-200 hover:border-zinc-300 hover:bg-white hover:shadow-sm hover:shadow-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-900/80 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 md:gap-3.5 md:p-3.5"
-      >
-        {hero ? (
-          <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-zinc-200 ring-1 ring-zinc-200/80 dark:bg-zinc-800 dark:ring-zinc-700 md:size-20">
-            <Image
-              src={hero.src}
-              alt={hero.alt}
-              fill
-              className="object-cover"
-              sizes="80px"
-              unoptimized={hero.src.endsWith(".svg")}
-            />
-          </div>
-        ) : (
-          <div className="flex size-16 shrink-0 items-center justify-center rounded-lg bg-zinc-100 ring-1 ring-zinc-200/80 dark:bg-zinc-800 dark:ring-zinc-700 md:size-20">
-            <FileTextIcon className="size-7 text-zinc-400 dark:text-zinc-500" aria-hidden />
-          </div>
-        )}
-
-        <div className="min-w-0 flex-1 border-l border-zinc-200/90 pl-3 dark:border-zinc-700/90">
-          <p className="text-[11px] font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-            {formatSpeakingListDate(session.date)}
-          </p>
-          <h2 className="mt-1 line-clamp-2 text-base font-semibold leading-snug tracking-tight text-zinc-900 dark:text-zinc-50">
-            {session.title}
-          </h2>
-          <p className="mt-1 line-clamp-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{session.excerpt}</p>
-          <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-zinc-600 dark:text-zinc-400">
-            <span className="inline-flex min-w-0 max-w-full items-center gap-1">
-              <MapPinIcon className="size-3 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
-              <span className="truncate">{session.location}</span>
-            </span>
-            <span className="inline-flex items-center gap-1 shrink-0">
-              <ClockIcon className="size-3 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
-              {session.timeLabel}
-            </span>
+      {/* Segmen penghubung antar node: menjembatani jarak dari card ini ke card berikutnya.
+          Sejajar kolom rail; tidak dirender setelah item terakhir. */}
+      {!isLast ? (
+        <div className="flex gap-2 md:gap-3" aria-hidden>
+          <div className={`flex justify-center ${railColClass}`}>
+            <span className={`${railGapClass} ${railLineClass}`} />
           </div>
         </div>
-      </Link>
+      ) : null}
     </m.li>
   );
 }

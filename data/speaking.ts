@@ -57,3 +57,9 @@ export async function getSpeakingBySlug(slug: string): Promise<SpeakingSession |
   const sessions = await getAllSpeaking();
   return sessions.find(s => s.slug === slug);
 }
+
+/** Sesi lain untuk section "More Speaking": exclude yang dibuka, terbaru dulu, maks `limit`. */
+export async function getMoreSpeaking(excludeSlug: string, limit = 3): Promise<SpeakingSession[]> {
+  const sessions = await sortedSpeaking();
+  return sessions.filter(s => s.slug !== excludeSlug).slice(0, limit);
+}

@@ -2,11 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getAllSpeaking, getSpeakingBySlug } from "@/data/speaking";
+import { getAllSpeaking, getSpeakingBySlug, getMoreSpeaking } from "@/data/speaking";
 import { formatSpeakingLongDate } from "@/lib/speaking-date";
-import { site } from "@/lib/site";
-import { SpeakingMetaLine } from "@/components/speaking/SpeakingMetaLine";
-import { CalendarIcon, MapPinIcon } from "@/design-system/icons";
+import { SpeakingMiniCard } from "@/components/speaking/SpeakingMiniCard";
+import { ArrowRightIcon, CalendarIcon, ClockIcon, MapPinIcon } from "@/design-system/icons";
 import { IconLabel } from "@/components/ui/IconLabel";
 import { MediaThumb } from "@/components/ui/MediaThumb";
 import { DetailBreadcrumb } from "@/components/ui/DetailBreadcrumb";
@@ -72,6 +71,7 @@ export default async function SpeakingDetailPage({
 
   const hero = session.images?.[0];
   const restImages = session.images && session.images.length > 1 ? session.images.slice(1) : [];
+  const moreSpeaking = await getMoreSpeaking(session.slug);
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
@@ -86,20 +86,20 @@ export default async function SpeakingDetailPage({
             <h1 className="mt-4 text-xl font-semibold tracking-tight text-pretty text-zinc-950 dark:text-zinc-50 md:text-2xl">{session.title}</h1>
           </div>
 
-          <div className="mt-auto flex flex-col gap-1.5 pt-5">
+          <div className="mt-auto flex flex-col pt-5">
             <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{session.excerpt}</p>
-            <p className="flex flex-wrap items-start gap-x-2 gap-y-1 text-sm text-zinc-600 dark:text-zinc-400">
-              <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-zinc-500 dark:text-zinc-500" aria-hidden />
-              <span>{session.location}</span>
-            </p>
-            <SpeakingMetaLine date={session.date} timeLabel={session.timeLabel} showDate={false} size="md" />
+            {/* Metadata sekunder: pola IconLabel yang sama dengan eyebrow tanggal (ikon+label seragam). */}
+            <div className="mt-3 flex flex-col gap-1.5">
+              <IconLabel icon={MapPinIcon} uppercase={false}>{session.location}</IconLabel>
+              <IconLabel icon={ClockIcon} uppercase={false}>{session.timeLabel}</IconLabel>
+            </div>
           </div>
         </div>
 
         <MediaThumb image={hero} priority unoptimized={hero?.src.endsWith(".svg")} />
       </header>
 
-      <div className="mt-10 prose prose-zinc max-w-none space-y-4 text-base leading-relaxed text-zinc-700 dark:prose-invert dark:text-zinc-300">
+      <div className="reading mt-10">
         {session.body.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
@@ -126,11 +126,25 @@ export default async function SpeakingDetailPage({
         </div>
       ) : null}
 
-      <p className="mt-12 text-center text-sm text-zinc-500 dark:text-zinc-500">
-        <Link href="/" className="hover:text-zinc-950 dark:hover:text-zinc-50">
-          {site.title}
-        </Link>
-      </p>
+      {moreSpeaking.length > 0 ? (
+        <section className="mt-16 border-t border-zinc-200/80 pt-10 dark:border-white/10">
+          <h2 className="text-lg font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">More Speaking</h2>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {moreSpeaking.map(s => (
+              <SpeakingMiniCard key={s.slug} session={s} />
+            ))}
+          </div>
+
+          <Link
+            href="/speaking"
+            className="group mt-6 inline-flex items-center gap-1 text-sm text-zinc-500 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+          >
+            View all speaking
+            <ArrowRightIcon className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+          </Link>
+        </section>
+      ) : null}
     </article>
   );
 }

@@ -22,3 +22,8 @@ export function formatSpeakingLongDate(iso: string): string {
     year: "numeric",
   }).format(parseISODateLocal(iso));
 }
+
+/** Tahun saja — label ringkas untuk mini card / section terkait. */
+export function formatSpeakingYear(iso: string): string {
+  return String(parseISODateLocal(iso).getFullYear());
+}

@@ -7,7 +7,7 @@ const dmSans = DM_Sans({
 });
 
 /**
- * Kolom `max-w-3xl` + padding horizontal sama pola `/writing` dan inner `/event`,
+ * Kolom `max-w-3xl` + padding horizontal sama pola `/writing` dan inner `/speaking`,
  * di atas padding horizontal root (`app/layout.tsx`).
  */
 export default function AboutLayout({ children }: { children: React.ReactNode }) {

@@ -2,17 +2,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { events, getEventBySlug } from "@/data/events";
-import { formatEventLongDate } from "@/lib/event-date";
+import { getAllSpeaking, getSpeakingBySlug } from "@/data/speaking";
+import { formatSpeakingLongDate } from "@/lib/speaking-date";
 import { site } from "@/lib/site";
-import { EventMetaLine } from "@/components/event/EventMetaLine";
+import { SpeakingMetaLine } from "@/components/speaking/SpeakingMetaLine";
 import { CalendarIcon, MapPinIcon } from "@/design-system/icons";
 import { IconLabel } from "@/components/ui/IconLabel";
 import { MediaThumb } from "@/components/ui/MediaThumb";
 import { DetailBreadcrumb } from "@/components/ui/DetailBreadcrumb";
 
-export function generateStaticParams() {
-  return events.map(e => ({ slug: e.slug }));
+/** Slug di luar generateStaticParams → 404 tanpa fs runtime. */
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const sessions = await getAllSpeaking();
+  return sessions.map(s => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
@@ -21,18 +25,18 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const ev = getEventBySlug(slug);
-  if (!ev) return {};
+  const session = await getSpeakingBySlug(slug);
+  if (!session) return {};
 
-  const url = `/event/${ev.slug}`;
-  const ogImage = ev.images?.[0];
+  const url = `/speaking/${session.slug}`;
+  const ogImage = session.images?.[0];
 
   return {
-    title: `${ev.title} — Event`,
-    description: ev.excerpt,
+    title: `${session.title} — Speaking`,
+    description: session.excerpt,
     openGraph: {
-      title: ev.title,
-      description: ev.excerpt,
+      title: session.title,
+      description: session.excerpt,
       type: "article",
       url,
       ...(ogImage
@@ -50,45 +54,45 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: ev.title,
-      description: ev.excerpt,
+      title: session.title,
+      description: session.excerpt,
       ...(ogImage ? { images: [ogImage.src] } : {}),
     },
   };
 }
 
-export default async function EventDetailPage({
+export default async function SpeakingDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const ev = getEventBySlug(slug);
-  if (!ev) notFound();
+  const session = await getSpeakingBySlug(slug);
+  if (!session) notFound();
 
-  const hero = ev.images?.[0];
-  const restImages = ev.images && ev.images.length > 1 ? ev.images.slice(1) : [];
+  const hero = session.images?.[0];
+  const restImages = session.images && session.images.length > 1 ? session.images.slice(1) : [];
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-      <DetailBreadcrumb href="/event" label="Event" current={ev.title} />
+      <DetailBreadcrumb href="/speaking" label="Speaking" current={session.title} />
 
       <header className="grid gap-6 border-b border-zinc-200/80 pb-7 pt-4 dark:border-white/10 md:grid-cols-[1fr_minmax(0,220px)] md:items-stretch">
         <div className="flex min-h-0 min-w-0 flex-col md:h-full">
           <div>
             <IconLabel icon={CalendarIcon}>
-              {formatEventLongDate(ev.date)}
+              {formatSpeakingLongDate(session.date)}
             </IconLabel>
-            <h1 className="mt-4 text-xl font-semibold tracking-tight text-pretty text-zinc-950 dark:text-zinc-50 md:text-2xl">{ev.title}</h1>
+            <h1 className="mt-4 text-xl font-semibold tracking-tight text-pretty text-zinc-950 dark:text-zinc-50 md:text-2xl">{session.title}</h1>
           </div>
 
           <div className="mt-auto flex flex-col gap-1.5 pt-5">
-            <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{ev.excerpt}</p>
+            <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{session.excerpt}</p>
             <p className="flex flex-wrap items-start gap-x-2 gap-y-1 text-sm text-zinc-600 dark:text-zinc-400">
               <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-zinc-500 dark:text-zinc-500" aria-hidden />
-              <span>{ev.location}</span>
+              <span>{session.location}</span>
             </p>
-            <EventMetaLine date={ev.date} timeLabel={ev.timeLabel} showDate={false} size="md" />
+            <SpeakingMetaLine date={session.date} timeLabel={session.timeLabel} showDate={false} size="md" />
           </div>
         </div>
 
@@ -96,7 +100,7 @@ export default async function EventDetailPage({
       </header>
 
       <div className="mt-10 prose prose-zinc max-w-none space-y-4 text-base leading-relaxed text-zinc-700 dark:prose-invert dark:text-zinc-300">
-        {ev.body.map((p, i) => (
+        {session.body.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
       </div>

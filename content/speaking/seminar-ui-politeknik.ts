@@ -1,6 +1,6 @@
-import type { CalendarEvent } from "@/types/event";
+import type { SpeakingSession } from "@/types/speaking";
 
-export const event: CalendarEvent = {
+export const session: SpeakingSession = {
   slug: "seminar-ui-politeknik",
   title: "Seminar UI Craft — Politeknik",
   date: "2026-05-20",
@@ -14,7 +14,7 @@ export const event: CalendarEvent = {
   ],
   images: [
     {
-      src: "/events/seminar-ui-politeknik/ui-kit-1.svg",
+      src: "/speaking/seminar-ui-politeknik/ui-kit-1.svg",
       alt: "Contoh board desain",
       width: 800,
       height: 600,

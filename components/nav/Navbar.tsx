@@ -14,7 +14,7 @@ const NAVBAR_IDLE_HIDE_MS = 10_000;
 
 const navLinks = [
   { href: "/writing", label: "WRITING" },
-  { href: "/event", label: "EVENT" },
+  { href: "/speaking", label: "SPEAKING" },
   { href: "/work", label: "WORK" },
   { href: "/services", label: "SERVICES" },
 ];

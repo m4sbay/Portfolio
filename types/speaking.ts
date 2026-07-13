@@ -1,11 +1,11 @@
-export type CalendarEventImage = {
+export type SpeakingSessionImage = {
   src: string;
   alt: string;
   width: number;
   height: number;
 };
 
-export type CalendarEvent = {
+export type SpeakingSession = {
   slug: string;
   title: string;
   /** Tanggal acara (harian), format `YYYY-MM-DD` untuk penempatan di grid */
@@ -14,5 +14,5 @@ export type CalendarEvent = {
   location: string;
   excerpt: string;
   body: string[];
-  images?: CalendarEventImage[];
+  images?: SpeakingSessionImage[];
 };

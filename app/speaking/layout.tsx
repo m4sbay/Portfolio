@@ -6,6 +6,6 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
-export default function EventLayout({ children }: { children: React.ReactNode }) {
+export default function SpeakingLayout({ children }: { children: React.ReactNode }) {
   return <div className={dmSans.className}>{children}</div>;
 }

@@ -3,11 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LazyMotion, domAnimation, m, useReducedMotion } from "framer-motion";
-import type { CalendarEvent } from "@/types/event";
+import type { SpeakingSession } from "@/types/speaking";
 import { ClockIcon, FileTextIcon, MapPinIcon } from "@/design-system/icons";
-import { formatEventListDate } from "@/lib/event-date";
+import { formatSpeakingListDate } from "@/lib/speaking-date";
 
-export function EventTimeline({ events }: { events: CalendarEvent[] }) {
+export function SpeakingTimeline({ sessions }: { sessions: SpeakingSession[] }) {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -18,8 +18,8 @@ export function EventTimeline({ events }: { events: CalendarEvent[] }) {
           aria-hidden
         />
         <ol className="relative m-0 list-none space-y-0 p-0">
-          {events.map((event, index) => (
-            <TimelineItem key={event.slug} event={event} index={index} reduceMotion={Boolean(reduceMotion)} />
+          {sessions.map((session, index) => (
+            <TimelineItem key={session.slug} session={session} index={index} reduceMotion={Boolean(reduceMotion)} />
           ))}
         </ol>
       </div>
@@ -28,15 +28,15 @@ export function EventTimeline({ events }: { events: CalendarEvent[] }) {
 }
 
 function TimelineItem({
-  event,
+  session,
   index,
   reduceMotion,
 }: {
-  event: CalendarEvent;
+  session: SpeakingSession;
   index: number;
   reduceMotion: boolean;
 }) {
-  const hero = event.images?.[0];
+  const hero = session.images?.[0];
 
   return (
     <m.li
@@ -54,7 +54,7 @@ function TimelineItem({
       </div>
 
       <Link
-        href={`/event/${event.slug}`}
+        href={`/speaking/${session.slug}`}
         className="group relative flex min-w-0 flex-1 gap-3 rounded-xl border border-zinc-200/90 bg-zinc-50/90 p-3 transition-[border-color,background-color,box-shadow] duration-200 hover:border-zinc-300 hover:bg-white hover:shadow-sm hover:shadow-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-900/80 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 md:gap-3.5 md:p-3.5"
       >
         {hero ? (
@@ -76,20 +76,20 @@ function TimelineItem({
 
         <div className="min-w-0 flex-1 border-l border-zinc-200/90 pl-3 dark:border-zinc-700/90">
           <p className="text-[11px] font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-            {formatEventListDate(event.date)}
+            {formatSpeakingListDate(session.date)}
           </p>
           <h2 className="mt-1 line-clamp-2 text-base font-semibold leading-snug tracking-tight text-zinc-900 dark:text-zinc-50">
-            {event.title}
+            {session.title}
           </h2>
-          <p className="mt-1 line-clamp-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{event.excerpt}</p>
+          <p className="mt-1 line-clamp-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{session.excerpt}</p>
           <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-zinc-600 dark:text-zinc-400">
             <span className="inline-flex min-w-0 max-w-full items-center gap-1">
               <MapPinIcon className="size-3 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
-              <span className="truncate">{event.location}</span>
+              <span className="truncate">{session.location}</span>
             </span>
             <span className="inline-flex items-center gap-1 shrink-0">
               <ClockIcon className="size-3 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
-              {event.timeLabel}
+              {session.timeLabel}
             </span>
           </div>
         </div>

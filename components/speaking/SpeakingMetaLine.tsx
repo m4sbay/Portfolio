@@ -1,5 +1,5 @@
 import { CalendarIcon, ClockIcon } from "@/design-system/icons";
-import { formatEventListDate } from "@/lib/event-date";
+import { formatSpeakingListDate } from "@/lib/speaking-date";
 
 type Props = {
   date: string;
@@ -11,7 +11,7 @@ type Props = {
   className?: string;
 };
 
-export function EventMetaLine({ date, timeLabel, showDate = true, size = "sm", className }: Props) {
+export function SpeakingMetaLine({ date, timeLabel, showDate = true, size = "sm", className }: Props) {
   const iconClass =
     size === "md" ? "h-4 w-4 shrink-0 text-zinc-400 dark:text-zinc-500" : "h-3.5 w-3.5 shrink-0 text-zinc-400 dark:text-zinc-500";
   const textClass = size === "md" ? "text-sm" : "text-xs";
@@ -23,7 +23,7 @@ export function EventMetaLine({ date, timeLabel, showDate = true, size = "sm", c
       {showDate ? (
         <span className="inline-flex items-center gap-1.5">
           <CalendarIcon className={iconClass} />
-          {formatEventListDate(date)}
+          {formatSpeakingListDate(date)}
         </span>
       ) : null}
       <span className="inline-flex items-center gap-1.5">

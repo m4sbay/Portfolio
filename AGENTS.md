@@ -17,7 +17,7 @@ This is a personal portfolio for **Maulana Bayu / Masbay**. The site combines:
 - a home page with animated greeting, draggable/static hero widgets, selected projects, tech marquee, product cards, testimonials, and CTA
 - portfolio/project listing and detail pages under `/work`
 - writing/blog pages under `/writing`
-- event pages under `/event`
+- speaking pages under `/speaking`
 - services/pricing pages under `/services`
 - a route-specific landing page for `/arsipreset`
 - an internal liquid glass demo under `/demo/liquid-glass`
@@ -34,7 +34,7 @@ The visual direction is clean, minimal, Apple-like, zinc-neutral, glassy, rounde
 - **Styling:** Tailwind CSS `4` through `@import "tailwindcss";` in `app/globals.css`.
 - **Theme:** `next-themes` with `attribute="class"`, `defaultTheme="system"`, `disableTransitionOnChange`.
 - **Animation:** `framer-motion` plus local CSS keyframes. Package `motion` is installed, but the current visible pattern is `framer-motion`.
-- **Images:** `next/image` is used for project, writing, event, profile, and widget images. Some testimonial avatars still use plain `<img>` to support runtime fallback via `onError`.
+- **Images:** `next/image` is used for project, writing, speaking, profile, and widget images. Some testimonial avatars still use plain `<img>` to support runtime fallback via `onError`.
 - **Icons:** Local SVG components in `design-system/icons.tsx`. Use this file for icon UI before adding inline SVG.
 - **Path Alias:** `@/*` maps to the repository root.
 - **Validation:** `npm run lint`, `npx tsc --noEmit`, and `npm run build`.
@@ -51,15 +51,15 @@ Important folders and their current purpose:
 - `components/home/widgets/`: Hero widget system. Uses client components for mounted/interactable widgets and a static fallback to avoid hydration mismatch.
 - `components/projects/`: Project cards, grids, filters, detail gallery, tags, selected work, and service rate cards.
 - `components/writing/`: Writing list/detail primitives.
-- `components/event/`: Event timeline and metadata rendering.
+- `components/speaking/`: Speaking timeline and metadata rendering.
 - `components/services/`: Pricing/package UI and FAQ.
 - `components/arsipreset/`: Route-specific ArsiPreset UI pieces.
 - `components/liquid-glass/`: SVG/filter-based liquid glass primitives.
 - `components/ui/`: Reusable low-level UI such as `GlassSurface` and `ScrollToButton`.
 - `components/nav/`, `components/theme/`, `components/footer/`: Site chrome.
-- `content/`: Individual project, event, and writing entries.
+- `content/`: Individual project, speaking, and writing entries.
 - `data/`: Aggregators and sorted/query helpers for content arrays.
-- `types/`: Shared domain types for projects, writing, events, rate cards, and stack-scroll cards.
+- `types/`: Shared domain types for projects, writing, speaking, rate cards, and stack-scroll cards.
 - `lib/`: Site config and small formatting helpers.
 - `design-system/`: Runtime design-system tokens, component class patterns, animations, and SVG icons.
 - `skills/`: Local project skills and workflow references. Contains UI/code references (`accessibility`, `performance`, `seo`, `typescript`, `hooks`, `state-management`, `data-fetching`) plus process skills such as `brainstorming`, `writing-plans`, `systematic-debugging`, `test-driven-development`, review workflows, worktrees, subagent workflows, and skill-writing.
@@ -78,8 +78,8 @@ Observed routes:
 - `/work/[slug]`
 - `/writing`
 - `/writing/[slug]`
-- `/event`
-- `/event/[slug]`
+- `/speaking`
+- `/speaking/[slug]`
 - `/services`
 - `/arsipreset`
 - `/demo/liquid-glass`
@@ -104,7 +104,7 @@ export default async function Page({
 }
 ```
 
-Use `generateStaticParams()` for content-backed dynamic pages, as seen in `/work/[slug]`, `/writing/[slug]`, and `/event/[slug]`.
+Use `generateStaticParams()` for content-backed dynamic pages, as seen in `/work/[slug]`, `/writing/[slug]`, and `/speaking/[slug]`.
 
 ## Data And Content Pattern
 
@@ -114,8 +114,8 @@ Keep domain data typed and centralized.
 - `data/projects.ts` imports those entries and controls display order.
 - Writing posts live in `content/writing/posts/*.ts` and export `post`.
 - `data/writing.ts` imports posts, controls order, and exposes `getPostBySlug`, `sortedWritingPosts`, and `getReadNext`.
-- Events live in `content/events/*.ts`.
-- `data/events.ts` imports events, sorts newest first, and exposes `getEventBySlug`.
+- Speaking sessions live in `content/speaking/*.ts`.
+- `data/speaking.ts` imports sessions, sorts newest first, and exposes `getSpeakingBySlug`.
 - Home product cards live in `content/home/stack-scroll-cards.ts` and are consumed via `data/stack-scroll-cards`.
 - Pricing data lives in `data/rate-card.ts`.
 - Shared shapes live in `types/*.ts`.
@@ -185,7 +185,7 @@ Observed rules:
 
 ## Component Rules
 
-- Feature components stay under their feature folder: `components/projects`, `components/writing`, `components/event`, etc.
+- Feature components stay under their feature folder: `components/projects`, `components/writing`, `components/speaking`, etc.
 - Shared one-off UI belongs in `components/ui`.
 - Route-specific UI for ArsiPreset belongs in `components/arsipreset` or directly in `app/arsipreset/page.tsx`.
 - Site chrome belongs in `components/nav`, `components/theme`, and `components/footer`.
@@ -232,8 +232,8 @@ The project is mobile-first but keeps desktop polish.
 Observed naming:
 
 - React components: `PascalCase.tsx`, e.g. `ProjectCard.tsx`, `ThemeToggle.tsx`, `GlassSurface.tsx`.
-- Data/content files: mostly kebab-case for writing/events, mixed snake/camel for existing projects such as `video_vokasi.tsx` and `notion-auto-status.ts`.
-- Types: domain names in `types/*.ts`, e.g. `project.ts`, `writing.ts`, `event.ts`.
+- Data/content files: mostly kebab-case for writing/speaking, mixed snake/camel for existing projects such as `video_vokasi.tsx` and `notion-auto-status.ts`.
+- Types: domain names in `types/*.ts`, e.g. `project.ts`, `writing.ts`, `speaking.ts`.
 - App Router files: Next conventions `page.tsx`, `layout.tsx`.
 - Component functions: PascalCase named exports.
 - Helper functions: camelCase.
@@ -300,12 +300,12 @@ For a new writing post:
 3. Import it in `data/writing.ts`.
 4. Let `sortedWritingPosts`, `/writing`, and `/writing/[slug]` handle display.
 
-For a new event:
+For a new speaking session:
 
-1. Add `content/events/my-event.ts`.
-2. Match `CalendarEvent` from `types/event.ts`.
-3. Import it in `data/events.ts`.
-4. Use existing event page/timeline components.
+1. Add `content/speaking/my-session.ts` exporting `session`.
+2. Match `SpeakingSession` from `types/speaking.ts`.
+3. Import it in `data/speaking.ts`.
+4. Use existing speaking page/timeline components.
 
 For a new reusable visual component:
 

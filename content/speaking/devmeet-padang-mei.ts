@@ -1,6 +1,6 @@
-import type { CalendarEvent } from "@/types/event";
+import type { SpeakingSession } from "@/types/speaking";
 
-export const event: CalendarEvent = {
+export const session: SpeakingSession = {
   slug: "devmeet-padang-mei",
   title: "DevMeet Padang — Open mic & lightning talk",
   date: "2026-05-15",

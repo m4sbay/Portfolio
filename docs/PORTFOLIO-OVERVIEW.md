@@ -55,15 +55,15 @@ Deploy yang dikehendaki di brief proyek: **Vercel** (lihat `PROMT.md`).
 | `components/theme/` | Toggle tema |
 | `content/projects/` | Satu file per proyek (`*.ts`, `video_vokasi.tsx`) — konten manual |
 | `content/writing/posts/` | Satu file per artikel; `content/writing/categories.ts` untuk urutan kategori |
-| `content/events/` | Satu file per kegiatan kalender |
+| `content/speaking/` | Satu file per sesi speaking (seminar, workshop, mentoring, sharing) |
 | `content/home/` | Konten editorial beranda (mis. kartu stack scroll) |
 | `data/projects.ts` | Aggregator `projects` — impor dari `content/projects/*` |
 | `data/writing.ts` | Aggregator + helper (`getPostBySlug`, `sortedWritingPosts`, …) |
-| `data/events.ts` | Aggregator + helper (`sortedEvents`, `getEventBySlug`) |
+| `data/speaking.ts` | Aggregator + helper (`sortedSpeaking`, `getSpeakingBySlug`) |
 | `data/stack-scroll-cards.ts` | Re-export kartu beranda dari `content/home/` |
 | `design-system/` | Token, icons, animasi, pola komponen runtime (`@/design-system`) |
 | `lib/site.ts` | Konstanta situs: `name`, `title`, `description`, `url`, `twitter` |
-| `types/` | Tipe bersama (`project`, `writing`, `event`, `stack-scroll-card`, …) |
+| `types/` | Tipe bersama (`project`, `writing`, `speaking`, `stack-scroll-card`, …) |
 | `docs/` | Dokumen non-runtime (`PROMT.md`, `DESIGN.md`, dokumen ini) |
 | `public/` | Aset statis (gambar profil, SVG proyek, ikon, dll.) |
 | `skills/` | **Bukan** bagian runtime situs — README panduan untuk agen/kontributor |

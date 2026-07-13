@@ -82,34 +82,37 @@ function TimelineItem({
         <div className="min-w-0 flex-1">
           <Link
             href={`/speaking/${session.slug}`}
-            className="group relative flex w-full min-w-0 gap-3 rounded-xl border border-zinc-200/90 bg-zinc-50/90 p-3 transition-[border-color,background-color,box-shadow] duration-200 hover:border-zinc-300 hover:bg-white hover:shadow-sm hover:shadow-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-900/80 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 md:gap-3.5 md:p-3.5"
+            className="group relative flex w-full min-w-0 flex-col gap-0 overflow-hidden rounded-xl border border-zinc-200/90 bg-zinc-50/90 p-0 transition-[border-color,background-color,box-shadow] duration-200 hover:border-zinc-300 hover:bg-white hover:shadow-sm hover:shadow-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-900/80 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 md:flex-row md:items-center md:gap-3.5 md:p-3.5"
           >
+            {/* Mobile: image hero penuh di atas (aspect 3:2 = rasio cover kanonik).
+                md+: thumbnail persegi 80px di kiri (layout desktop, tak berubah). */}
             {hero ? (
-              <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-zinc-200 ring-1 ring-zinc-200/80 dark:bg-zinc-800 dark:ring-zinc-700 md:size-20">
+              <div className="relative aspect-[3/2] w-full shrink-0 overflow-hidden rounded-t-xl bg-zinc-200 dark:bg-zinc-800 md:aspect-auto md:size-20 md:rounded-lg md:ring-1 md:ring-zinc-200/80 md:dark:ring-zinc-700">
                 <Image
                   src={hero.src}
                   alt={hero.alt}
                   fill
                   className="object-cover"
-                  sizes="80px"
+                  sizes="(max-width: 767px) 100vw, 80px"
                   unoptimized={hero.src.endsWith(".svg")}
                 />
               </div>
             ) : (
-              <div className="flex size-16 shrink-0 items-center justify-center rounded-lg bg-zinc-100 ring-1 ring-zinc-200/80 dark:bg-zinc-800 dark:ring-zinc-700 md:size-20">
+              <div className="flex aspect-[3/2] w-full shrink-0 items-center justify-center rounded-t-xl bg-zinc-100 dark:bg-zinc-800 md:aspect-auto md:size-20 md:rounded-lg md:ring-1 md:ring-zinc-200/80 md:dark:ring-zinc-700">
                 <FileTextIcon className="size-7 text-zinc-400 dark:text-zinc-500" aria-hidden />
               </div>
             )}
 
-            <div className="min-w-0 flex-1 border-l border-zinc-200/90 pl-3 dark:border-zinc-700/90">
+            {/* Mobile: padding sendiri (card p-0), hanya tanggal + judul. md+: divider + pl-3 (layout desktop). */}
+            <div className="min-w-0 flex-1 p-3 md:border-l md:border-zinc-200/90 md:p-0 md:pl-3 md:dark:border-zinc-700/90">
               <p className="text-[11px] font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
                 {formatSpeakingListDate(session.date)}
               </p>
               <h2 className="mt-1 line-clamp-2 text-base font-semibold leading-snug tracking-tight text-zinc-950 dark:text-zinc-50">
                 {session.title}
               </h2>
-              <p className="mt-1 line-clamp-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{session.excerpt}</p>
-              <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-zinc-600 dark:text-zinc-400">
+              <p className="mt-1 hidden line-clamp-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 md:block">{session.excerpt}</p>
+              <div className="mt-1.5 hidden flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-zinc-600 dark:text-zinc-400 md:flex">
                 <span className="inline-flex min-w-0 max-w-full items-center gap-1">
                   <MapPinIcon className="size-3 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden />
                   <span className="truncate">{session.location}</span>

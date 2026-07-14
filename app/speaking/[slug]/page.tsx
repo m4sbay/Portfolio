@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllSpeaking, getSpeakingBySlug, getMoreSpeaking } from "@/data/speaking";
 import { formatSpeakingLongDate } from "@/lib/speaking-date";
 import { SpeakingMiniCard } from "@/components/speaking/SpeakingMiniCard";
+import { SpeakingGallery } from "@/components/speaking/SpeakingGallery";
 import { ArrowRightIcon, CalendarIcon, ClockIcon, MapPinIcon } from "@/design-system/icons";
 import { IconLabel } from "@/components/ui/IconLabel";
 import { MediaThumb } from "@/components/ui/MediaThumb";
@@ -28,7 +28,7 @@ export async function generateMetadata({
   if (!session) return {};
 
   const url = `/speaking/${session.slug}`;
-  const ogImage = session.images?.[0];
+  const ogImage = session.cover;
 
   return {
     title: `${session.title} — Speaking`,
@@ -69,8 +69,7 @@ export default async function SpeakingDetailPage({
   const session = await getSpeakingBySlug(slug);
   if (!session) notFound();
 
-  const hero = session.images?.[0];
-  const restImages = session.images && session.images.length > 1 ? session.images.slice(1) : [];
+  const hero = session.cover;
   const moreSpeaking = await getMoreSpeaking(session.slug);
 
   return (
@@ -96,8 +95,17 @@ export default async function SpeakingDetailPage({
           </div>
         </div>
 
-        <MediaThumb image={hero} priority unoptimized={hero?.src.endsWith(".svg")} />
+        {/* Cover Speaking = 1:1 (1080×1080) di semua breakpoint. Override default MediaThumb
+            (aspect-4/3 di mobile) — desktop tetap square seperti sebelumnya. */}
+        <MediaThumb
+          image={hero}
+          priority
+          aspectClassName="aspect-square"
+          unoptimized={hero?.src.endsWith(".svg")}
+        />
       </header>
+
+      <SpeakingGallery images={session.images ?? []} />
 
       <div className="reading mt-10">
         {session.body.map((p, i) => (
@@ -105,32 +113,14 @@ export default async function SpeakingDetailPage({
         ))}
       </div>
 
-      {restImages.length > 0 ? (
-        <div className="mt-10 space-y-4">
-          {restImages.map(img => (
-            <figure
-              key={img.src}
-              className="overflow-hidden rounded-2xl border border-zinc-200/80 bg-zinc-50/50 dark:border-white/10 dark:bg-white/3"
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                width={img.width}
-                height={img.height}
-                className="h-auto w-full object-cover"
-                sizes="(max-width: 768px) 100vw, 48rem"
-                unoptimized={img.src.endsWith(".svg")}
-              />
-            </figure>
-          ))}
-        </div>
-      ) : null}
-
       {moreSpeaking.length > 0 ? (
         <section className="mt-16 border-t border-zinc-200/80 pt-10 dark:border-white/10">
           <h2 className="text-lg font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">More Speaking</h2>
 
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {/* Mobile 1 kolom; desktop (md, breakpoint fitur Speaking) 2 kolom seimbang.
+              items-start: tiap card memakai tinggi rancangannya (min-h card) — grid tidak
+              meregangkan card agar meta tetap di posisi bawah. Card ganjil → mengalir natural. */}
+          <div className="mt-6 grid grid-cols-1 items-start gap-3 md:grid-cols-2">
             {moreSpeaking.map(s => (
               <SpeakingMiniCard key={s.slug} session={s} />
             ))}

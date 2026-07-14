@@ -14,12 +14,11 @@ export const session: SpeakingSession = {
     "Format workshop membuat mahasiswa langsung praktik: menata slide sidang, laporan proyek, dan pitch ide dengan template yang bisa dipakai ulang.",
     "Selain teknis Canva, sesi ini menyinggung etika visual akademik — konsistensi, keterbacaan, dan atribusi sumber gambar. (Isi ini sementara dan akan diperbarui.)",
   ],
-  images: [
-    {
-      src: "/speaking/tac_itp.png",
-      alt: "Cover sementara sesi speaking",
-      width: 1200,
-      height: 800,
-    },
-  ],
+  cover: {
+    src: "cover.png",
+    alt: "Cover sementara sesi speaking",
+    width: 1200,
+    height: 800,
+  },
+  images: [],
 };

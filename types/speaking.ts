@@ -5,6 +5,15 @@ export type SpeakingSessionImage = {
   height: number;
 };
 
+/**
+ * Gambar dokumentasi (gallery). Aset distandarkan landscape 1920×1080, jadi width/height
+ * tidak diulang di data — SpeakingGallery menyuntik ukuran default. Cukup `src` + `alt`.
+ */
+export type SpeakingGalleryImage = {
+  src: string;
+  alt: string;
+};
+
 export type SpeakingSession = {
   slug: string;
   title: string;
@@ -14,5 +23,8 @@ export type SpeakingSession = {
   location: string;
   excerpt: string;
   body: string[];
-  images?: SpeakingSessionImage[];
+  /** Gambar utama: Hero, Card, Metadata, dan Open Graph. */
+  cover?: SpeakingSessionImage;
+  /** Kumpulan foto dokumentasi kegiatan. Penyajian (gallery/carousel/dst) urusan komponen UI. */
+  images?: SpeakingGalleryImage[];
 };

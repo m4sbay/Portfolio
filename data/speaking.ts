@@ -5,6 +5,31 @@ import type { SpeakingSession } from "@/types/speaking";
 const SPEAKING_DIR = path.join(process.cwd(), "content", "speaking");
 
 /**
+ * Bangun path publik aset dari nama file relatif: `<file>` → `/speaking/<slug>/<file>`.
+ * Semua aset satu sesi tinggal di satu folder = slug (lihat docs/speaking-assets.md),
+ * jadi slug jadi base path dan konten cukup menyimpan nama file.
+ * Path yang sudah absolut (`/…`) atau URL (`http…`) dibiarkan apa adanya (backward-compat).
+ */
+function resolveAssetSrc(slug: string, src: string): string {
+  if (/^(https?:)?\//.test(src)) return src;
+  return `/speaking/${slug}/${src}`;
+}
+
+/** Normalisasi src cover + images ke path lengkap; sisanya session dibiarkan utuh. */
+function withResolvedAssets(session: SpeakingSession): SpeakingSession {
+  return {
+    ...session,
+    cover: session.cover
+      ? { ...session.cover, src: resolveAssetSrc(session.slug, session.cover.src) }
+      : session.cover,
+    images: session.images?.map(img => ({
+      ...img,
+      src: resolveAssetSrc(session.slug, img.src),
+    })),
+  };
+}
+
+/**
  * Auto-discovery: semua file di content/speaking otomatis dimuat.
  * Tambah speaking = buat satu file sesi; tidak ada file lain yang perlu diubah.
  * Nama file bebas — `slug` di objek session adalah sumber kebenaran URL.
@@ -19,7 +44,7 @@ async function loadAllSpeaking(): Promise<SpeakingSession[]> {
       if (!mod.session?.slug) {
         throw new Error(`content/speaking/${file}: wajib meng-export "session" dengan slug.`);
       }
-      return mod.session;
+      return withResolvedAssets(mod.session);
     }),
   );
 

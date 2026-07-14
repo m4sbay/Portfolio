@@ -14,12 +14,11 @@ export const session: SpeakingSession = {
     "Materi dimulai dari prinsip dasar: satu slide satu pesan, hierarki teks yang jelas, dan ruang kosong sebagai kawan, bukan lawan. Peserta langsung mempraktikkannya di Canva.",
     "Bagian akhir membahas cara memakai grid, warna, dan ikon bawaan Canva agar deck terasa konsisten tanpa perlu jadi desainer. (Isi ini sementara dan akan diperbarui.)",
   ],
-  images: [
-    {
-      src: "/speaking/tac_smk5.png",
-      alt: "Cover The Art Of Canva SMK 5 Kota Padang",
-      width: 1200,
-      height: 800,
-    },
-  ],
+  cover: {
+    src: "cover.png",
+    alt: "Cover The Art Of Canva SMK 5 Kota Padang",
+    width: 1200,
+    height: 800,
+  },
+  images: [],
 };

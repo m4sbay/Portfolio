@@ -23,6 +23,15 @@ export function formatSpeakingLongDate(iso: string): string {
   }).format(parseISODateLocal(iso));
 }
 
+/** Untuk overlay hero-card mobile: tanggal panjang tanpa weekday, mis. "24 November 2023". */
+export function formatSpeakingCardDate(iso: string): string {
+  return new Intl.DateTimeFormat("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(parseISODateLocal(iso));
+}
+
 /** Tahun saja — label ringkas untuk mini card / section terkait. */
 export function formatSpeakingYear(iso: string): string {
   return String(parseISODateLocal(iso).getFullYear());

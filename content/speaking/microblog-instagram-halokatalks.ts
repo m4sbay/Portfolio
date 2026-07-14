@@ -17,12 +17,13 @@ export const session: SpeakingSession = {
     "Obrolan dibuka dengan pertanyaan sederhana: di tengah dominasi video pendek, apakah microblog di Instagram masih punya tempat? Jawabannya bergantung pada tujuan — microblog unggul untuk menjelaskan ide bertahap yang butuh konteks.",
     "Sisanya membahas anatomi carousel yang enak dipindai: hook di slide pertama, satu gagasan per slide, dan penutup yang mengajak menyimpan atau membagikan. (Isi ini sementara dan akan diperbarui.)",
   ],
+  cover: {
+    src: "cover.png",
+    alt: "Gambar Haloka Card",
+    width: 1200,
+    height: 800,
+  },
   images: [
-    {
-      src: "/speaking/haloka_card.png",
-      alt: "Gambar Haloka Card",
-      width: 1200,
-      height: 800,
-    },
+    
   ],
 };

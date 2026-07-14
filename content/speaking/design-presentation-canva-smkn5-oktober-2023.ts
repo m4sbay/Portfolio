@@ -16,8 +16,8 @@ export const session: SpeakingSession = {
   ],
   images: [
     {
-      src: "/speaking/placeholder-cover.svg",
-      alt: "Cover sementara sesi speaking",
+      src: "/speaking/tac_smk5.png",
+      alt: "Cover The Art Of Canva SMK 5 Kota Padang",
       width: 1200,
       height: 800,
     },

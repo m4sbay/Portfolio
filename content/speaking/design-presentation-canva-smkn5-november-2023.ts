@@ -6,7 +6,7 @@ export const session: SpeakingSession = {
   date: "2023-11-24",
   // Placeholder: jam asli menyusul.
   timeLabel: "13.00 – 15.30 WIB",
-  location: "SMKN 5 Kota Padang",
+  location: "SMKN 6 Kota Padang",
   // Copy sementara — sesi lanjutan, sengaja dibedakan dari batch sebelumnya.
   excerpt:
     "Sesi lanjutan bareng SMKN 5 Kota Padang: memperdalam pembuatan presentasi di Canva dengan fokus pada storytelling slide dan penggunaan elemen visual yang tepat guna.",
@@ -16,8 +16,8 @@ export const session: SpeakingSession = {
   ],
   images: [
     {
-      src: "/speaking/placeholder-cover.svg",
-      alt: "Cover sementara sesi speaking",
+      src: "/speaking/tac_smk6.png",
+      alt: "Cover The Art Of Canva SMK 6 Kota Padang",
       width: 1200,
       height: 800,
     },

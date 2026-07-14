@@ -1,8 +1,0 @@
-<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cover sementara sesi speaking">
-  <rect width="1200" height="800" fill="#F4F4F5"/>
-  <g stroke="#A1A1AA" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <rect x="450" y="290" width="300" height="200" rx="18"/>
-    <path d="M600 490v58"/>
-    <path d="M540 548h120"/>
-  </g>
-</svg>

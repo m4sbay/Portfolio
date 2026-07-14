@@ -16,7 +16,7 @@ export const session: SpeakingSession = {
   ],
   images: [
     {
-      src: "/speaking/placeholder-cover.svg",
+      src: "/speaking/tac_itp.png",
       alt: "Cover sementara sesi speaking",
       width: 1200,
       height: 800,

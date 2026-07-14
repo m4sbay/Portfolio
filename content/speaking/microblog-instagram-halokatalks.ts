@@ -5,9 +5,9 @@ export const session: SpeakingSession = {
   title: "Microblog di Instagram: Masih Laku Nggak Sih",
   // Placeholder: kegiatan asli tahun 2022. Tanggal pasti belum ada — dipakai
   // pertengahan tahun agar sorting (terbaru dulu) tetap berjalan. Ganti nanti.
-  date: "2022-06-15",
+  date: "2022-09-08",
   // Placeholder: jam asli menyusul.
-  timeLabel: "19.30 – 21.00 WIB",
+  timeLabel: "20.00 – 20.30 WIB",
   // Placeholder: lokasi asli menyusul (sesi berbasis komunitas Halokatalks).
   location: "Daring — Instagram Live",
   // Copy sementara — akan diganti dengan ringkasan asli.
@@ -19,8 +19,8 @@ export const session: SpeakingSession = {
   ],
   images: [
     {
-      src: "/speaking/placeholder-cover.svg",
-      alt: "Cover sementara sesi speaking",
+      src: "/speaking/haloka_card.png",
+      alt: "Gambar Haloka Card",
       width: 1200,
       height: 800,
     },

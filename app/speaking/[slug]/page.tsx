@@ -98,11 +98,14 @@ export default async function SpeakingDetailPage({
         </div>
 
         {/* Cover Speaking = 1:1 (1080×1080) di semua breakpoint. Override default MediaThumb
-            (aspect-4/3 di mobile) — desktop tetap square seperti sebelumnya. */}
+            (aspect-4/3 di mobile) — desktop tetap square seperti sebelumnya.
+            md:self-start: cegah grid item ter-stretch vertikal oleh tinggi kolom teks; tanpa
+            ini stretch meng-override aspect-square → box portrait → object-cover crop cover. */}
         <MediaThumb
           image={hero}
           priority
           aspectClassName="aspect-square"
+          className="md:self-start"
           unoptimized={hero?.src.endsWith(".svg")}
         />
       </header>

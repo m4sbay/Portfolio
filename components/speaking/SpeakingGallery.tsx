@@ -129,7 +129,11 @@ export function SpeakingGallery({ images }: { images: SpeakingGalleryImage[] }) 
                 alt={img.alt}
                 width={GALLERY_WIDTH}
                 height={GALLERY_HEIGHT}
-                loading="lazy"
+                // Embla mulai di index 0, jadi hanya slide pertama yang terlihat saat load — dan
+                // ukurannya penuh lebar baca (16:9) sehingga jadi LCP. Prioritaskan slide ini saja;
+                // sisanya tetap lazy (off-screen). `priority` sudah menyetel eager + fetchPriority.
+                priority={i === 0}
+                loading={i === 0 ? undefined : "lazy"}
                 className="aspect-video h-auto w-full object-cover"
                 sizes="(max-width: 768px) 100vw, 48rem"
                 unoptimized={img.src.endsWith(".svg")}

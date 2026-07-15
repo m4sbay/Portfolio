@@ -69,8 +69,19 @@ function FloatColumn({ indices, dur, delay }: (typeof COLUMNS)[number]) {
     if (!track) return;
 
     const update = () => {
-      // half the scrollHeight = exact height of one set → pixel-perfect seamless loop
-      track.style.setProperty("--marquee-y", `-${track.scrollHeight / 2}px`);
+      // Jarak seamless = jarak top-ke-top antara card pertama set-1 dan card
+      // pertama set-2 = tinggi satu repeat unit (sudah termasuk margin antar
+      // card). Ini akurat walau margin-bottom card terakhir ter-collapse ke
+      // track (yang membuat scrollHeight/2 kurang ~setengah margin dan bikin
+      // loop nge-jump). Beda getBoundingClientRect kebal terhadap transform
+      // karena kedua card ikut transform yang sama.
+      const half = track.children.length / 2;
+      const first = track.children[0] as HTMLElement | undefined;
+      const second = track.children[half] as HTMLElement | undefined;
+      if (!first || !second) return;
+      const distance =
+        second.getBoundingClientRect().top - first.getBoundingClientRect().top;
+      track.style.setProperty("--marquee-y", `-${distance}px`);
     };
 
     update();

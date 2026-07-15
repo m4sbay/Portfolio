@@ -41,11 +41,11 @@ function TestimonialCard({
   testimonial: (typeof testimonials)[number];
 }) {
   return (
-    <div className="w-44 shrink-0 rounded-lg border border-zinc-200 bg-white p-2.5 shadow-sm dark:border-white/10 dark:bg-zinc-900 sm:w-72 sm:rounded-2xl sm:p-5">
+    <div className="flex w-44 shrink-0 flex-col rounded-lg border border-zinc-200 bg-white p-2.5 shadow-sm dark:border-white/10 dark:bg-zinc-900 sm:w-72 sm:rounded-2xl sm:p-5 mr-2 sm:mr-4">
       <p className="mb-2 text-[10px] leading-4 text-zinc-600 dark:text-zinc-400 sm:mb-4 sm:text-sm sm:leading-6">
         &ldquo;{testimonial.quote}&rdquo;
       </p>
-      <div className="flex items-center gap-1.5 sm:gap-3">
+      <div className="mt-auto flex items-center gap-1.5 sm:gap-3">
         <Avatar name={testimonial.name} image={testimonial.image} />
         <div>
           <p className="text-[9px] font-semibold text-zinc-900 dark:text-zinc-100 sm:text-sm">
@@ -81,7 +81,7 @@ function MarqueeRow({
     >
       <div
         className={[
-          "flex gap-2 sm:gap-4",
+          "flex",
           reverse ? "animate-marquee-reverse" : "animate-marquee",
           "group-hover:[animation-play-state:paused]",
         ].join(" ")}

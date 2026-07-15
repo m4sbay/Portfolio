@@ -5,6 +5,8 @@ import { getAllSpeaking, getSpeakingBySlug, getMoreSpeaking } from "@/data/speak
 import { formatSpeakingLongDate } from "@/lib/speaking-date";
 import { SpeakingMiniCard } from "@/components/speaking/SpeakingMiniCard";
 import { SpeakingGallery } from "@/components/speaking/SpeakingGallery";
+import { SpeakingArticleBody } from "@/components/speaking/SpeakingArticleBody";
+import { SpeakingResources } from "@/components/speaking/SpeakingResources";
 import { ArrowRightIcon, CalendarIcon, ClockIcon, MapPinIcon } from "@/design-system/icons";
 import { IconLabel } from "@/components/ui/IconLabel";
 import { MediaThumb } from "@/components/ui/MediaThumb";
@@ -107,11 +109,11 @@ export default async function SpeakingDetailPage({
 
       <SpeakingGallery images={session.images ?? []} />
 
-      <div className="reading mt-10">
-        {session.body.map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
-      </div>
+      <SpeakingArticleBody body={session.body} />
+
+      {session.resources && session.resources.length > 0 ? (
+        <SpeakingResources resources={session.resources} />
+      ) : null}
 
       {moreSpeaking.length > 0 ? (
         <section className="mt-16 border-t border-zinc-200/80 pt-10 dark:border-white/10">

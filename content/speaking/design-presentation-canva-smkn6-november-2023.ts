@@ -2,16 +2,56 @@ import type { SpeakingSession } from "@/types/speaking";
 
 export const session: SpeakingSession = {
   slug: "design-presentation-canva-smkn6-november-2023",
-  title: "Design Presentation With Canva",
+  title: "The Art of Canva - Design Presentation With Canva",
   date: "2023-11-24",
   // Placeholder: jam asli menyusul.
   timeLabel: "13.00 – 15.30 WIB",
   location: "SMKN 6 Kota Padang",
   // Copy sementara — sesi lanjutan, sengaja dibedakan dari batch sebelumnya.
-  excerpt: "Sesi lanjutan bareng SMKN 5 Kota Padang: memperdalam pembuatan presentasi di Canva dengan fokus pada storytelling slide dan penggunaan elemen visual yang tepat guna.",
+  excerpt:
+    "Batch kedua The Art of Canva membawa kami ke SMKN 6 Kota Padang. Dari sesi ini kami belajar banyak hal, mulai dari memperbaiki cara menyampaikan materi hingga menyesuaikan contoh desain dengan latar belakang peserta yang berasal dari jurusan Tata Boga.",
+
   body: [
-    "Melanjutkan batch sebelumnya, pertemuan ini menekankan alur cerita: bagaimana menyusun urutan slide agar audiens mengikuti argumen dari pembuka hingga simpulan.",
-    "Peserta berlatih memilih chart, ikon, dan foto yang mendukung pesan — bukan sekadar mengisi ruang. (Isi ini sementara dan akan diperbarui.)",
+    {
+      type: "heading",
+      content: "Belajar dari Batch Pertama",
+    },
+    {
+      type: "paragraph",
+      segments: [
+        "Setelah menyelesaikan batch pertama di SMKN 5 Kota Padang, kami mulai memahami bagian mana yang perlu diperbaiki. Cara menyampaikan materi, alur presentasi, hingga pembagian waktu kami evaluasi bersama agar sesi berikutnya bisa terasa lebih nyaman diikuti. Batch kedua menjadi kesempatan bagi kami untuk menerapkan semua evaluasi tersebut.",
+      ],
+    },
+    {
+      type: "heading",
+      content: "Ternyata Pesertanya Jurusan Tata Boga",
+    },
+    {
+      type: "paragraph",
+      segments: [
+        "Menariknya, baru pada hari pelaksanaan kami mengetahui bahwa peserta berasal dari jurusan Tata Boga. Hal ini membuat beberapa contoh yang kami bawakan menjadi terasa sangat relevan. Selain membahas desain presentasi menggunakan Canva, kami juga berdiskusi bagaimana menyajikan foto makanan ke dalam desain yang menarik tanpa mengabaikan prinsip-prinsip dasar desain. Harapannya, mereka tidak hanya memahami bagaimana menyusun plating di atas piring, tetapi juga bagaimana 'mem-plating' hasil masakan mereka di media sosial agar lebih menarik dan komunikatif.",
+      ],
+    },
+    {
+      type: "heading",
+      content: "Di Balik Layar Program",
+    },
+    {
+      type: "paragraph",
+      segments: [
+        "Di balik pelaksanaan TAC, kami juga menghadapi tantangan yang tidak terlihat oleh peserta. Saat itu pendanaan program tidak turun sesuai rencana karena adanya kendala keuangan di himpunan. Agar kegiatan tetap berjalan, divisi kami berinisiatif menjual stiker dan menggunakan seluruh hasil penjualannya untuk menyediakan hadiah sederhana bagi peserta yang aktif bertanya maupun berani maju ke depan.",
+      ],
+    },
+    {
+      type: "heading",
+      content: "Lebih dari Sekadar Hadiah",
+    },
+    {
+      type: "paragraph",
+      segments: [
+        "Meski hadiah yang kami berikan jauh dari kata mewah, melihat antusias dan senyum para peserta sudah menjadi kebahagiaan tersendiri bagi kami. Semoga ilmu yang kami bagikan pada sesi ini bisa terus bermanfaat, baik saat mereka mengerjakan tugas di sekolah maupun ketika nantinya memasuki dunia perkuliahan atau dunia kerja.",
+      ],
+    },
   ],
   cover: {
     src: "cover.png",

@@ -35,7 +35,7 @@ export type SpeakingContentBlock =
 export type SpeakingResource = {
   title: string;
   url: string;
-  type?: "slides" | "website" | "repository" | "video" | "document" | "other";
+  type?: "slides" | "website" | "repository" | "video" | "document" | "template" | "other";
 };
 
 export type SpeakingSession = {

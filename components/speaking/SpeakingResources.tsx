@@ -6,6 +6,7 @@ import {
   ExternalLinkIcon,
   FileTextIcon,
   GlobeIcon,
+  LayoutTemplateIcon,
   PresentationIcon,
   VideoIcon,
 } from "@/design-system/icons";
@@ -19,6 +20,7 @@ const RESOURCE_ICONS: Record<ResourceType, ComponentType<SVGProps<SVGSVGElement>
   repository: CodeIcon,
   video: VideoIcon,
   document: FileTextIcon,
+  template: LayoutTemplateIcon,
   other: ExternalLinkIcon,
 };
 
@@ -29,6 +31,7 @@ const RESOURCE_LABELS: Record<ResourceType, string> = {
   repository: "Repository",
   video: "Video",
   document: "Document",
+  template: "Template",
   other: "Link",
 };
 

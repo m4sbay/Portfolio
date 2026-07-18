@@ -5,9 +5,20 @@ import { FaqList } from "@/components/arsipreset/FaqItem";
 import { ArrowRightIcon } from "@/design-system/icons";
 import CircularGallery from "@/components/arsipreset/CircularGallery";
 
+const arsipresetTitle = "ArsiPreset - Preset Lightroom Editorial";
+const arsipresetDescription =
+  "Preset Lightroom premium bergaya editorial. Satu klik, warna langsung berkarakter. Tersedia dalam 3 pack: AR2020, AR2021, AR2022.";
+
 export const metadata: Metadata = {
-  title: "ArsiPreset — Preset Lightroom Editorial",
-  description: "Preset Lightroom premium bergaya editorial. Satu klik, warna langsung berkarakter. Tersedia dalam 3 pack: AR2020, AR2021, AR2022.",
+  // Sub-brand produk: pakai absolute agar tidak menempel "- Maulana Bayu".
+  title: { absolute: arsipresetTitle },
+  description: arsipresetDescription,
+  alternates: { canonical: "/arsipreset" },
+  openGraph: {
+    title: arsipresetTitle,
+    description: arsipresetDescription,
+    url: "/arsipreset",
+  },
 };
 
 const ACCENT = "#6AADCE";

@@ -10,18 +10,23 @@ import { SelectedWork } from "@/components/projects/SelectedWork";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { ArrowRightIcon } from "@/design-system/icons";
 
+const homeDescription =
+  "Frontend Developer, UI/UX Designer, dan Digital Content Creator. Portfolio dan selected work Maulana Bayu (Masbay).";
+
 export const metadata: Metadata = {
-  title: site.title,
-  description: "Frontend Developer, UI/UX Designer, dan Digital Content Creator. Portfolio dan selected work Masbay.",
+  // Segmen root: title.template tidak berlaku di sini, jadi pakai absolute biar deterministik.
+  title: { absolute: site.defaultTitle },
+  description: homeDescription,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: site.title,
-    description: "Frontend Developer, UI/UX Designer, dan Digital Content Creator. Portfolio dan selected work Masbay.",
+    title: site.defaultTitle,
+    description: homeDescription,
     url: "/",
   },
   twitter: {
     card: "summary_large_image",
-    title: site.title,
-    description: "Frontend Developer, UI/UX Designer, dan Digital Content Creator. Portfolio dan selected work Masbay.",
+    title: site.defaultTitle,
+    description: homeDescription,
   },
 };
 

@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Liquid glass demo",
   description:
     "Demonstrasi lensing Liquid Glass dengan konten di belakang panel di atas gradient.",
+  robots: { index: false, follow: false },
 };
 
 export default function LiquidGlassDemoPage() {

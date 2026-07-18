@@ -10,6 +10,7 @@ import {
   getTopicBySlug,
 } from "@/data/writing";
 import { formatReadingTime, formatWritingDate, getFirstParagraph, getWritingGallery } from "@/lib/writing";
+import { site } from "@/lib/site";
 import { DetailBreadcrumb } from "@/components/ui/DetailBreadcrumb";
 import { MediaThumb } from "@/components/ui/MediaThumb";
 import { MediaGallery } from "@/components/ui/MediaGallery";
@@ -37,8 +38,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (post) {
     const description = getFirstParagraph(post.content);
     return {
-      title: `${post.title} — Writing`,
+      // Judul unik saja; brand "- Maulana Bayu" disuplai title.template global.
+      title: post.title,
       description,
+      alternates: { canonical: `/writing/${post.slug}` },
       openGraph: {
         title: post.title,
         description,
@@ -60,10 +63,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (topic) {
     const description = `Semua tulisan pada topik ${topic.label}.`;
     return {
-      title: `${topic.label} — Writing`,
+      title: topic.label,
       description,
+      alternates: { canonical: `/writing/${topic.slug}` },
       openGraph: {
-        title: `${topic.label} — Writing`,
+        title: `${topic.label} - ${site.displayName}`,
         description,
         url: `/writing/${topic.slug}`,
       },
@@ -80,8 +84,8 @@ function ArticleView({ post, morePosts }: { post: WritingPost; morePosts: Writin
     <div className="py-12">
       {/* Area 2 kolom: artikel kiri, sidebar kanan (lg). Di bawah lg menumpuk:
           artikel dulu, sidebar di bawahnya. */}
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-12">
-        <article>
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-12">
+        <article className="min-w-0">
           <DetailBreadcrumb href="/writing" label="Writing" current={post.title} />
 
           <header className="space-y-4 pt-4">

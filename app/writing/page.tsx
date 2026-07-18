@@ -3,13 +3,21 @@ import { groupPostsByTopic } from "@/data/writing";
 import { WritingSection } from "@/components/writing/WritingSection";
 import { site } from "@/lib/site";
 
+const writingDescription = "Catatan teknis, proses desain, dan pemikiran singkat seputar frontend & produk.";
+
 export const metadata: Metadata = {
-  title: `Writing — ${site.title}`,
-  description: "Catatan teknis, proses desain, dan pemikiran singkat seputar frontend & produk.",
+  title: "Writing",
+  description: writingDescription,
+  alternates: { canonical: "/writing" },
   openGraph: {
-    title: `Writing — ${site.title}`,
-    description: "Catatan teknis, proses desain, dan pemikiran singkat seputar frontend & produk.",
+    title: `Writing - ${site.displayName}`,
+    description: writingDescription,
     url: "/writing",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Writing - ${site.displayName}`,
+    description: writingDescription,
   },
 };
 

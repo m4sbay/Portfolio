@@ -3,13 +3,21 @@ import { sortedSpeaking } from "@/data/speaking";
 import { SpeakingTimeline } from "@/components/speaking/SpeakingTimeline";
 import { site } from "@/lib/site";
 
+const speakingDescription = "Kegiatan, workshop, dan komunitas yang aku ikuti.";
+
 export const metadata: Metadata = {
-  title: `Speaking — ${site.title}`,
-  description: "Kegiatan, workshop, dan komunitas yang aku ikuti.",
+  title: "Speaking",
+  description: speakingDescription,
+  alternates: { canonical: "/speaking" },
   openGraph: {
-    title: `Speaking — ${site.title}`,
-    description: "Kegiatan, workshop, dan komunitas yang aku ikuti.",
+    title: `Speaking - ${site.displayName}`,
+    description: speakingDescription,
     url: "/speaking",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Speaking - ${site.displayName}`,
+    description: speakingDescription,
   },
 };
 

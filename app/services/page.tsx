@@ -7,18 +7,21 @@ import { BundlePackages } from "@/components/services/BundlePackages";
 import { ServicesFAQ } from "@/components/services/ServicesFAQ";
 import { TestimonialsFloat } from "@/components/TestimonialsFloat";
 
+const servicesDescription = "Rate card desain Masbay — harga satuan per konten dan paket bundling untuk event, kampanye sosial media, dan motion graphic.";
+
 export const metadata: Metadata = {
   title: "Services",
-  description: "Rate card desain Masbay — harga satuan per konten dan paket bundling untuk event, kampanye sosial media, dan motion graphic.",
+  description: servicesDescription,
+  alternates: { canonical: "/services" },
   openGraph: {
-    title: "Services — Masbay",
-    description: "Rate card desain Masbay — harga satuan per konten dan paket bundling untuk event, kampanye sosial media, dan motion graphic.",
+    title: `Services - ${site.displayName}`,
+    description: servicesDescription,
     url: "/services",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Services — Masbay",
-    description: "Rate card desain Masbay — harga satuan per konten dan paket bundling untuk event, kampanye sosial media, dan motion graphic.",
+    title: `Services - ${site.displayName}`,
+    description: servicesDescription,
   },
 };
 

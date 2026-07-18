@@ -33,8 +33,10 @@ export async function generateMetadata({
   const ogImage = session.cover;
 
   return {
-    title: `${session.title} — Speaking`,
+    // Judul sesi saja; brand "- Maulana Bayu" disuplai title.template global.
+    title: session.title,
     description: session.excerpt,
+    alternates: { canonical: url },
     openGraph: {
       title: session.title,
       description: session.excerpt,

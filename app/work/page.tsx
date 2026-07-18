@@ -7,13 +7,21 @@ import { getFeaturedWork } from "@/data/work-featured";
 import { getPublishedProjects } from "@/data/projects";
 import { site } from "@/lib/site";
 
+const workDescription = "Galeri karya, project, dan eksperimen digital Maulana Bayu (Masbay).";
+
 export const metadata: Metadata = {
-  title: `Work — ${site.title}`,
-  description: "Galeri karya, project, dan eksperimen digital Masbay.",
+  title: "Work",
+  description: workDescription,
+  alternates: { canonical: "/work" },
   openGraph: {
-    title: `Work — ${site.title}`,
-    description: "Galeri karya, project, dan eksperimen digital Masbay.",
+    title: `Work - ${site.displayName}`,
+    description: workDescription,
     url: "/work",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Work - ${site.displayName}`,
+    description: workDescription,
   },
 };
 

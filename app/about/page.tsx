@@ -1,18 +1,23 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { site } from "@/lib/site";
+
+const aboutDescription = "Tentang Maulana Bayu (Masbay): Frontend Developer, UI/UX Designer, dan Digital Content Creator dari Padang.";
+
 export const metadata: Metadata = {
   title: "About",
-  description: "Tentang Masbay: Frontend Developer, UI/UX Designer, dan Digital Content Creator dari Padang.",
+  description: aboutDescription,
+  alternates: { canonical: "/about" },
   openGraph: {
-    title: "About — Masbay",
-    description: "Tentang Masbay: Frontend Developer, UI/UX Designer, dan Digital Content Creator dari Padang.",
+    title: `About - ${site.displayName}`,
+    description: aboutDescription,
     url: "/about",
   },
   twitter: {
     card: "summary_large_image",
-    title: "About — Masbay",
-    description: "Tentang Masbay: Frontend Developer, UI/UX Designer, dan Digital Content Creator dari Padang.",
+    title: `About - ${site.displayName}`,
+    description: aboutDescription,
   },
 };
 

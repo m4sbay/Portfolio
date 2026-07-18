@@ -90,7 +90,7 @@ export function AnimatedGreeting() {
         <span className="block">
           23 year old<br className="sm:hidden" /> content creator,
         </span>
-        <span className="block">based in Padang 🇮🇩</span>
+        <span className="block">based in Jambi 🇮🇩</span>
       </h1>
     </div>
   );

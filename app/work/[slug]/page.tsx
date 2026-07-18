@@ -91,8 +91,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const url = `/work/${project.slug}`;
 
   return {
+    // Judul project saja; brand "- Maulana Bayu" disuplai title.template global.
     title,
     description,
+    alternates: { canonical: url },
     openGraph: {
       title,
       description,

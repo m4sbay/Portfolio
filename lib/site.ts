@@ -13,7 +13,7 @@ export const site = {
   /** Title default + homepage (title.absolute). Separator resmi: hyphen "-". */
   defaultTitle: `${displayName} - ${role}`,
   description: "Portfolio Maulana Bayu (Masbay) — Frontend Developer, UI/UX Designer, dan Digital Content Creator.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://bayufolio.vercel.app",
 
   /** @deprecated pakai `brandName` (UI) — dipertahankan untuk kompatibilitas. */
   name: brandName,

@@ -18,12 +18,10 @@ export function SiteFooter() {
           <div className="space-y-6 sm:space-y-10">
             <div className="space-y-4 sm:space-y-6">
               <h2 id="footer-heading" className="max-w-2xl text-balance text-2xl font-semibold tracking-tight text-white sm:text-4xl dark:text-zinc-950">
-                Sudah sampai sini?
+                Let's create something extraordinary together.
               </h2>
               <p className="max-w-xl text-pretty text-sm leading-6 text-zinc-300 dark:text-zinc-600 sm:text-base sm:leading-relaxed">
-                Kalau tertarik kolaborasi proyek, diskusi desain &amp; kode, atau sekadar menyapa,{" "}
-                <strong className="font-semibold text-white dark:text-zinc-950">jangan ragu untuk hubungi</strong>
-                . Selalu senang kenalan dengan sesama builder.
+                Let’s make an impact
               </p>
             </div>
 

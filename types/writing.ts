@@ -1,3 +1,5 @@
+import type { GalleryImage } from "@/types/gallery";
+
 /** Status artikel. v1: published | draft. Dirancang untuk diperluas: "scheduled" | "archived". */
 export type WritingStatus = "published" | "draft";
 
@@ -11,6 +13,7 @@ export const WRITING_TOPICS = [
   { slug: "design", label: "Design" },
   { slug: "life", label: "Life" },
   { slug: "process", label: "Process" },
+  { slug: "event", label: "Event" },
 ] as const;
 
 export type WritingTopic = (typeof WRITING_TOPICS)[number];
@@ -44,7 +47,17 @@ export interface WritingPost {
   status: WritingStatus;
   /** ISO tanggal publikasi */
   publishedAt: string;
+  /** Gambar utama: thumbnail card di /writing, Open Graph, dan hero detail saat `images` kosong. */
   image: { src: string; alt: string };
+  /**
+   * Gambar tambahan opsional untuk halaman detail — cukup gambar selain cover, terurut.
+   * Jika diisi, hero jadi slideshow `MediaGallery` (komponen yang sama dengan Speaking) yang
+   * disusun otomatis `[cover, ...images]` oleh `getWritingGallery` — cover tak perlu ditulis
+   * ulang di sini. Kosong/undefined → detail tetap memakai `image` sebagai hero (backward
+   * compatible). Post lama yang terlanjur menaruh cover sebagai elemen pertama tetap aman:
+   * duplikat cover dibuang otomatis.
+   */
+  images?: GalleryImage[];
   /** Blok konten; blok paragraf pertama dipakai sebagai preview di card */
   content: WritingBlock[];
 }

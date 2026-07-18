@@ -1,4 +1,5 @@
-import type { WritingBlock } from "@/types/writing";
+import type { WritingBlock, WritingPost } from "@/types/writing";
+import type { GalleryImage } from "@/types/gallery";
 import { getEntity } from "@/data/entities";
 
 function parseISODateLocal(iso: string): Date {
@@ -50,6 +51,21 @@ export function getPreviewText(content: WritingBlock[], maxChars = 140): string 
   const cut = first.slice(0, maxChars);
   const atWordBoundary = cut.slice(0, cut.lastIndexOf(" ")).replace(/[,.;:]+$/, "");
   return `${atWordBoundary} (...)`;
+}
+
+/**
+ * Susun daftar slide untuk hero slideshow detail. Cover (`post.image`) selalu jadi slide
+ * pertama dan sumber kebenaran; `post.images` hanya berisi gambar tambahan, author tidak perlu
+ * menduplikasi cover. Untuk backward compat: bila slide pertama `images` kebetulan identik cover
+ * (src sama), duplikat itu dibuang agar cover tidak muncul dua kali.
+ *
+ * Mengembalikan `[]` bila `post.images` kosong/undefined — pemanggil memakai hero cover biasa.
+ */
+export function getWritingGallery(post: WritingPost): GalleryImage[] {
+  if (!post.images || post.images.length === 0) return [];
+  const cover: GalleryImage = { src: post.image.src, alt: post.image.alt };
+  const rest = post.images[0]?.src === cover.src ? post.images.slice(1) : post.images;
+  return [cover, ...rest];
 }
 
 /** Tanggal singkat id-ID untuk card & meta line, mis. "8 Jul 2026". */

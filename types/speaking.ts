@@ -1,4 +1,5 @@
 import type { WritingInline } from "@/types/writing";
+import type { GalleryImage } from "@/types/gallery";
 
 export type SpeakingSessionImage = {
   src: string;
@@ -8,13 +9,11 @@ export type SpeakingSessionImage = {
 };
 
 /**
- * Gambar dokumentasi (gallery). Aset distandarkan landscape 1920×1080, jadi width/height
- * tidak diulang di data — SpeakingGallery menyuntik ukuran default. Cukup `src` + `alt`.
+ * Gambar dokumentasi (gallery). Alias dari `GalleryImage` reusable — aset distandarkan
+ * landscape 1920×1080, jadi width/height tidak diulang di data; MediaGallery menyuntik ukuran
+ * default. Cukup `src` + `alt`.
  */
-export type SpeakingGalleryImage = {
-  src: string;
-  alt: string;
-};
+export type SpeakingGalleryImage = GalleryImage;
 
 /**
  * Blok konten sesi. String polos tetap valid sebagai paragraf biasa, jadi sesi lama

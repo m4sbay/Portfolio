@@ -7,7 +7,7 @@ export const post: WritingPost = {
   status: "published",
   publishedAt: "2026-07-09",
   image: {
-    src: "/writing/work_from_ruang.png",
+    src: "cover.png",
     alt: "Suasana Work From Ruang di Ruang Tambah, Kota Padang",
   },
   content: [

@@ -6,7 +6,7 @@ export const post: WritingPost = {
   topic: "Design",
   status: "published",
   publishedAt: "2026-06-02",
-  image: { src: "/writing/kontras_warna_dark.png", alt: "Preview artikel tentang kontras warna dark mode" },
+  image: { src: "cover.png", alt: "Preview artikel tentang kontras warna dark mode" },
   content: [
     "Dulu aku juga sempat mikir bikin dark mode itu gampang. Tinggal dibalik aja, background putih jadi hitam, teks hitam jadi putih. Ternyata pas dipakai beberapa menit, matanya malah cepat capek. Dari situ aku baru sadar kalau dark mode yang nyaman ternyata nggak sesederhana mengganti warna.",
 

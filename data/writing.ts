@@ -12,6 +12,27 @@ import type {
 const POSTS_DIR = path.join(process.cwd(), "content", "writing", "posts");
 
 /**
+ * Bangun path publik aset dari nama file relatif: `<file>` → `/writing/<slug>/<file>`.
+ * Semua aset satu artikel tinggal di satu folder = slug (konvensi seragam dengan Speaking),
+ * jadi konten cukup menyimpan nama file (`cover.png`, `image-01.png`).
+ * Path yang sudah absolut (`/…`) atau URL (`http…`) dibiarkan apa adanya — backward-compat
+ * untuk artikel lama yang terlanjur menyimpan path penuh.
+ */
+function resolveAssetSrc(slug: string, src: string): string {
+  if (/^(https?:)?\//.test(src)) return src;
+  return `/writing/${slug}/${src}`;
+}
+
+/** Normalisasi src cover + images ke path lengkap; field lain post dibiarkan utuh. */
+function withResolvedAssets(post: WritingPost): WritingPost {
+  return {
+    ...post,
+    image: { ...post.image, src: resolveAssetSrc(post.slug, post.image.src) },
+    images: post.images?.map(img => ({ ...img, src: resolveAssetSrc(post.slug, img.src) })),
+  };
+}
+
+/**
  * Auto-discovery: semua file di content/writing/posts otomatis dimuat.
  * Tambah artikel = buat satu file post; tidak ada file lain yang perlu diubah.
  * Nama file bebas — `slug` di objek post adalah sumber kebenaran URL.
@@ -26,7 +47,7 @@ async function loadAllPosts(): Promise<WritingPost[]> {
       if (!mod.post?.slug || !mod.post.status) {
         throw new Error(`content/writing/posts/${file}: wajib meng-export "post" dengan slug & status.`);
       }
-      return mod.post;
+      return withResolvedAssets(mod.post);
     }),
   );
 

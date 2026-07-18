@@ -9,6 +9,5 @@ export const entity: Entity = {
   website: "https://www.anthropic.com/claude-code",
   // Placeholder: logo bakal ditambah sendiri, ganti manual di /public/logo/claude-code.png
   logo: "/logo/claude_code.png",
-  // Placeholder: file preview belum ada, ganti manual di /public/writing/claude_code.png
-  preview: "/writing/claude_code.png",
+  preview: "/entities/claude-code/preview.png",
 };

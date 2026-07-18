@@ -8,6 +8,7 @@ import { entity as codex } from "@/content/entities/codex";
 import { entity as javascript } from "@/content/entities/javascript";
 import { entity as typescript } from "@/content/entities/typescript";
 import { entity as canva } from "@/content/entities/canva";
+import { entity as cybertechPnp } from "@/content/entities/cybertech-pnp";
 
 /** Registry terpusat. Nambah entity cukup nambah satu file di content/entities. */
 export const entities: Entity[] = [
@@ -20,6 +21,7 @@ export const entities: Entity[] = [
   javascript,
   typescript,
   canva,
+  cybertechPnp,
 ];
 
 export function getEntity(slug: string): Entity | undefined {

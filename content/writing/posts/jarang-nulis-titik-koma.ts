@@ -6,8 +6,8 @@ export const post: WritingPost = {
   topic: "Development",
   status: "published",
   publishedAt: "2026-05-22",
-  // Placeholder: file cover belum ada, ganti manual di /public/writing/titik-koma.png
-  image: { src: "/writing/titik-koma.png", alt: "Preview artikel tentang titik koma di JavaScript" },
+  // Placeholder: file cover belum ada, ganti manual di /publiccover.png
+  image: { src: "cover.png", alt: "Preview artikel tentang titik koma di JavaScript" },
   content: [
     "Waktu pertama kali belajar ngoding, ada satu aturan yang ditanamkan ke aku sejak awal banget. Tiap baris kode harus ditutup pakai titik koma. Aturannya galak, dan kalau sampai lupa satu aja rasanya kayak udah pasti bakal error. Jadi ya aku nurut, tiap baris aku kasih titik koma tanpa pernah nanya kenapa.",
     { type: "heading", text: "Dulu Titik Koma Itu Wajib" },

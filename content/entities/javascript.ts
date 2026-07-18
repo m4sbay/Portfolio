@@ -9,6 +9,5 @@ export const entity: Entity = {
   website: "https://www.javascript.com/",
   // Placeholder: logo bakal ditambah sendiri, ganti manual di /public/logo/javascript.png
   logo: "/logo/javascript.png",
-  // Placeholder: file preview belum ada, ganti manual di /public/writing/javascript.png
-  preview: "/writing/javascript.png",
+  preview: "/entities/javascript/preview.png",
 };

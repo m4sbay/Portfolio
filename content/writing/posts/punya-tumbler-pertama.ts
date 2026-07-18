@@ -7,7 +7,7 @@ export const post: WritingPost = {
   status: "published",
   publishedAt: "2026-07-08",
   image: {
-    src: "/writing/tumbler_baru2.png",
+    src: "cover.png",
     alt: "Tumbler pertama, kado ulang tahun ke-23",
   },
   content: [

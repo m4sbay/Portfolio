@@ -8,5 +8,5 @@ export const entity: Entity = {
     "Kedai kopi tempat ngambil kopi susu sebelum mulai kerja. Menunya sederhana, harganya ramah, dan lokasinya gampang dimampiri di pagi hari.",
   website: "https://www.instagram.com/kopkit.idn/",
   logo: "/logo/kopkit.png",
-  preview: "/writing/kopkit_cafe.png",
+  preview: "/entities/kopkit/preview.png",
 };

@@ -6,8 +6,8 @@ export const post: WritingPost = {
   topic: "Development",
   status: "published",
   publishedAt: "2026-05-30",
-  // Placeholder: file cover belum ada, ganti manual di /public/writing/ai-coding.png
-  image: { src: "/writing/ai-coding.png", alt: "Preview artikel tentang AI coding assistant" },
+  // Placeholder: file cover belum ada, ganti manual di /publiccover.png
+  image: { src: "cover.png", alt: "Preview artikel tentang AI coding assistant" },
   content: [
     "Dulu sebagian besar waktu ngodingku habis bukan buat nulis kode, tapi buat nyari-nyari. Buka dokumentasi, ngingetin nama API yang itu-itu aja, atau nulis ulang sesuatu yang sebenarnya udah pernah aku bikin di proyek lain. Capeknya bukan di logikanya, tapi di bolak-baliknya.",
     { type: "heading", text: "Dulu Cuma Ngandelin Auto Complete" },

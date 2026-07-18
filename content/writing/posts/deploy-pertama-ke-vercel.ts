@@ -6,8 +6,8 @@ export const post: WritingPost = {
   topic: "Development",
   status: "published",
   publishedAt: "2026-06-10",
-  // Placeholder: file cover belum ada, ganti manual di /public/writing/deploy_vercel.png
-  image: { src: "/writing/deploy_vercel.png", alt: "Preview artikel tentang deploy pertama ke Vercel" },
+  // Placeholder: file cover belum ada, ganti manual di /publiccover.png
+  image: { src: "cover.png", alt: "Preview artikel tentang deploy pertama ke Vercel" },
   content: [
     "Dulu tiap selesai ngoprek website, ada satu momen yang selalu bikin deg-degan. Momen deploy. Aku nggak pernah bener-bener yakin apakah yang jalan mulus di laptop bakal jalan juga pas udah online. Kadang aman, kadang malah blank, dan aku baru sadar ada yang salah setelah semuanya udah terlanjur kepasang.",
     { type: "heading", text: "Waktu Deploy Masih Bikin Deg-degan" },

@@ -6,7 +6,7 @@ export const post: WritingPost = {
   topic: "Design",
   status: "published",
   publishedAt: "2026-06-28",
-  image: { src: "/writing/whitespace.png", alt: "Preview artikel tentang whitespace" },
+  image: { src: "cover.png", alt: "Preview artikel tentang whitespace" },
  content: [
   "Ada satu momen yang hampir selalu kejadian waktu aku kerja bareng orang lain atau lagi revisi desain. Begitu ada area yang sengaja aku biarkan kosong, pasti ada komentar yang kurang lebih bunyinya, 'Ini masih kosong ya? Diisi aja biar lebih penuh.' Awalnya aku cuma senyum-senyum, tapi lama-lama aku sadar ternyata banyak yang memang mengira ruang kosong itu berarti desainnya belum selesai.",
 

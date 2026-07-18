@@ -9,6 +9,6 @@ export const entity: Entity = {
   website: "https://www.canva.com/",
   // Placeholder: logo bakal ditambah sendiri, ganti manual di /public/logo/canva.png
   logo: "/logo/canva.png",
-  // Placeholder: file preview belum ada, ganti manual di /public/writing/canva.png
-  preview: "/writing/canva.png",
+  // Placeholder: file preview belum ada, ganti manual di /public/entities/canva/preview.png
+  preview: "/entities/canva/preview.png",
 };

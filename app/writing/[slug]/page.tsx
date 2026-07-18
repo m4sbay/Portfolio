@@ -9,9 +9,10 @@ import {
   getRecommendations,
   getTopicBySlug,
 } from "@/data/writing";
-import { formatReadingTime, formatWritingDate, getFirstParagraph } from "@/lib/writing";
+import { formatReadingTime, formatWritingDate, getFirstParagraph, getWritingGallery } from "@/lib/writing";
 import { DetailBreadcrumb } from "@/components/ui/DetailBreadcrumb";
 import { MediaThumb } from "@/components/ui/MediaThumb";
+import { MediaGallery } from "@/components/ui/MediaGallery";
 import { WritingSidebar } from "@/components/writing/WritingSidebar";
 import { WritingSection } from "@/components/writing/WritingSection";
 import { WritingArticleBody } from "@/components/writing/WritingArticleBody";
@@ -73,6 +74,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 function ArticleView({ post, morePosts }: { post: WritingPost; morePosts: WritingPost[] }) {
+  // Slideshow disusun otomatis: [cover, ...images] (cover = source of truth). Kosong → hero biasa.
+  const gallery = getWritingGallery(post);
   return (
     <div className="py-12">
       {/* Area 2 kolom: artikel kiri, sidebar kanan (lg). Di bawah lg menumpuk:
@@ -90,15 +93,25 @@ function ArticleView({ post, morePosts }: { post: WritingPost; morePosts: Writin
             </p>
           </header>
 
-          <div className="mt-8">
-            <MediaThumb
-              image={post.image}
-              priority
-              rounded="rounded-3xl"
-              aspectClassName="aspect-4/3"
-              sizes="(max-width: 1024px) 100vw, 740px"
+          {/* Hero: gallery bila artikel punya beberapa gambar, jika tidak cover tunggal seperti
+              semula. Slideshow memakai MediaGallery yang sama dengan Speaking. */}
+          {gallery.length > 0 ? (
+            <MediaGallery
+              images={gallery}
+              ariaLabel="Galeri gambar artikel"
+              className="group relative mt-8"
             />
-          </div>
+          ) : (
+            <div className="mt-8">
+              <MediaThumb
+                image={post.image}
+                priority
+                rounded="rounded-3xl"
+                aspectClassName="aspect-4/3"
+                sizes="(max-width: 1024px) 100vw, 740px"
+              />
+            </div>
+          )}
 
           <WritingArticleBody content={post.content} />
         </article>

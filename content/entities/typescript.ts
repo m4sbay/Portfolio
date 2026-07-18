@@ -9,6 +9,5 @@ export const entity: Entity = {
   website: "https://www.typescriptlang.org/",
   // Placeholder: logo bakal ditambah sendiri, ganti manual di /public/logo/typescript.png
   logo: "/logo/typescript.png",
-  // Placeholder: file preview belum ada, ganti manual di /public/writing/typescript.png
-  preview: "/writing/typescript-preview.png",
+  preview: "/entities/typescript/preview.png",
 };

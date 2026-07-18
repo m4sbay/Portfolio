@@ -6,7 +6,7 @@ export const post: WritingPost = {
   topic: "Process",
   status: "published",
   publishedAt: "2026-07-01",
-  image: { src: "/writing/tulis_ulang_writing.png", alt: "Preview artikel reset ulang halaman writing" },
+  image: { src: "cover.png", alt: "Preview artikel reset ulang halaman writing" },
   content: [
     "Sebelum tampilannya seperti sekarang, halaman Writing di portfolio ini pernah aku hapus total. Bukan karena ada bug besar atau rusak, tapi karena makin lama aku ngerasa fondasinya mulai berantakan. Setiap kali mau nambah fitur baru, rasanya selalu ada bagian lain yang ikut harus diperbaiki.",
 

@@ -9,6 +9,5 @@ export const entity: Entity = {
   website: "https://openai.com/codex/",
   // Placeholder: logo bakal ditambah sendiri, ganti manual di /public/logo/codex.png
   logo: "/logo/codex.png",
-  // Placeholder: file preview belum ada, ganti manual di /public/writing/codex.png
-  preview: "/writing/codex.png",
+  preview: "/entities/codex/preview.png",
 };

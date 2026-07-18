@@ -6,7 +6,7 @@ export const post: WritingPost = {
   topic: "Development",
   status: "published",
   publishedAt: "2026-06-18",
-  image: { src: "/writing/tailwind_clamp.png", alt: "Preview artikel tentang line clamp" },
+  image: { src: "cover.png", alt: "Preview artikel tentang line clamp" },
   content: [
     "Waktu nyusun ulang halaman Writing, bagian yang paling bikin pusing justru bukan logikanya, tapi kartunya. Judul tiap tulisan panjangnya beda-beda, ada yang cuma lima kata, ada yang nyaris dua baris penuh. Satu judul kepanjangan aja langsung bikin tinggi kartu di grid jadi belang, dan grid yang tadinya rapi mendadak kelihatan berantakan.",
     {

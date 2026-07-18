@@ -9,6 +9,5 @@ export const entity: Entity = {
   website: "https://vercel.com/",
   // Placeholder: logo bakal ditambah sendiri, ganti manual di /public/logo/vercel.png
   logo: "/logo/vercel.png",
-  // Placeholder: file preview belum ada, ganti manual di /public/writing/deploy_vercel.png
-  preview: "/writing/deploy_vercel.png",
+  preview: "/entities/vercel/preview.png",
 };

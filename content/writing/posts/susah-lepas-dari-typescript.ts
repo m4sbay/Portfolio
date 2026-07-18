@@ -6,8 +6,8 @@ export const post: WritingPost = {
   topic: "Development",
   status: "published",
   publishedAt: "2026-05-12",
-  // Placeholder: file cover belum ada, ganti manual di /public/writing/susah-lepas-typescript.png
-  image: { src: "/writing/susah-lepas-typescript.png", alt: "Preview artikel tentang pengalaman pakai TypeScript" },
+  // Placeholder: file cover belum ada, ganti manual di /publiccover.png
+  image: { src: "cover.png", alt: "Preview artikel tentang pengalaman pakai TypeScript" },
   content: [
     {
       type: "paragraph",

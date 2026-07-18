@@ -8,5 +8,5 @@ export const entity: Entity = {
     "Ruang Tambah memberikan ruang untuk setiap orang agar bisa mencapai potensi yang lebih baik lagi.",
   website: "https://www.instagram.com/ruang.tambah",
   logo: "/logo/logo_ruang_tambah.jpeg",
-  preview: "/writing/work_from_ruang.png",
+  preview: "/entities/ruang-tambah/preview.png",
 };

@@ -69,6 +69,12 @@
   z-index: 0;
 }
 
+/* Uji A/B sementara: /#safari-footer-static hanya mengganti posisi footer.
+   Tetap di luar flow, dengan warna dan z-index yang sama seperti kontrol. */
+html:has(#safari-footer-static:target) .site-footer-reveal {
+  position: absolute;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -9,7 +9,13 @@ const FOOTER_PATHS = ["/", "/services"];
 export function LandingFooterBeforeMain() {
   const pathname = usePathname();
   if (!FOOTER_PATHS.includes(pathname)) return null;
-  return <SiteFooter />;
+  return (
+    <>
+      {/* Diagnosis Safari: hash mengaktifkan CSS uji tanpa mengubah halaman normal. */}
+      <span id="safari-footer-static" hidden aria-hidden="true" />
+      <SiteFooter />
+    </>
+  );
 }
 
 /** Runway scroll setelah <main>, di halaman yang terdaftar. */

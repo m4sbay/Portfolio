@@ -10,7 +10,7 @@ export const project: Project = {
   category: "Video",
   status: "published",
   order: 2,
-  logo: "/projects/video-vokasi/icon_yt.svg",
+  logo: "/tools/youtube.svg",
   tags: ["Video Editing", "Motion", "Capcut"],
   slug: "video_vokasi",
   externalLink: "https://www.instagram.com/p/DUDJRCfkjFo/",

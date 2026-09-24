@@ -53,6 +53,7 @@ export type Project = {
   externalLinkLabel?: string;
   brandLinks?: ProjectBrandLink[];
   image: ProjectImage;
+  showMobileOverviewCover?: boolean;
   hoverImage?: ProjectImage;
   gallery?: ProjectImage[];
   caseStudy?: ProjectSection;

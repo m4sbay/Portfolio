@@ -204,6 +204,19 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
             )}
           </div>
 
+          {project.showMobileOverviewCover && (
+            <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-white/5 lg:hidden">
+              <Image
+                src={project.image.src}
+                alt={project.image.alt}
+                width={project.image.width}
+                height={project.image.height}
+                sizes="(min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
+                className="h-auto w-full"
+              />
+            </div>
+          )}
+
           {/* Long Description */}
           <section className="space-y-4 border-t border-zinc-200/80 pt-6 dark:border-white/10">
             <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">

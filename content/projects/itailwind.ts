@@ -11,7 +11,7 @@ export const project: Project = {
   status: "published",
   order: 3,
   slug: "itailwind",
-  logo: "/projects/itailwind/itailwind_icon.PNG",
+  logo: "/tools/itailwind.png",
   caseStudyHref: "/work/masbay-portfolio",
   externalLink: "https://www.figma.com/community/plugin/1586682727528531603/itailwind",
   externalLinkLabel: "View Plugin",

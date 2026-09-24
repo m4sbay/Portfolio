@@ -15,8 +15,7 @@ export const project: Project = {
   // TODO: Ganti dengan URL repo publik atau demo ketika sudah siap.
   // externalLink: "https://github.com/m4sbay/notion-auto-status",
   externalLinkLabel: "Lihat repository",
-  // TODO: Ganti dengan logo khusus Notion Auto Status kalau sudah ada.
-  logo: "/projects/notion-auto-status/notion-logo.png",
+  logo: "/tools/notion-logo.png",
   brandLinks: [
     { label: "@notionhq/client", href: "https://www.npmjs.com/package/@notionhq/client" },
     { label: "GitHub Actions", href: "https://github.com/features/actions" },

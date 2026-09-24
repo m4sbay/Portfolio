@@ -12,6 +12,8 @@ export const project: Project = {
   year: 2026,
   tags: ["Figma", "Template", "Instagram"],
   slug: "gridcheck",
+  showMobileOverviewCover: true,
+  logo: "/tools/figma-logo.svg",
   externalLink:
     "https://www.figma.com/design/Jabv4nZ3Ktdcs7v2xmAT5i/Gridcheck?node-id=0-1&t=ob0sNnuACiLTxPv7-1",
   externalLinkLabel: "Buka Template",

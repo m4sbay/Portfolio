@@ -56,6 +56,8 @@ export type Project = {
   showMobileOverviewCover?: boolean;
   hoverImage?: ProjectImage;
   gallery?: ProjectImage[];
+  /** Section penutup opsional setelah overview dan Visual preview. */
+  visualPreviewClosing?: string;
   caseStudy?: ProjectSection;
   processSections?: ProjectSection[];
 };

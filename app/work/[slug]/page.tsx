@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPublishedProjects, getPublishedProjectBySlug } from "@/data/projects";
 import { ProjectTag } from "@/components/projects/ProjectTag";
+import { ProjectRecommendations } from "@/components/projects/ProjectRecommendations";
+import { getRecommendedProjects } from "@/lib/project-recommendations";
 import { ScrollToButton } from "@/components/ui/ScrollToButton";
 import { StickyGallery } from "@/components/projects/StickyGallery";
 import { ArrowUpLeftIcon, ArrowUpRightIcon } from "@/design-system/icons";
@@ -140,9 +142,12 @@ const narrativeSectionGrid =
 
 export default async function WorkDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = await getPublishedProjectBySlug(slug);
+  const projects = await getPublishedProjects();
+  const project = projects.find(project => project.slug === slug);
 
   if (!project) notFound();
+
+  const recommendedProjects = getRecommendedProjects(project, projects);
 
   return (
     <div className="flex flex-col gap-20 pb-24 lg:gap-28">
@@ -261,6 +266,17 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
         </section>
       </div>
 
+      {project.visualPreviewClosing && (
+        <section className="space-y-4 border-t border-zinc-200 pt-10 dark:border-white/10">
+          <h2 className="text-2xl font-medium tracking-tight text-zinc-900 dark:text-zinc-50">
+            Terima kasih sudah mampir
+          </h2>
+          <div className="reading">
+            <p>{project.visualPreviewClosing}</p>
+          </div>
+        </section>
+      )}
+
       {/* Section 2: Process Sections (per-day design journey) */}
       {project.processSections && project.processSections.length > 0 && project.processSections.map((section, i) => (
         <div
@@ -304,6 +320,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
           )}
         </div>
       )}
+      <ProjectRecommendations projects={recommendedProjects} />
     </div>
   );
 }

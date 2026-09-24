@@ -24,6 +24,8 @@ export const project: Project = {
   slug: "poster-design-webinar-tailwind-css",
   externalLink: "https://www.instagram.com/p/C-43h37yafW/",
   externalLinkLabel: "Lihat di Instagram",
+  visualPreviewClosing:
+    "Terima kasih sudah meluangkan waktu untuk melihat project ini. Semoga desain dan cerita di baliknya bisa memberi inspirasi serta bermanfaat buat kamu. Sampai ketemu di project berikutnya!",
   image: cover,
   gallery: [
     cover,

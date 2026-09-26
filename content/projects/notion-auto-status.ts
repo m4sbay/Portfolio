@@ -6,7 +6,7 @@ export const project: Project = {
   description:
     "Automation tool untuk memperbarui status task dan event di Notion berdasarkan tanggal, group, dan jadwal otomatis.",
   longDescription:
-    "Notion Auto Status menjaga database Notion tetap rapi dengan memperbarui status task dan event secara otomatis berdasarkan Group dan Date.\n\nAutomation ini bisa berjalan lokal dengan Node.js scheduler atau terjadwal per jam melalui GitHub Actions. Workflow juga menyiapkan email digest dan reminder agenda via Gmail.",
+    "Aku membuat Notion Auto Status supaya database Notion tetap rapi tanpa harus memperbarui status task dan event satu per satu. Script ini membaca Group dan Date, lalu menyesuaikan statusnya secara otomatis berdasarkan waktu.\n\nAutomation-nya bisa dijalankan secara lokal dengan Node.js scheduler atau dijadwalkan setiap jam melalui GitHub Actions. Aku juga menambahkan email digest dan pengingat agenda melalui Gmail supaya perubahan penting tetap mudah dipantau.",
   category: "Tools",
   status: "published",
   order: 1,
@@ -51,7 +51,7 @@ export const project: Project = {
   caseStudy: {
     title: "Automation untuk workflow Notion yang repetitif",
     description:
-      "**Problem**\n\nUpdate status task dan event di Notion masih manual. Saat item bertambah, status mudah tertinggal dan database jadi kurang akurat.\n\n**Solution**\n\nSaya membuat script Node.js yang membaca database Notion, mengecek Group dan Date, lalu memperbarui status otomatis berdasarkan aturan waktu. Script bisa berjalan lokal dengan node-cron atau terjadwal melalui GitHub Actions.\n\n**Key Features**\n\nAuto-update status berdasarkan tanggal. Logic khusus untuk Event. Logic berbeda untuk task umum. Email digest saat status berubah. Reminder agenda via Gmail.\n\n**How It Works**\n\nNotion Database -> Scheduler atau GitHub Actions -> Check Group dan Date -> Update Status -> Send Email Digest atau Reminder.\n\n**Tech Stack**\n\nNode.js, Notion API, GitHub Actions, node-cron, Nodemailer, dotenv, dan Gmail.\n\n**Result**\n\nUpdate manual berkurang, status task lebih rapi, event aktif terdeteksi otomatis, dan reminder dikirim sebelum agenda berlangsung.",
+      "Awalnya, status task dan event di Notion masih harus diperbarui secara manual. Ketika jumlah item mulai bertambah, beberapa status mudah tertinggal dan isi database jadi kurang akurat.\n\nDari situ, aku membuat script Node.js yang membaca database Notion, mengecek Group dan Date, lalu memperbarui status sesuai aturan waktu yang sudah ditentukan. Event dan task umum punya logika masing-masing karena cara keduanya bergerak tidak selalu sama.\n\nScript ini bisa berjalan secara lokal dengan node-cron atau dijadwalkan melalui GitHub Actions. Ketika ada perubahan status, sistem dapat mengirim email digest. Pengingat agenda juga dikirim melalui Gmail sebelum event berlangsung.\n\nUntuk membangunnya, aku menggunakan Node.js, Notion API, GitHub Actions, node-cron, Nodemailer, dotenv, dan Gmail. Setelah automation ini berjalan, pembaruan manual jadi berkurang, status task lebih rapi, dan event yang sedang aktif lebih mudah terdeteksi.",
     gallery: [
       {
         src: "/projects/notion-auto-status/notion-case-study1.svg",

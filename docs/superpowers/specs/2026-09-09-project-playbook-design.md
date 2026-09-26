@@ -62,6 +62,34 @@ Kategori harus berasal dari `PROJECT_CATEGORIES`. Petakan padanan yang jelas sep
 
 `description` diringkas dari cerita sebagai headline kartu/detail. `longDescription` menggunakan cerita author sebagai overview. Rapikan bahasa Indonesia agar natural, mudah dipahami, tidak kaku, dan menggunakan gaya personal “aku”. Pertahankan makna dan fakta author. Bagian proses boleh dipisahkan ke `processSections` jika cerita mendukungnya, tanpa menduplikasi narasi atau membuat section kosong.
 
+### Voice dan Tone
+
+Seluruh narasi project memakai sudut pandang orang pertama dengan kata “aku”. Jangan memakai “saya”, kecuali ketika mempertahankan kutipan atau teks eksternal. Tulis seolah author sedang menceritakan project tersebut langsung kepada pembaca dengan santai, jelas, dan percaya diri.
+
+Tone harus personal, natural, conversational, dan tetap profesional. Hindari gaya dokumentasi teknis, corporate case study, marketing copy, atau kalimat yang terdengar terlalu dipoles. Cerita sebaiknya mengalir dari konteks project, masalah yang dirasakan, hal yang dikerjakan, alasan di balik keputusan, tantangan yang benar-benar dialami, lalu hasil yang memang disebutkan author.
+
+Jika input berasal dari cerita mentah author, pertahankan karakter bahasa, urutan cerita, konteks personal, dan detail kecil yang membuatnya terasa autentik. Rapikan grammar dan alurnya tanpa mengubahnya menjadi copywriting generik. Kalimat informal yang masih jelas dan enak dibaca boleh dipertahankan. Jangan menambahkan motivasi, proses, tantangan, hasil, atau klaim yang tidak ada di sumber.
+
+### Alur Kalimat dan Punctuation
+
+Jangan menjadikan tanda titik dua, `--`, atau em dash sebagai pola utama untuk menyambung ide di tengah paragraf. Gunakan tanda tersebut hanya ketika memang paling tepat secara bahasa. Jika hubungan antaride bisa disampaikan secara natural, gunakan kalimat utuh atau kata penghubung seperti “karena”, “jadi”, “karena itu”, “sementara itu”, “dari situ”, “saat itu”, “kemudian”, atau “akhirnya”. Jangan memaksakan kata penghubung jika kalimat sudah mengalir tanpa itu.
+
+Hindari pola mekanis seperti “Tujuannya adalah…”, “Tantangannya adalah…”, “Solusinya adalah…”, dan “Hasilnya adalah…”. Hindari juga daftar terselubung yang diawali dengan titik dua jika informasi tersebut lebih nyaman dibaca sebagai narasi. List tetap boleh digunakan ketika isinya memang lebih jelas sebagai daftar, tetapi cerita utama project tetap berupa paragraf.
+
+Variasikan panjang dan struktur kalimat. Campurkan kalimat pendek, sedang, dan sesekali kalimat panjang agar ritmenya terasa manusiawi. Jangan memenuhi satu paragraf dengan klausa panjang, tetapi jangan pula memecah semua ide menjadi kalimat-kalimat pendek seperti dokumentasi.
+
+Contoh revisi yang lebih natural:
+
+```text
+Kurang natural: Project ini punya satu tantangan utama: waktu pengerjaannya sangat pendek.
+Lebih natural: Salah satu tantangan terbesar di project ini adalah waktu pengerjaannya yang cukup pendek.
+
+Kurang natural: Aku memilih warna biru -- warna yang juga identik dengan brand Inatechno.
+Lebih natural: Aku memilih warna biru karena warna tersebut juga cukup identik dengan brand Inatechno.
+```
+
+Gunakan prinsip “edit only where it improves readability or consistency”. Jika paragraf sudah natural, jangan mengubahnya hanya agar terlihat berbeda.
+
 Tag/stack harus berasal dari input author atau referensi yang eksplisit. Jika diperlukan tetapi belum tersedia, Codex harus bertanya.
 
 ## Struktur Visual dan Aset
@@ -133,6 +161,11 @@ Sebelum selesai, workflow harus memeriksa:
 - tautan eksternal valid dan hanya diterbitkan dengan maksud author;
 - struktur section tidak kosong atau dibuat-buat;
 - project draft tidak muncul pada halaman publik.
+- semua narasi memakai “aku”, bukan “saya”, kecuali kutipan atau teks eksternal;
+- titik dua, dash, dan em dash tidak dipakai berulang sebagai penghubung ide;
+- paragraf tidak mengikuti pola dokumentasi seperti Problem/Solution/Result jika bisa diceritakan secara natural;
+- variasi kalimat terasa wajar dan tidak terlalu formal, seragam, atau generik;
+- hasil penyuntingan tidak mengubah fakta, urutan cerita penting, atau karakter bahasa author.
 
 Verifikasi teknis menjalankan targeted ESLint untuk file baru, `npx tsc --noEmit`, dan `npm run build`. Kegagalan unrelated dibedakan dengan jelas dari kegagalan akibat project baru.
 

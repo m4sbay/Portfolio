@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getPublishedProjects, getPublishedProjectBySlug } from "@/data/projects";
 import { ProjectTag } from "@/components/projects/ProjectTag";
 import { ProjectRecommendations } from "@/components/projects/ProjectRecommendations";
+import { renderProjectInline } from "@/lib/project-inline";
 import { getRecommendedProjects } from "@/lib/project-recommendations";
 import { ScrollToButton } from "@/components/ui/ScrollToButton";
 import { ProjectEditorialSection } from "@/components/projects/ProjectEditorialSection";
@@ -11,47 +12,6 @@ import { StickyGallery } from "@/components/projects/StickyGallery";
 import { ArrowUpLeftIcon, ArrowUpRightIcon } from "@/design-system/icons";
 import type { Metadata } from "next";
 import type { ProjectBrandLink } from "@/types/project";
-
-function escapeRegExp(value: string) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-function renderBrandLinks(text: string, brandLinks: ProjectBrandLink[] | undefined, keyPrefix: string) {
-  if (!brandLinks?.length) return text;
-
-  const pattern = new RegExp(
-    `(${brandLinks.map(({ label }) => escapeRegExp(label)).join("|")})`,
-    "g"
-  );
-
-  return text.split(pattern).map((part, index) => {
-    const brand = brandLinks.find(({ label }) => label === part);
-
-    if (!brand) return part;
-
-    return (
-      <a
-        key={`${keyPrefix}-${brand.label}-${index}`}
-        href={brand.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-semibold text-zinc-900 underline decoration-zinc-400 underline-offset-4 transition-colors hover:text-zinc-950 hover:decoration-zinc-950 dark:text-zinc-50 dark:decoration-zinc-500 dark:hover:text-white dark:hover:decoration-zinc-50"
-      >
-        {part}
-      </a>
-    );
-  });
-}
-
-function renderEmphasis(text: string, brandLinks: ProjectBrandLink[] | undefined) {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return renderBrandLinks(part.slice(2, -2), brandLinks, `strong-${index}`);
-    }
-
-    return renderBrandLinks(part, brandLinks, `text-${index}`);
-  });
-}
 
 function renderTextSections(text: string, brandLinks: ProjectBrandLink[] | undefined) {
   return text.split(/\n{2,}/).map((para, idx) => {
@@ -71,7 +31,7 @@ function renderTextSections(text: string, brandLinks: ProjectBrandLink[] | undef
     }
 
     // Body: tag semantik polos — tipografi (18/32, text-pretty, rhythm) dari `.reading`.
-    return <p key={idx}>{renderEmphasis(para, brandLinks)}</p>;
+    return <p key={idx}>{renderProjectInline(para, brandLinks)}</p>;
   });
 }
 
@@ -259,7 +219,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
             Terima kasih sudah mampir
           </h2>
           <div className="reading project-description">
-            <p>{project.visualPreviewClosing}</p>
+            <p>{renderProjectInline(project.visualPreviewClosing, project.brandLinks)}</p>
           </div>
           {!hasProcessSections && !project.caseStudy && stack}
         </section>

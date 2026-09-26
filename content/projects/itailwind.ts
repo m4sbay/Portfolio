@@ -3,9 +3,9 @@ import { COVER_MASTER } from "@/lib/cover";
 
 export const project: Project = {
   title: "iTailwind",
-  description: "Plugin Figma",
+  description: "Plugin Figma untuk membantu desainer menerapkan utility Tailwind CSS dengan lebih konsisten.",
   longDescription:
-    "iTailwind adalah plugin Figma yang memudahkan para desainer untuk membuat desain yang konsisten dan mudah dikonversi ke kode Tailwind CSS. Plugin ini dirancang dengan antarmuka yang intuitif dan mudah digunakan.",
+    "Aku membuat iTailwind untuk membantu desainer menjaga konsistensi saat bekerja dengan utility Tailwind CSS di Figma. Melalui plugin ini, pengaturan pada layer Figma bisa diterjemahkan menjadi utility class yang lebih mudah dipakai saat desain mulai masuk ke tahap development.\n\nAku juga berusaha menjaga antarmukanya tetap sederhana supaya proses tersebut terasa praktis dan tidak mengganggu alur kerja desain.",
   tags: ["Figma", "Plugin", "Tailwind", "Design System"],
   category: "Tools",
   status: "published",
@@ -55,7 +55,7 @@ export const project: Project = {
   ],
   caseStudy: {
     title: "Memecahkan Masalah Penggunaan Tailwind di Figma",
-    description: "Berawal dari kesulitan developer dalam mengkonversi desain Figma ke kode Tailwind CSS. Plugin ini dibuat untuk menjembatani gap tersebut dengan memberikan kemudahan auto-generate utility classes langsung dari layer Figma.\n\nDalam case study ini, kita akan melihat bagaimana proses perancangan plugin dari awal, eksplorasi UI/UX untuk panel Figma, hingga implementasi engine pembuat kode Tailwind yang akurat.",
+    description: "Project ini berawal dari kesulitan saat menerjemahkan desain Figma ke kode Tailwind CSS. Aku melihat ada jarak antara nilai yang dipakai di layer Figma dan utility class yang akhirnya ditulis oleh developer.\n\nDari situ, aku merancang iTailwind agar utility class bisa dibuat langsung dari layer Figma. Prosesnya mencakup perancangan plugin dari awal, eksplorasi UI/UX untuk panel Figma, dan implementasi engine yang menghasilkan kode Tailwind dengan akurat.",
     gallery: []
   }
 };

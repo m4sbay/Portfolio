@@ -17,7 +17,7 @@ export const project: Project = {
 
 Sebagai desainer, aku sering download berbagai file dan aset, apalagi untuk kebutuhan video seperti sound effect. Kadang aku rajin merapikannya satu per satu, tapi saat lagi malas atau nggak sempat, file-file itu terus menumpuk.
 
-Sampai akhirnya aku punya jadwal sendiri: setiap Minggu siang, aku menyempatkan ngopi sambil WFC khusus untuk merapikan folder. Aku percaya kalau foldering kita rapi, pekerjaan berikutnya jadi lebih mudah dan lancar. Saat butuh sesuatu, tinggal ambil dari tempatnya.
+Akhirnya aku membuat jadwal sendiri. Setiap Minggu siang, aku menyempatkan ngopi sambil WFC khusus untuk merapikan folder. Aku percaya kalau foldering kita rapi, pekerjaan berikutnya jadi lebih mudah dan lancar. Saat butuh sesuatu, tinggal ambil dari tempatnya.
 
 **Otomatis merapikan, tetap aku yang memulai**
 
@@ -29,19 +29,19 @@ Script ini juga punya opsi penjadwalan harian lewat launchd. Aku memilih cara ma
 
 File baru tetap masuk ke root Downloads. Saat dijalankan, organizer memindahkan file lepas ke kelompok Images, Videos, Documents, Audio, Design, Installers, dan Misc, lalu membaginya lagi berdasarkan ekstensi. Struktur foldernya juga mencakup 00 Baru - Inbox. Subfolder yang sudah ada di root Downloads tidak disentuh.
 
-Secara default, file yang baru dimodifikasi dalam sepuluh menit terakhir dilewati. Jika nama file tujuan sudah ada, script menambahkan nomor seperti file (1).pdf. File yang dirapikan hanya dipindahkan, bukan dihapus.
+Secara default, file yang baru dimodifikasi dalam sepuluh menit terakhir dilewati. Jika nama file tujuan sudah ada, script menambahkan nomor seperti \`file (1).pdf\`. File yang dirapikan hanya dipindahkan, bukan dihapus.
 
 **Preview sebelum merapikan**
 
-Setelah script diberi izin eksekusi dengan chmod +x organize-downloads.sh, aku bisa melihat rencana pemindahan lewat ./organize-downloads.sh --dry-run, lalu menjalankan ./organize-downloads.sh untuk benar-benar merapikannya. Shortcut d-p dan d-o bisa ditambahkan lewat alias di ~/.zshrc agar lebih praktis.
+Setelah script diberi izin eksekusi dengan \`chmod +x organize-downloads.sh\`, aku bisa melihat rencana pemindahan lewat \`./organize-downloads.sh --dry-run\`, lalu menjalankan \`./organize-downloads.sh\` untuk benar-benar merapikannya. Shortcut \`d-p\` dan \`d-o\` bisa ditambahkan lewat alias di \`~/.zshrc\` agar lebih praktis.
 
-Folder target dan batas usia file bisa disesuaikan lewat --downloads-dir PATH dan --min-age-minutes N. Opsi dry-run juga bisa dipakai bersama folder percobaan untuk mengecek hasil sebelum menyentuh Downloads.
+Folder target dan batas usia file bisa disesuaikan lewat \`--downloads-dir PATH\` dan \`--min-age-minutes N\`. Opsi dry-run juga bisa dipakai bersama folder percobaan untuk mengecek hasil sebelum menyentuh Downloads.
 
 **Jadwal dan riwayat pemindahan**
 
-Kalau ingin berjalan otomatis setiap hari pukul 06:00, tersedia template plist untuk launchd. Path project perlu diisi sebelum plist dipasang di ~/Library/LaunchAgents/. macOS dapat meminta izin akses melalui System Settings → Privacy & Security; cara manual tetap bisa digunakan jika tidak ingin memberikan izin tersebut.
+Kalau ingin berjalan otomatis setiap hari pukul 06:00, tersedia template plist untuk launchd. Path project perlu diisi sebelum plist dipasang di \`~/Library/LaunchAgents/\`. macOS dapat meminta izin akses melalui System Settings → Privacy & Security; cara manual tetap bisa digunakan jika tidak ingin memberikan izin tersebut.
 
-Aktivitas dicatat di logs/organize-YYYY-MM.log. Secara default, log bulanan yang lebih lama dari tiga bulan dibersihkan setiap kali script berjalan; pengaturan ini bisa diubah lewat --keep-logs-months N atau dinonaktifkan dengan nilai 0. Riwayat lengkap pemindahan tersimpan di logs/rename-map.csv dan tidak ikut dihapus otomatis.`,
+Aktivitas dicatat di \`logs/organize-YYYY-MM.log\`. Secara default, log bulanan yang lebih lama dari tiga bulan dibersihkan setiap kali script berjalan; pengaturan ini bisa diubah lewat \`--keep-logs-months N\` atau dinonaktifkan dengan nilai 0. Riwayat lengkap pemindahan tersimpan di \`logs/rename-map.csv\` dan tidak ikut dihapus otomatis.`,
   category: "Tools",
   status: "published",
   order: 8,

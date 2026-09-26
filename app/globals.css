@@ -557,9 +557,15 @@ html.dark .liquid-glass {
   .reading :where(em):not(:where(.not-reading, .not-reading *)) { font-style: italic; }
 
   /* Inline code — ringan (bukan permukaan gelap). */
-  .reading :where(code):not(:where(.not-reading, .not-reading *)) {
-    @apply rounded-md bg-zinc-100 px-1.5 py-0.5 font-mono dark:bg-white/10;
+  .reading :where(code):not(:where(pre *, .not-reading, .not-reading *)) {
+    @apply rounded bg-zinc-800/5 px-1 py-0.5 font-mono text-zinc-700 dark:bg-zinc-200/10 dark:text-zinc-200;
     font-size: 0.9em;
+    line-height: inherit;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
 
   /* Code block — permukaan gelap, konsisten light & dark; scroll di kontainernya sendiri. */

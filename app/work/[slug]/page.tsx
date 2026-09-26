@@ -6,6 +6,7 @@ import { ProjectTag } from "@/components/projects/ProjectTag";
 import { ProjectRecommendations } from "@/components/projects/ProjectRecommendations";
 import { getRecommendedProjects } from "@/lib/project-recommendations";
 import { ScrollToButton } from "@/components/ui/ScrollToButton";
+import { ProjectEditorialSection } from "@/components/projects/ProjectEditorialSection";
 import { StickyGallery } from "@/components/projects/StickyGallery";
 import { ArrowUpLeftIcon, ArrowUpRightIcon } from "@/design-system/icons";
 import type { Metadata } from "next";
@@ -120,12 +121,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-// Semua section memakai proporsi kolom yang sama agar lebar galeri konsisten.
-const overviewSectionGrid =
-  "grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.45fr)] lg:gap-20";
-const narrativeSectionGrid =
-  `${overviewSectionGrid} border-t border-zinc-200 pt-10 dark:border-white/10`;
-
 export default async function WorkDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const projects = await getPublishedProjects();
@@ -152,9 +147,31 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
   return (
     <div className="flex flex-col gap-20 pb-24 lg:gap-28">
       {/* Section 1: Project Overview */}
-      <div className={overviewSectionGrid}>
-        {/* Kolom 1: Sticky Info */}
-        <div className="lg:sticky lg:top-24 space-y-7">
+      <ProjectEditorialSection
+        media={
+          <section className="space-y-5">
+            <div className="space-y-2">
+              <h2 className="text-[38px] font-medium leading-[1.08] tracking-tight text-zinc-900 dark:text-zinc-50">
+                Visual preview
+              </h2>
+              <p className="max-w-xl text-base leading-7 text-zinc-600 dark:text-zinc-400">
+                Beberapa tampilan utama untuk memberi konteks cara project ini bekerja.
+              </p>
+            </div>
+            <StickyGallery
+              images={
+                project.gallery && project.gallery.length > 0
+                  ? project.gallery
+                  : project.hoverImage
+                    ? [project.image, project.hoverImage]
+                    : [project.image]
+              }
+            />
+          </section>
+        }
+      >
+        {/* Teks mengalir di samping galeri lalu memenuhi lebar section. */}
+        <div className="space-y-7">
           <div>
             <Link href="/" className="group mb-7 inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50">
               <ArrowUpLeftIcon className="h-3 w-3 shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:-translate-x-0.5" />
@@ -227,42 +244,21 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
             <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">
               Overview
             </h2>
-            <div className="reading">
+            <div className="reading project-description">
               {renderTextSections(project.longDescription, project.brandLinks)}
             </div>
           </section>
           {!hasProcessSections && !project.caseStudy && !project.visualPreviewClosing && stack}
 
         </div>
-
-        {/* Kolom 2: Scrollable Images */}
-        <section className="space-y-5">
-          <div className="space-y-2">
-            <h2 className="text-[38px] font-medium leading-[1.08] tracking-tight text-zinc-900 dark:text-zinc-50">
-              Visual preview
-            </h2>
-            <p className="max-w-xl text-base leading-7 text-zinc-600 dark:text-zinc-400">
-              Beberapa tampilan utama untuk memberi konteks cara project ini bekerja.
-            </p>
-          </div>
-          <StickyGallery
-            images={
-              project.gallery && project.gallery.length > 0
-                ? project.gallery
-                : project.hoverImage
-                  ? [project.image, project.hoverImage]
-                  : [project.image]
-            }
-          />
-        </section>
-      </div>
+      </ProjectEditorialSection>
 
       {project.visualPreviewClosing && (
         <section className="space-y-4 border-t border-zinc-200 pt-10 dark:border-white/10">
           <h2 className="text-2xl font-medium tracking-tight text-zinc-900 dark:text-zinc-50">
             Terima kasih sudah mampir
           </h2>
-          <div className="reading">
+          <div className="reading project-description">
             <p>{project.visualPreviewClosing}</p>
           </div>
           {!hasProcessSections && !project.caseStudy && stack}
@@ -271,31 +267,35 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
 
       {/* Section 2: Process Sections (per-day design journey) */}
       {project.processSections && project.processSections.length > 0 && project.processSections.map((section, i) => (
-        <div
+        <ProjectEditorialSection
           key={i}
-          className={narrativeSectionGrid}
+          className="border-t border-zinc-200 pt-10 dark:border-white/10"
+          media={section.gallery.length > 0 ? <StickyGallery images={section.gallery} /> : undefined}
         >
-          <div className="lg:sticky lg:top-24 space-y-5">
+          <div className="space-y-5">
             <div className="space-y-3">
               <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Proses Desain</p>
               <h3 className="text-[38px] font-medium leading-[1.08] tracking-tight text-pretty text-zinc-900 dark:text-zinc-50">
                 {section.title}
               </h3>
             </div>
-            <div className="reading">
+            <div className="reading project-description">
               {renderTextSections(section.description, project.brandLinks)}
             </div>
             {!project.caseStudy && i === (project.processSections?.length ?? 0) - 1 && stack}
           </div>
-          <StickyGallery images={section.gallery} />
-        </div>
+        </ProjectEditorialSection>
       ))}
 
       {/* Section 3: Case Study */}
       {project.caseStudy && (
-        <div id="case-study" className={narrativeSectionGrid}>
-          {/* Kolom 1: Sticky Case Study Info */}
-          <div className="lg:sticky lg:top-24 space-y-7">
+        <ProjectEditorialSection
+          id="case-study"
+          className="border-t border-zinc-200 pt-10 dark:border-white/10"
+          media={project.caseStudy.gallery.length > 0 ? <StickyGallery images={project.caseStudy.gallery} /> : undefined}
+        >
+          {/* Narasi case study mengikuti aliran galeri. */}
+          <div className="space-y-7">
             <div className="space-y-4">
               <div className="space-y-3">
                 <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Case Study</p>
@@ -303,16 +303,13 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
               </div>
             </div>
 
-            <div className="reading">
+            <div className="reading project-description">
               {renderTextSections(project.caseStudy.description, project.brandLinks)}
             </div>
             {stack}
           </div>
 
-          {project.caseStudy.gallery.length > 0 && (
-            <StickyGallery images={project.caseStudy.gallery} />
-          )}
-        </div>
+        </ProjectEditorialSection>
       )}
       <ProjectRecommendations projects={recommendedProjects} />
     </div>

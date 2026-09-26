@@ -475,6 +475,35 @@ html.dark .liquid-glass {
      Ditulis sebagai --esc di komentar tiap selector agar ringkas dibaca:
        ESC = :not(:where(.not-reading, .not-reading *)) */
 
+  .project-editorial-section {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .project-editorial-copy {
+    order: -1;
+    min-width: 0;
+  }
+
+  @media (min-width: 64rem) {
+    .project-editorial-section {
+      display: flow-root;
+    }
+
+    .project-editorial-media {
+      float: right;
+      /* Pertahankan proporsi grid 0.9fr / 1.45fr dan jarak antarkolom 5rem. */
+      width: calc((100% - 5rem) * 1.45 / 2.35);
+      margin-left: 5rem;
+      margin-bottom: 2rem;
+    }
+
+    .project-editorial-copy .reading {
+      max-width: none;
+    }
+  }
+
   .reading {
     /* Token rhythm dasar — multi-use: flow antar-blok + margin-top heading (calc). */
     --reading-flow: 1.25rem; /* 20px */
@@ -488,6 +517,16 @@ html.dark .liquid-glass {
   /* Vertical rhythm dasar: jarak antar blok langsung (owl — aman utk elemen pertama).
      TANPA escape: anak .not-reading (mis. EntityCard) tetap ikut ber-rhythm. */
   .reading > * + * { margin-top: var(--reading-flow); }
+
+  /* Body project: tetap rata kiri; pretty adalah peningkatan opsional browser.
+     Jangan batasi lebar paragraf: teks harus bisa mengalir di bawah galeri. */
+  .project-description > p {
+    text-align: left;
+    text-wrap: wrap;
+    text-wrap: pretty;
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
 
   /* Heading baca — space-before > space-after (grouping). Ditaruh SETELAH owl
      karena specificity setara; urutan sumber menentukan pemenang. */

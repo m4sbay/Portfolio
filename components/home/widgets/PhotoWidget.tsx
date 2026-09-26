@@ -4,11 +4,11 @@ import Image from "next/image";
 import { useState } from "react";
 
 const allPhotos = [
-  { src: "/profile/profile_2.png", alt: "Foto Masbay" },
-  { src: "/profile/profile_3.png", alt: "Foto Masbay 3" },
-  { src: "/profile/profile_4.png", alt: "Foto Masbay 4" },
-  { src: "/profile/profile_5.png", alt: "Foto Masbay 5" },
-  { src: "/profile/profile_6.png", alt: "Foto Masbay 6" },
+  { src: "/profile/profile_2.jpeg", alt: "Foto Masbay" },
+  { src: "/profile/profile_3.jpeg", alt: "Foto Masbay 3" },
+  { src: "/profile/profile_4.jpeg", alt: "Foto Masbay 4" },
+  { src: "/profile/profile_5.jpeg", alt: "Foto Masbay 5" },
+  { src: "/profile/profile_6.jpeg", alt: "Foto Masbay 6" },
 ];
 
 export function PhotoWidget() {

@@ -4,7 +4,7 @@ export function IntroWidget() {
   return (
     <div className="flex flex-row gap-4">
       <Image
-        src="/profile/profil.png"
+        src="/profile/newprofile.jpeg"
         alt="Masbay Profile"
         width={80}
         height={80}

@@ -120,25 +120,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-/**
- * Grid section detail /work — sengaja DUA layout berbeda; angka fr bukan magic
- * number tapi keputusan identitas vs keterbacaan:
- *
- * - overviewSectionGrid (0.9fr/1.45fr, kolom teks ~386px): Overview = kesan
- *   pertama. Mempertahankan karakter case-study VISUAL-FIRST dengan galeri
- *   dominan (~622px). Teksnya ringkasan pendek → tidak butuh reading measure lebar.
- *
- * - narrativeSectionGrid (1.2fr/1fr, kolom teks ~544px ≈ 56ch): Process Design &
- *   Case Study = area BACA PANJANG. Kolom teks dilebarkan mendekati reading
- *   measure demi kenyamanan baca, dengan sengaja MENGORBANKAN sedikit lebar
- *   galeri (~458px). Trade-off tak terhindarkan: di dalam max-w-6xl, ~56ch
- *   side-by-side hanya mungkin dengan menyusutkan galeri. Cap `.reading` (68ch)
- *   tetap jadi plafon. Keduanya hanya berlaku lg+; di bawah lg tetap stack.
- */
+// Semua section memakai proporsi kolom yang sama agar lebar galeri konsisten.
 const overviewSectionGrid =
   "grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.45fr)] lg:gap-20";
 const narrativeSectionGrid =
-  "grid grid-cols-1 items-start gap-12 border-t border-zinc-200 pt-10 dark:border-white/10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-20";
+  `${overviewSectionGrid} border-t border-zinc-200 pt-10 dark:border-white/10`;
 
 export default async function WorkDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -148,6 +134,20 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
   if (!project) notFound();
 
   const recommendedProjects = getRecommendedProjects(project, projects);
+
+  const hasProcessSections = Boolean(project.processSections?.length);
+  const stack = (
+      <section className="space-y-3">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">
+          Stack
+        </h2>
+        <ul className="flex flex-wrap gap-2 pt-1">
+          {project.tags.map(tag => (
+            <ProjectTag key={tag} tag={tag} />
+          ))}
+        </ul>
+      </section>
+  );
 
   return (
     <div className="flex flex-col gap-20 pb-24 lg:gap-28">
@@ -231,17 +231,8 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
               {renderTextSections(project.longDescription, project.brandLinks)}
             </div>
           </section>
+          {!hasProcessSections && !project.caseStudy && !project.visualPreviewClosing && stack}
 
-          <div className="space-y-3">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">
-              Stack
-            </h2>
-            <ul className="flex flex-wrap gap-2 pt-1">
-              {project.tags.map(tag => (
-                <ProjectTag key={tag} tag={tag} />
-              ))}
-            </ul>
-          </div>
         </div>
 
         {/* Kolom 2: Scrollable Images */}
@@ -274,6 +265,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
           <div className="reading">
             <p>{project.visualPreviewClosing}</p>
           </div>
+          {!hasProcessSections && !project.caseStudy && stack}
         </section>
       )}
 
@@ -293,6 +285,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
             <div className="reading">
               {renderTextSections(section.description, project.brandLinks)}
             </div>
+            {!project.caseStudy && i === (project.processSections?.length ?? 0) - 1 && stack}
           </div>
           <StickyGallery images={section.gallery} />
         </div>
@@ -313,6 +306,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
             <div className="reading">
               {renderTextSections(project.caseStudy.description, project.brandLinks)}
             </div>
+            {stack}
           </div>
 
           {project.caseStudy.gallery.length > 0 && (

@@ -28,7 +28,7 @@ export const project: Project = {
     { label: "Notion", href: "https://www.notion.com/" },
   ],
   image: {
-    src: "/projects/notion-auto-status/nas_cover.png",
+    src: "/projects/notion-auto-status/coverr.gif",
     alt: "Visual cover Notion Auto Status",
     width: COVER_MASTER.width,
     height: COVER_MASTER.height,

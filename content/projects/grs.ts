@@ -13,7 +13,7 @@ export const project: Project = {
   slug: "grs",
   logo: "/tools/photoshop_logo.png",
   image: {
-    src: "/projects/grs/grs_card_cover.png",
+    src: "/projects/grs/cover.gif",
     alt: "Cover desain Geopark Run Series",
     width: COVER_MASTER.width,
     height: COVER_MASTER.height,

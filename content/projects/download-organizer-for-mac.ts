@@ -4,7 +4,7 @@ import { COVER_MASTER } from "@/lib/cover";
 // Ketiga gambar belum tersedia. Dimensi adalah target ekspor, bukan ukuran aktual.
 // Periksa format, dimensi, dan alt text setelah aset dipasang; rasio galeri boleh berbeda.
 const cover = {
-  src: "/projects/download-organizer-for-mac/cover.gif",
+  src: "/projects/download-organizer-for-mac/coverr.gif",
   alt: "Cover Download Organizer For Mac untuk merapikan folder Downloads di macOS",
   width: COVER_MASTER.width,
   height: COVER_MASTER.height,

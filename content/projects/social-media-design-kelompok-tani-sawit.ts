@@ -4,7 +4,7 @@ import { COVER_MASTER } from "@/lib/cover";
 // Keempat gambar belum tersedia. Dimensi berikut adalah target ekspor, bukan ukuran aktual.
 // Periksa kembali ekstensi, dimensi, dan alt text setelah semua aset dipasang.
 const cover = {
-  src: "/projects/social-media-design-kelompok-tani-sawit/cover.jpeg",
+  src: "/projects/social-media-design-kelompok-tani-sawit/coverr.jpeg",
   alt: "Cover project social media design untuk komunitas kelompok tani sawit di Jambi",
   width: COVER_MASTER.width,
   height: COVER_MASTER.height,

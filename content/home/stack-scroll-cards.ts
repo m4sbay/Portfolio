@@ -50,7 +50,7 @@ export const stackScrollCards: StackScrollCard[] = [
       "Template portofolio untuk desainer, kreator, dan profesional yang ingin tampil percaya diri di hadapan klien.",
     gridClass: "lg:col-span-6",
     heroImage: {
-      src: "/projects/video-vokasi/project_vokasi.png",
+      src: "/projects/video-vokasi/gallery-01.png",
       alt: "Preview template portofolio ArsiPortofolio",
     },
   },

@@ -29,7 +29,7 @@ const videoHoverClass = `${imageHoverClass} h-full w-full`;
 /** Gambar dalam strip kolase tidak di-scale agar pergeseran tetap bersih. */
 const collagePanelImageClass = "object-cover";
 
-const eagerHomeImageSrc = "/projects/itailwind/cover_itailwind.png";
+const eagerHomeImageSrc = "/projects/itailwind/gallery-01.png";
 
 function getVisualWrapClass(visualClassName?: string) {
   return [visualWrapBaseClass, visualClassName ?? visualWrapDefaultSizeClass].join(" ");

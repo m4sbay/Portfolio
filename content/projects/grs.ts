@@ -16,7 +16,7 @@ export const project: Project = {
   logo: "/tools/photoshop_logo.png",
   image: {
     src: "/projects/grs/cover.mp4",
-    poster: "/projects/grs/grs_card_cover.png",
+    poster: "/projects/grs/cover-poster.webp",
     alt: "Cover desain Geopark Run Series",
     width: COVER_MASTER.width,
     height: COVER_MASTER.height,

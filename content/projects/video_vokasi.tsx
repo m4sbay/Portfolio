@@ -7,6 +7,7 @@ export const project: Project = {
   longDescription:
     "Aku membuat project ini untuk memperkenalkan Fakultas Vokasi ITP kepada calon mahasiswa dan audiens umum lewat video profil yang lebih menarik. Di dalamnya, aku menampilkan identitas fakultas, suasana pembelajaran, fasilitas, dan aktivitas akademik dalam format visual yang mudah dipahami.\n\nSaat proses editing, aku menyusun ritme videonya supaya informasi yang cukup formal tetap terasa enak diikuti. Alurnya bergerak dari pengenalan fakultas, berlanjut ke berbagai aktivitas, lalu ditutup dengan visual yang memperkuat citra profesional Institut Teknologi Padang.",
   category: "Video",
+  year: 2026,
   status: "published",
   order: 2,
   logo: "/tools/youtube.svg",

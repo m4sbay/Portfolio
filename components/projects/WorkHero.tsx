@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ProjectMedia } from "@/components/projects/ProjectMedia";
 import Link from "next/link";
 import type { Project } from "@/types/project";
 import { ArrowUpRightIcon } from "@/design-system/icons";
@@ -21,9 +21,8 @@ export function WorkHero({ project }: { project: Project }) {
     <section aria-labelledby="work-hero-title">
       <Link href={href} aria-label={`Buka detail ${project.title}`} className={frameClass}>
         <div className={`relative ${COVER_ASPECT} bg-zinc-100 dark:bg-zinc-900`}>
-          <Image
-            src={project.image.src}
-            alt={project.image.alt}
+          <ProjectMedia
+            media={project.image}
             fill
             priority
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] motion-reduce:transform-none"

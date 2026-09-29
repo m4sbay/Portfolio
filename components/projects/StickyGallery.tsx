@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ProjectMedia } from "@/components/projects/ProjectMedia";
 import type { ProjectImage } from "@/types/project";
 
 export function StickyGallery({ images }: { images: ProjectImage[] }) {
@@ -14,11 +14,8 @@ export function StickyGallery({ images }: { images: ProjectImage[] }) {
             style={shouldStackOnMobile ? { zIndex: idx + 1 } : undefined}
           >
             <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-white/5">
-              <Image
-                src={img.src}
-                alt={img.alt}
-                width={img.width}
-                height={img.height}
+              <ProjectMedia
+                media={img}
                 className="h-auto w-full object-cover"
                 sizes="100vw"
                 priority={idx === 0}
@@ -35,11 +32,8 @@ export function StickyGallery({ images }: { images: ProjectImage[] }) {
             key={idx}
             className="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-white/5"
           >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              width={img.width}
-              height={img.height}
+            <ProjectMedia
+              media={img}
               className="h-auto w-full object-cover"
               sizes="(min-width: 1024px) 60vw, 100vw"
               priority={idx === 0}

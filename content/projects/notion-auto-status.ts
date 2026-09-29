@@ -8,6 +8,7 @@ export const project: Project = {
   longDescription:
     "Aku membuat Notion Auto Status supaya database Notion tetap rapi tanpa harus memperbarui status task dan event satu per satu. Script ini membaca Group dan Date, lalu menyesuaikan statusnya secara otomatis berdasarkan waktu.\n\nAutomation-nya bisa dijalankan secara lokal dengan Node.js scheduler atau dijadwalkan setiap jam melalui GitHub Actions. Aku juga menambahkan email digest dan pengingat agenda melalui Gmail supaya perubahan penting tetap mudah dipantau.",
   category: "Tools",
+  year: 2026,
   status: "published",
   order: 1,
   tags: ["Node.js", "Notion API", "Automation", "GitHub Actions"],

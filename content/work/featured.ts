@@ -12,8 +12,8 @@ export const featuredContent: FeaturedContent = {
     title: "Karya & Project",
     intro: "Kumpulan project, eksperimen, dan karya digital yang aku bangun.",
   },
-  heroSlug: "video_vokasi",
-  featuredSlugs: ["notion-auto-status", "itailwind", "grs"],
+  heroSlug: "grs",
+  featuredSlugs: ["notion-auto-status", "itailwind", "video_vokasi"],
   cta: {
     label: "Hubungi Masbay",
     href: site.social.whatsapp,

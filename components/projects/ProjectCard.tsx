@@ -1,10 +1,13 @@
 "use client";
 
+import { ProjectMedia } from "@/components/projects/ProjectMedia";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import type { Project } from "@/types/project";
 import { getDisplayTags } from "@/lib/project-tags";
+import { getProjectOutput } from "@/lib/project-metadata";
 import { COVER_ASPECT } from "@/lib/cover";
 import { ProjectTag } from "./ProjectTag";
 
@@ -66,9 +69,8 @@ export function ProjectCard({ project }: { project: Project }) {
     >
       {/* IMAGE */}
       <div className={`relative ${COVER_ASPECT} overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900`}>
-        <Image
-          src={project.image.src}
-          alt={project.image.alt}
+        <ProjectMedia
+          media={project.image}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="
@@ -162,16 +164,26 @@ export function ProjectCard({ project }: { project: Project }) {
       </div>
 
       {/* CONTENT */}
-      <div className="flex flex-1 flex-col p-4 min-h-[180px]">
-        <h3 className="text-xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+      <div className="flex min-w-0 flex-1 flex-col p-4">
+        <h3 className="break-words text-xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
           {project.title}
         </h3>
 
-        <p className="mt-1 mb-2 flex-1 text-sm leading-6 text-zinc-600 dark:text-zinc-300 line-clamp-3">
+        <p className="mt-1 flex flex-wrap items-baseline gap-x-1.5 text-xs leading-normal text-zinc-500 dark:text-zinc-400">
+          <span>{getProjectOutput(project)}</span>
+          {project.year != null && (
+            <>
+              <span aria-hidden="true">·</span>
+              <time dateTime={String(project.year)}>{project.year}</time>
+            </>
+          )}
+        </p>
+
+        <p className="mt-3 line-clamp-3 break-words text-sm leading-normal text-zinc-600 dark:text-zinc-300">
           {project.description}
         </p>
 
-        <ul className="mt-auto flex flex-wrap gap-2 pt-1">
+        <ul className="mt-auto flex flex-wrap gap-2 pt-4">
           {getDisplayTags(project.tags).map((tag) => (
             <ProjectTag key={tag} tag={tag} className="grow justify-center" />
           ))}

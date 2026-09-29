@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ProjectMedia } from "@/components/projects/ProjectMedia";
 import Link from "next/link";
 import { COVER_ASPECT } from "@/lib/cover";
 import type { Project } from "@/types/project";
@@ -24,9 +24,8 @@ export function ProjectRecommendations({
             >
               <div className={`relative ${COVER_ASPECT} overflow-hidden border-b border-zinc-200 bg-zinc-100 dark:border-white/10 dark:bg-zinc-900`}>
                 {project.image?.src?.trim() ? (
-                  <Image
-                    src={project.image.src}
-                    alt={project.image.alt || `Cover project ${project.title}`}
+                  <ProjectMedia
+                    media={{ ...project.image, alt: project.image.alt || `Cover project ${project.title}` }}
                     fill
                     sizes="(min-width: 1152px) 534px, (min-width: 1024px) calc((100vw - 80px) / 2), (min-width: 640px) calc((100vw - 64px) / 2), calc((100vw - 44px) / 2)"
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"

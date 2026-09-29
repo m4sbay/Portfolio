@@ -1,3 +1,5 @@
+import { getMediaPreview } from "@/lib/project-media";
+import { ProjectMedia } from "@/components/projects/ProjectMedia";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -49,6 +51,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!project) return {};
 
+  const preview = getMediaPreview(project.image);
   const title = project.title;
   const description = project.description;
   const url = `/work/${project.slug}`;
@@ -63,20 +66,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description,
       type: "article",
       url,
-      images: [
+      images: preview ? [
         {
-          url: project.image.src,
+          url: preview,
           width: project.image.width,
           height: project.image.height,
           alt: project.image.alt,
         },
-      ],
+      ] : [],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [project.image.src],
+      images: preview ? [preview] : [],
     },
   };
 }
@@ -188,11 +191,8 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
 
           {project.showMobileOverviewCover && (
             <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-white/5 lg:hidden">
-              <Image
-                src={project.image.src}
-                alt={project.image.alt}
-                width={project.image.width}
-                height={project.image.height}
+              <ProjectMedia
+                media={project.image}
                 sizes="(min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
                 className="h-auto w-full"
               />

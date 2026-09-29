@@ -16,6 +16,7 @@ export const project: Project = {
   longDescription:
     "**Konsep & Proses Desain**\n\nAku paling suka kalau dapat project dari himpunan, karena bisa sekaligus ikut memeriahkan wisuda kakak tingkat. Pada 2023, aku diminta menangani desain banner untuk backdrop stand prodi Teknik Informatika yang berisi foto-foto wisudawan.\n\nAwalnya aku sempat bingung mau mengambil konsep seperti apa. Kakak tingkat ingin sesuatu yang segar, dan karena banyak dari mereka suka main Mobile Legends, aku berinisiatif membuat desain bergaya esports. Desainnya langsung aku garap menggunakan Photoshop di kantin tercinta, ditemani beberapa teman. Aku sendiri nggak terlalu familiar dengan hero-hero di Mobile Legends, jadi kehadiran mereka ikut membantu selama prosesnya. Kakak tingkat juga sepertinya suka dengan hasilnya.",
   category: "Design",
+  output: "Banner",
   status: "published",
   order: 7,
   year: 2023,

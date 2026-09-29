@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import { ProjectMedia } from "@/components/projects/ProjectMedia";
+
 import Link from "next/link";
 import { useState } from "react";
 import type { Project } from "@/types/project";
@@ -92,9 +93,8 @@ function GridView({ projects }: { projects: Project[] }) {
             className="block overflow-hidden rounded-2xl bg-zinc-100 shadow-sm ring-1 ring-zinc-200/70 transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-xl hover:shadow-zinc-950/10 hover:ring-zinc-300/80 dark:bg-zinc-900 dark:ring-white/10 dark:hover:shadow-black/25 sm:rounded-3xl"
           >
             <div className="relative aspect-[4/5] w-full overflow-hidden">
-              <Image
-                src={project.image.src}
-                alt={project.image.alt}
+              <ProjectMedia
+                media={project.image}
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 sizes="(min-width: 1024px) 31vw, (min-width: 640px) 50vw, 100vw"
@@ -117,9 +117,8 @@ function ListView({ projects }: { projects: Project[] }) {
             className="grid h-44 grid-cols-[160px_minmax(0,1fr)] items-stretch overflow-hidden rounded-3xl border border-zinc-200/80 bg-white/72 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-xl hover:shadow-zinc-950/10 dark:border-white/10 dark:bg-zinc-900/72 dark:hover:border-white/20 dark:hover:shadow-black/25 sm:h-48 sm:grid-cols-[200px_minmax(0,1fr)] lg:h-52"
           >
             <div className="relative self-stretch bg-zinc-100 dark:bg-zinc-800">
-              <Image
-                src={project.image.src}
-                alt={project.image.alt}
+              <ProjectMedia
+                media={project.image}
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                 sizes="(min-width: 640px) 200px, 160px"

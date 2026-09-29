@@ -8,6 +8,8 @@ export const project: Project = {
     "Aku membuat iTailwind untuk membantu desainer menjaga konsistensi saat bekerja dengan utility Tailwind CSS di Figma. Melalui plugin ini, pengaturan pada layer Figma bisa diterjemahkan menjadi utility class yang lebih mudah dipakai saat desain mulai masuk ke tahap development.\n\nAku juga berusaha menjaga antarmukanya tetap sederhana supaya proses tersebut terasa praktis dan tidak mengganggu alur kerja desain.",
   tags: ["Figma", "Plugin", "Tailwind", "Design System"],
   category: "Tools",
+  output: "Plugin",
+  year: 2025,
   status: "published",
   order: 3,
   slug: "itailwind",

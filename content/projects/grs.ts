@@ -7,13 +7,16 @@ export const project: Project = {
   longDescription:
     "Geopark Run Series adalah event lari trail yang berlangsung di kawasan Geopark Ijen, Banyuwangi, salah satu lanskap paling dramatis di Indonesia. Aku dipercaya untuk menangani desain konten sosial media dan arahan kreatifnya dari awal sampai akhir.\n\nProject ini bukan sekadar bikin poster. Aku perlu membangun sistem visual dari nol, mulai dari palet warna, tipografi, dan grid template sampai cara bercerita secara visual yang tetap konsisten selama lebih dari seminggu proses desain.",
   category: "Design",
+  output: "Social Media Design",
+  year: 2026,
   status: "published",
   order: 4,
   tags: ["Figma", "Photoshop", "Affinity Designer"],
   slug: "grs",
   logo: "/tools/photoshop_logo.png",
   image: {
-    src: "/projects/grs/cover.gif",
+    src: "/projects/grs/cover.mp4",
+    poster: "/projects/grs/grs_card_cover.png",
     alt: "Cover desain Geopark Run Series",
     width: COVER_MASTER.width,
     height: COVER_MASTER.height,

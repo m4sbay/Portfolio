@@ -6,6 +6,14 @@ export const PROJECT_CATEGORIES = ["Design", "Website", "Tools", "Video", "App"]
 
 export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number];
 
+/** Output utama; kategori tetap digunakan untuk filter project. */
+export const PROJECT_OUTPUTS = [
+  "Tool", "Website", "Web App", "Application", "Design", "Poster",
+  "Banner", "Branding", "Video", "UI/UX", "Plugin", "Template", "Social Media Design",
+] as const;
+
+export type ProjectOutput = (typeof PROJECT_OUTPUTS)[number];
+
 /** "All" adalah konsep filter UI, bukan kategori domain project. */
 export type ProjectCategoryFilter = "All" | ProjectCategory;
 
@@ -15,6 +23,8 @@ export type ProjectStatus = "published" | "draft";
 /** Bentuk gambar bersama untuk cover, hover, galeri, dan section. */
 export type ProjectImage = {
   src: string;
+  /** Image statis wajib untuk cover MP4: fallback dan social share. */
+  poster?: string;
   alt: string;
   width: number;
   height: number;
@@ -38,11 +48,13 @@ export type Project = {
   description: string;
   longDescription: string;
   category: ProjectCategory;
+  /** Label output spesifik; jika kosong, gunakan label kategori. */
+  output?: ProjectOutput;
   /** Hanya "published" yang dirender di website; draft tetap boleh ada di repo. */
   status: ProjectStatus;
   /** Urutan kurasi tampilan; angka kecil tampil lebih dulu. */
   order: number;
-  /** Tahun pengerjaan — dipakai label plate rute /work. */
+  /** Tahun pengerjaan — dipakai metadata card dan label plate rute /work. */
   year?: number;
   tags: string[];
   slug: string;

@@ -27,6 +27,7 @@ Selain mendesain feed dan carousel, aku juga membuat template story agar dokumen
 
 Tantangan utamanya adalah menjaga feed tetap rapi meskipun kontennya berasal dari banyak kegiatan selama satu minggu. Untungnya, bagian ini memang salah satu hal yang paling aku suka kerjakan, wkwk. Hasil akhirnya bisa dilihat lewat visual di project ini atau langsung melalui akun Instagram mereka.`,
   category: "Design",
+  output: "Social Media Design",
   status: "published",
   order: 9,
   year: 2026,

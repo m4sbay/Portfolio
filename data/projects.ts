@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { getMediaType, getMediaPreview } from "@/lib/project-media";
 import type { Project } from "@/types/project";
 import { COVER_RATIO, COVER_RATIO_TOLERANCE } from "@/lib/cover";
 
@@ -19,6 +20,9 @@ async function loadAllProjects(): Promise<Project[]> {
       const mod = (await import(`@/content/projects/${name}`)) as { project?: Project };
       if (!mod.project?.slug || !mod.project.status) {
         throw new Error(`content/projects/${file}: wajib meng-export "project" dengan slug & status.`);
+      }
+      if (getMediaType(mod.project.image.src) === "video" && !getMediaPreview(mod.project.image)) {
+        throw new Error(`content/projects/${file}: cover MP4 wajib memiliki poster image statis.`);
       }
       return mod.project;
     }),

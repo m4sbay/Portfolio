@@ -3,6 +3,17 @@ import type { ProjectImage } from "@/types/project";
 import { getMediaType, getMediaPreview } from "@/lib/project-media";
 import { ProjectVideo } from "@/components/projects/ProjectVideo";
 
+// Cover terverifikasi multi-frame; GIF satu frame tetap memakai optimizer.
+// Periksa metadata aset sebelum menambah atau mengganti entri di daftar ini.
+const animatedProjectCovers = new Set([
+  "/projects/poster-design-webinar-tailwind-css/cover.gif",
+  "/projects/download-organizer-for-mac/coverr.gif",
+  "/projects/banner-design-graduation-itp-79/coverr.gif",
+  "/projects/video-vokasi/cover.gif",
+  "/projects/notion-auto-status/coverr.gif",
+  "/projects/itailwind/cover.gif",
+]);
+
 export type ProjectMediaProps = {
   media: ProjectImage;
   fill?: boolean;
@@ -25,6 +36,7 @@ export function ProjectMedia({ media, fill, sizes, priority, className }: Projec
       fill={fill}
       sizes={sizes}
       priority={priority}
+      unoptimized={animatedProjectCovers.has(media.src)}
       className={className}
     />
   );
